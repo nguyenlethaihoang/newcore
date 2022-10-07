@@ -1,0 +1,29 @@
+.df-wrapper {
+    display: flex;
+    flex-direction: column;
+    
+    /* background-color: blueviolet; */
+}
+
+.df-below-header {
+    display: flex;
+    /* background-color: blue; */
+}
+
+.df-sidebar {
+    width: 20%;
+    height: 100vh;
+    background-color: #d71921;
+}   
+.df-children {
+    width: 80%;
+    height: auto;
+}
+.df-header {
+    /* display:inline; */
+    /* height: fit-content(60px); */
+        
+    height: 64px;
+    width: auto;
+    /* flex-direction: column; */
+}

@@ -1,0 +1,22 @@
+.main_Image_List img {
+    margin-right: 20px;
+    margin-top: 20px;
+    padding: 5px;
+    border: 2px dashed gray;
+}
+
+.main_Image_List{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub_Image_List {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub_Image_List div {
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+}

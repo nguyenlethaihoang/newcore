@@ -1,0 +1,14 @@
+.main_Block_Button {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+    column-gap: 20px;
+
+}
+
+.main_Block_Button * {
+    /* background-color: aqua; */
+    /* padding-left: 20px; */
+}
