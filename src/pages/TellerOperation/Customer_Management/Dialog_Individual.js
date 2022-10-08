@@ -25,7 +25,9 @@ import mainSectorApi from '../../../apis/mainSectorApi';
 import subSectorApi from '../../../apis/subSectorApi';
 import cityApi from '../../../apis/cityApi';
 import accountOfficerApi from '../../../apis/accountOfficerApi';
-import Block_Button from '../../../components/Block_Button';
+import Message_String from '../../../components/Message_String';
+import Alert_String from '../../../components/Alert_String';
+// import Block_Button from '../../../components/Block_Button';
 
 // --------------- MUST HAVE -------------
 // Data
@@ -277,9 +279,13 @@ export default function Dialog_Individual({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
-        {(isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={isDisabledDialog}/>}
-        {(!isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={false}/>}
+        {(isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={isDisabledDialog} object={customerItem}/>}
+        {(!isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={false}  object={customerItem}/>}
         
+
+        {isNotification_Success_01 && <Message_String type='success' text='Update Individual Customer Successfully'/>} 
+        {isNotification_Failed_01 && <Message_String type='error' text='Update Individual Customer Failed'/>}  
+        {isNotification_Message_01 && <Alert_String arrError={arrError}/>} 
       </Dialog>
     </div>
   );
