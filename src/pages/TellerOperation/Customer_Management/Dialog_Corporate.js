@@ -83,8 +83,7 @@ const accountOfficerList = useFetchAccountOfficer();
     {
       try {
         const response = await customerApi.getCorporate(CustomerID);
-        console.log("customer item")
-        console.log(response.data)
+
         setCustomerItem(response.data)} 
       catch (error) {
         console.log('Failed to fetch customerItem: ', error)

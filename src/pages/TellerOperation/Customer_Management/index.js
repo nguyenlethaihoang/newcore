@@ -143,8 +143,6 @@ function clearTextFields() {
                                                 params.MainIndustry = resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenIndividual').innerText);
                                                 params.Industry = resolveNameID(industryList,document.getElementById('slt_Industry_OpenIndividual').innerText);
                                                 params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_OpenIndividual').innerText);
-                                                console.log('params');
-                                                console.log(params);
                                                 arrError = []
                                                 if (document.getElementById('txt_GBShortName_OpenIndividual').value.length <= 2)
                                                         arrError.push('GB Short Name is Required')

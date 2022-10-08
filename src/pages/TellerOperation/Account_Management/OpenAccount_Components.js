@@ -17,6 +17,20 @@ import useFetchCustomer from '../../../customHooks/useFetchCustomer';
 import useFetchProductLine from '../../../customHooks/useFetchProductLine';
 import useFetchChargeCode from '../../../customHooks/useFetchChargeCode';
 import useFetchRelationCode from '../../../customHooks/useFetchRelationCode';
+
+// rersolve from text to id with Name
+function resolveNameID(object, text) {
+  let temp = null
+  object.map((data, index) => {
+          if (data.Name == text)
+          {
+          temp = data.id.toString()
+          
+          }
+  })
+  return temp
+}
+
 // ----- MAIN -----
 function OpenAccount_Components({suffixID, forceDisable}) {
   // Fetch Data 
@@ -32,16 +46,30 @@ const [isDisabled, setIsDisabled] = useState(forceDisable)
 const handleClick = () => {
   setIsDisabled(true);
 };
+      // SET STATE PRODUCT LINE
+          
+      const [bioProductLine, setBioProductLine] = useState([]);
       // ------------------ FETCH API ---------------
 
     return ( 
-        <div>
+        <div
+          onClick={() => {
+            let category = resolveNameID(Category_OpenAccount,document.getElementById('slt_Category_'+ suffixID).innerText);
+            let subProductLine = []
+            
+            productLineList.map(item => {
+              if(item.Category == category)
+              subProductLine.push(item)
+            })
+            setBioProductLine(subProductLine)
+          }}
+        >
           <Box m={2}>
             {/* Block 1 - 3.1.1 Open Corporate Customer */}
             <Block_Children>
                     <AutoComplete_Object id={'aut_CustomerID_'+suffixID} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={isDisabled}/>
                     <Select_Object id={'slt_Category_'+suffixID} label='Category'required={true}object={Category_OpenAccount}length='25' disabled={isDisabled}/>
-                    <Select_Object id={'slt_ProductLine_'+suffixID} label='Product Line'object={productLineList}length='25' disabled={isDisabled}/>
+                    <Select_Object id={'slt_ProductLine_'+suffixID} label='Product Line'object={bioProductLine}length='25' disabled={isDisabled}/>
                     <Select_Object id={'slt_Currency_'+suffixID} label='Currency'required={true}object={currencyList}length='14' disabled={isDisabled}/>
                     <TextField_Value id={'txt_AccountTitle_'+suffixID} label='Account Title' length='35' disabled={isDisabled}/>
                     <TextField_Value id={'txt_ShortTitle_'+suffixID} label='Short Title' length='25' disabled={isDisabled}/>

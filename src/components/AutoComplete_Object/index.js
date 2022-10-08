@@ -8,8 +8,6 @@ function AutoComplete_Object({id, object, length, disabled, dataID, label, param
 
     // Convert sang new arr 
     let convertObject = []
-    console.log ('object')
-    console.log (object)
     object.map((data, i) => {
         let resObj = {}
         if (params4) {
