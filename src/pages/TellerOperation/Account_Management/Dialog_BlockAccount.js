@@ -50,34 +50,6 @@ export default function Dialog_BlockAccount({CustomerID}) {
   const handleClose = () => {
     setOpen(false);
   };
-  // ------------------ FETCH API ---------------
-  // Fetch API City
-  const [cityList, setCityList] = useState([]);useEffect(() => {const fetchCityList = async () => {try {const response = await cityApi.getAll();setCityList(response.rows)} catch (error) {console.log('Failed to fetch cityList: ', error)}}
-      fetchCityList();}, [])
-  // Fetch API Country
-  const [countryList, setCountryList] = useState([]);useEffect(() => {const fetchCountryList = async () => {try {const response = await countryApi.getAll();setCountryList(response.rows)} catch (error) {console.log('Failed to fetch countryList: ', error)}}
-      fetchCountryList();}, [])
-  // Fetch API Doc Type
-  const [docTypeList, setDocTypeList] = useState([]); useEffect(() => {const fetchDocTypeList = async () => {try {const response = await docTypeApi.getAll();setDocTypeList(response.rows)} catch (error) {console.log('Failed to fetch docTypeList: ', error)}}
-      fetchDocTypeList();}, [])
-  // Fetch API Main Industry
-  const [mainIndustryList, setMainIndustryList] = useState([]);useEffect(() => {const fetchMainIndustryList = async () => {try {const response = await mainIndustryApi.getAll();setMainIndustryList(response.rows)} catch (error) {console.log('Failed to fetch mainIndustryList: ', error)}}
-      fetchMainIndustryList();}, [])
-  // Fetch API Sub Industry
-  const [industryList, setIndustryList] = useState([]);useEffect(() => {const fetchIndustryList = async () => {try {const response = await industryApi.getAll();setIndustryList(response.data.subIndustry)} catch (error) {console.log('Failed to fetch industryList: ', error)}}
-  fetchIndustryList();}, [])
-  // Fetch API MainSector
-  const [mainSectorList, setMainSectorList] = useState([]);useEffect(() => {const fetchMainSectorList = async () => {try {const response = await mainSectorApi.getAll();setMainSectorList(response.rows)} catch (error) {console.log('Failed to fetch mainSectorList: ', error)}}
-  fetchMainSectorList();}, [])
-  // Fetch API SubSector
-  const [subSectorList, setSubSectorList] = useState([]);useEffect(() => {const fetchSubSectorList = async () => {try {const response = await subSectorApi.getAll();setSubSectorList(response.data.subsector)} catch (error) {console.log('Failed to fetch subSectorList: ', error)}}
-  fetchSubSectorList();}, [])
-  // Fetch API Account Officer
-  const [accountOfficerList, setAccountOfficerList] = useState([]);useEffect(() => {const fetchAccountOfficerList = async () => {try {const response = await accountOfficerApi.getAll();setAccountOfficerList(response.rows)} catch (error) {console.log('Failed to fetch accountOfficer: ', error)}}
-  fetchAccountOfficerList();}, [])
-  // Fetch API Customer
-  const [customerList, setCustomerList] = useState([]);useEffect(() => {const fetchCustomerList = async () => {try {const response = await customerApi.getAll();setCustomerList(response.data.customer)} catch (error) {console.log('Failed to fetch customerlist: ', error)}};fetchCustomerList();}, [])
-
   return (
     <div>
       <IconButton 
@@ -110,7 +82,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Individual Customer - Customer ID: {CustomerID}
+              Block Account - Customer ID: {CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
@@ -121,6 +93,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
             <Button
                 variant="contained"
                 endIcon={<EditIcon />}
+                disabled
                 onClick={() => {
                     setIsDisabledDialog(false)
                 }}
@@ -130,6 +103,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
+                disabled
                 onClick={() => {
                 }}
             >

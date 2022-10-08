@@ -77,7 +77,7 @@ export default function Dialog_OpenAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Individual Customer - Customer ID: {CustomerID}
+                Account Information - Accout Code: {CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save

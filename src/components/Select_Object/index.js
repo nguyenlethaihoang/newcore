@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState, useEffect } from 'react';
 
-function Select_Object({required, disabled, length, label, object, dataID, id, keyObj}) {
+function Select_Object({required, disabled, length, label, object, dataID, id, keyObj, noValue}) {
     const [value, setValue] = useState('');
     const handleChangeSelect = (event) => {
       setValue(event.target.value);
@@ -12,6 +12,7 @@ function Select_Object({required, disabled, length, label, object, dataID, id, k
     if (required === undefined) required = false;
     if (disabled === undefined) disabled = false;
     if (keyObj === undefined) keyObj = 'Name'
+    if (noValue) object=[{id:1, Name:''}]
     const labelID = `label${id}`
     return ( 
         // Render Select Component

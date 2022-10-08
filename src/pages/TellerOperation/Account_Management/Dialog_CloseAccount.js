@@ -25,6 +25,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Dialog_CloseAccount({CustomerID}) {
+  // Manage Change color button
+  const [isContained, setIsContained] = useState(true)
 // Manage Change Component when on Click
 const [isChangeComponent01, setIsChangeComponent01] = useState(true)
   // Manage Disable
@@ -75,7 +77,7 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Close Account 
+              Close Account - Account Code: 
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
@@ -105,17 +107,19 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
         </Block_Button>
         <Block_Button>
           <Button
-            variant="outlined"
+            variant={isContained ? 'contained' : 'outlined'}
             onClick={() => {
               setIsChangeComponent01(true)
+              setIsContained(true)
             }}
           >
               Close Account
           </Button>
           <Button
-            variant="outlined"
+            variant={isContained ? 'outlined' : 'contained'}
             onClick={() => {
               setIsChangeComponent01(false)
+              setIsContained(false)
             }}
           >
               FT Acc Close
