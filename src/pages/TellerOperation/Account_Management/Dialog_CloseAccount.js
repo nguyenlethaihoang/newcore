@@ -15,17 +15,9 @@ import PrintIcon from '@mui/icons-material/Print';
 // Components
 import Block_Children from '../../../components/Block_Children';
 import Block_Button from '../../../components/Block_Button';
-// APIs
-import countryApi from '../../../apis/countryApi';
-import docTypeApi from '../../../apis/docTypeApi';
-import mainIndustryApi from '../../../apis/mainIndustryApi';
-import industryApi from '../../../apis/industryApi';
-import mainSectorApi from '../../../apis/mainSectorApi';
-import subSectorApi from '../../../apis/subSectorApi';
-import cityApi from '../../../apis/cityApi';
-import accountOfficerApi from '../../../apis/accountOfficerApi';
-import customerApi from '../../../apis/customerApi';
-
+import CloseAccount_Components01 from './CloseAccount_Components01';
+import CloseAccount_Components02 from './CloseAccount_Components02';
+import Block_Dialog from '../../../components/Block_Dialog';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -33,6 +25,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Dialog_CloseAccount({CustomerID}) {
+// Manage Change Component when on Click
+const [isChangeComponent01, setIsChangeComponent01] = useState(true)
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -49,34 +43,6 @@ export default function Dialog_CloseAccount({CustomerID}) {
   const handleClose = () => {
     setOpen(false);
   };
-  // ------------------ FETCH API ---------------
-  // Fetch API City
-  const [cityList, setCityList] = useState([]);useEffect(() => {const fetchCityList = async () => {try {const response = await cityApi.getAll();setCityList(response.rows)} catch (error) {console.log('Failed to fetch cityList: ', error)}}
-      fetchCityList();}, [])
-  // Fetch API Country
-  const [countryList, setCountryList] = useState([]);useEffect(() => {const fetchCountryList = async () => {try {const response = await countryApi.getAll();setCountryList(response.rows)} catch (error) {console.log('Failed to fetch countryList: ', error)}}
-      fetchCountryList();}, [])
-  // Fetch API Doc Type
-  const [docTypeList, setDocTypeList] = useState([]); useEffect(() => {const fetchDocTypeList = async () => {try {const response = await docTypeApi.getAll();setDocTypeList(response.rows)} catch (error) {console.log('Failed to fetch docTypeList: ', error)}}
-      fetchDocTypeList();}, [])
-  // Fetch API Main Industry
-  const [mainIndustryList, setMainIndustryList] = useState([]);useEffect(() => {const fetchMainIndustryList = async () => {try {const response = await mainIndustryApi.getAll();setMainIndustryList(response.rows)} catch (error) {console.log('Failed to fetch mainIndustryList: ', error)}}
-      fetchMainIndustryList();}, [])
-  // Fetch API Sub Industry
-  const [industryList, setIndustryList] = useState([]);useEffect(() => {const fetchIndustryList = async () => {try {const response = await industryApi.getAll();setIndustryList(response.data.subIndustry)} catch (error) {console.log('Failed to fetch industryList: ', error)}}
-  fetchIndustryList();}, [])
-  // Fetch API MainSector
-  const [mainSectorList, setMainSectorList] = useState([]);useEffect(() => {const fetchMainSectorList = async () => {try {const response = await mainSectorApi.getAll();setMainSectorList(response.rows)} catch (error) {console.log('Failed to fetch mainSectorList: ', error)}}
-  fetchMainSectorList();}, [])
-  // Fetch API SubSector
-  const [subSectorList, setSubSectorList] = useState([]);useEffect(() => {const fetchSubSectorList = async () => {try {const response = await subSectorApi.getAll();setSubSectorList(response.data.subsector)} catch (error) {console.log('Failed to fetch subSectorList: ', error)}}
-  fetchSubSectorList();}, [])
-  // Fetch API Account Officer
-  const [accountOfficerList, setAccountOfficerList] = useState([]);useEffect(() => {const fetchAccountOfficerList = async () => {try {const response = await accountOfficerApi.getAll();setAccountOfficerList(response.rows)} catch (error) {console.log('Failed to fetch accountOfficer: ', error)}}
-  fetchAccountOfficerList();}, [])
-  // Fetch API Customer
-  const [customerList, setCustomerList] = useState([]);useEffect(() => {const fetchCustomerList = async () => {try {const response = await customerApi.getAll();setCustomerList(response.data.customer)} catch (error) {console.log('Failed to fetch customerlist: ', error)}};fetchCustomerList();}, [])
-
   return (
     <div>
       <IconButton 
@@ -109,7 +75,7 @@ export default function Dialog_CloseAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Individual Customer - Customer ID: {CustomerID}
+              Close Account 
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
@@ -118,6 +84,7 @@ export default function Dialog_CloseAccount({CustomerID}) {
         </AppBar>
         <Block_Button>
             <Button
+                disabled
                 variant="contained"
                 endIcon={<EditIcon />}
                 onClick={() => {
@@ -128,6 +95,7 @@ export default function Dialog_CloseAccount({CustomerID}) {
             </Button>
             <Button
                 variant="contained"
+                disabled
                 endIcon={<PrintIcon />}
                 onClick={() => {
                 }}
@@ -135,6 +103,27 @@ export default function Dialog_CloseAccount({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
+        <Block_Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setIsChangeComponent01(true)
+            }}
+          >
+              Close Account
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setIsChangeComponent01(false)
+            }}
+          >
+              FT Acc Close
+          </Button>
+        </Block_Button>
+        
+        {isChangeComponent01 && <CloseAccount_Components01 />}
+        {!isChangeComponent01 && <CloseAccount_Components02 />}
       </Dialog>
     </div>
   );

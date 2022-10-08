@@ -16,6 +16,7 @@ import Select_Object from '../../../components/Select_Object';
 import Table_Header_CustomerManagement from '../../../data/Table_Header_CustomerManagement';
 import OpenAccount_Components from './OpenAccount_Components';
 import EnquiryAccount_Components from './EnquiryAccount_Components';
+import Block_Button from '../../../components/Block_Button';
 
 function Account_Management() {
 // Callback childs -> parent
@@ -30,6 +31,14 @@ const callbackFunctionSub = (childData) => {setSubMessage(childData)}
             <Accordian_Children title='3.1 Current & Non-Term Saving Account' label='label1' parentCallback={callbackFunction} message={message}>  
                 <Accordian_Children title='3.1.1 Open Account' label='sublabel1' parentCallback={callbackFunctionSub} message={subMessage}>  
                     <OpenAccount_Components suffixID='OpenAccount'/>
+                    <Block_Button>
+                        <Button
+                            variant='contained'
+                            endIcon={<SaveIcon />}
+                        >
+                            Save
+                        </Button>
+                    </Block_Button>
                 </Accordian_Children>
                 <Accordian_Children title='3.1.2 Enquiry Account' label='sublabel2' parentCallback={callbackFunctionSub} message={subMessage}>  
                     <EnquiryAccount_Components suffixID='EnquiryAccount' />

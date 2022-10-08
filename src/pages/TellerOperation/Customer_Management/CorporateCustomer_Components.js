@@ -7,17 +7,26 @@ import Block_Children from '../../../components/Block_Children';
 import TextField_Value from '../../../components/TextField_Value';
 import DataPicker_Day from '../../../components/DatePicker_Day';
 import Select_Object from '../../../components/Select_Object';
-// APIs
-import countryApi from '../../../apis/countryApi';
-import docTypeApi from '../../../apis/docTypeApi';
-import mainIndustryApi from '../../../apis/mainIndustryApi';
-import industryApi from '../../../apis/industryApi';
-import mainSectorApi from '../../../apis/mainSectorApi';
-import subSectorApi from '../../../apis/subSectorApi';
-import cityApi from '../../../apis/cityApi';
-import accountOfficerApi from '../../../apis/accountOfficerApi';
-import customerApi from '../../../apis/customerApi';
+// Fetch API by Custom Hook
+import useFetchCity from '../../../customHooks/useFetchCity';
+import useFetchCountry from '../../../customHooks/useFetchCountry';
+import useFetchDocType from '../../../customHooks/useFetchDocType';
+import useFetchMainIndustry from '../../../customHooks/useFetchMainIndustry';
+import useFetchMainSector from '../../../customHooks/useFetchMainSector';
+import useFetchIndustry from '../../../customHooks/useFetchIndustry';
+import useFetchSubSector from '../../../customHooks/useFetchSubSector';
+import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
+// ----- MAIN -----
 function CorporateCustomer_Components({suffixID, forceDisable, object}) {
+  // Fetch Data 
+const cityList = useFetchCity();
+const countryList = useFetchCountry();
+const docTypeList = useFetchDocType();
+const mainIndustryList = useFetchMainIndustry();
+const industryList = useFetchIndustry();
+const mainSectorList = useFetchMainSector();
+const subSectorList = useFetchSubSector();
+const accountOfficerList = useFetchAccountOfficer();
 // Manage Disable
 if (forceDisable === undefined) forceDisable = false
 const [isDisabled, setIsDisabled] = useState(forceDisable)
@@ -29,35 +38,7 @@ const handleClick = () => {
 if(object === undefined){
   object = ""
 }
-      // ------------------ FETCH API ---------------
-  // Fetch API City
-  const [cityList, setCityList] = useState([]);useEffect(() => {const fetchCityList = async () => {try {const response = await cityApi.getAll();setCityList(response.rows)} catch (error) {console.log('Failed to fetch cityList: ', error)}}
-  fetchCityList();}, [])
-// Fetch API Country
-const [countryList, setCountryList] = useState([]);useEffect(() => {const fetchCountryList = async () => {try {const response = await countryApi.getAll();setCountryList(response.rows)} catch (error) {console.log('Failed to fetch countryList: ', error)}}
-  fetchCountryList();}, [])
-// Fetch API Doc Type
-const [docTypeList, setDocTypeList] = useState([]); useEffect(() => {const fetchDocTypeList = async () => {try {const response = await docTypeApi.getAll();setDocTypeList(response.rows)} catch (error) {console.log('Failed to fetch docTypeList: ', error)}}
-  fetchDocTypeList();}, [])
-// Fetch API Main Industry
-const [mainIndustryList, setMainIndustryList] = useState([]);useEffect(() => {const fetchMainIndustryList = async () => {try {const response = await mainIndustryApi.getAll();setMainIndustryList(response.rows)} catch (error) {console.log('Failed to fetch mainIndustryList: ', error)}}
-  fetchMainIndustryList();}, [])
-// Fetch API Sub Industry
-const [industryList, setIndustryList] = useState([]);useEffect(() => {const fetchIndustryList = async () => {try {const response = await industryApi.getAll();setIndustryList(response.data.subIndustry)} catch (error) {console.log('Failed to fetch industryList: ', error)}}
-fetchIndustryList();}, [])
-// Fetch API MainSector
-const [mainSectorList, setMainSectorList] = useState([]);useEffect(() => {const fetchMainSectorList = async () => {try {const response = await mainSectorApi.getAll();setMainSectorList(response.rows)} catch (error) {console.log('Failed to fetch mainSectorList: ', error)}}
-fetchMainSectorList();}, [])
-// Fetch API SubSector
-const [subSectorList, setSubSectorList] = useState([]);useEffect(() => {const fetchSubSectorList = async () => {try {const response = await subSectorApi.getAll();setSubSectorList(response.data.subsector)} catch (error) {console.log('Failed to fetch subSectorList: ', error)}}
-fetchSubSectorList();}, [])
-// Fetch API Account Officer
-const [accountOfficerList, setAccountOfficerList] = useState([]);useEffect(() => {const fetchAccountOfficerList = async () => {try {const response = await accountOfficerApi.getAll();setAccountOfficerList(response.rows)} catch (error) {console.log('Failed to fetch accountOfficer: ', error)}}
-fetchAccountOfficerList();}, [])
-// Fetch API Customer
-const [customerList, setCustomerList] = useState([]);useEffect(() => {const fetchCustomerList = async () => {try {const response = await customerApi.getAll();setCustomerList(response.data.customer)} catch (error) {console.log('Failed to fetch customerlist: ', error)}};fetchCustomerList();}, [])
-// Fetch Specific Information Individual Customer
-const [specificCustomerList, setSpecificCustomerList] = useState([]);
+
 
 const subCustomer = object.CUSTOMER || ''
     return ( 

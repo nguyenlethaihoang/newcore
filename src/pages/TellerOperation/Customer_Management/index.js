@@ -14,15 +14,6 @@ import Image_List from '../../../components/Image_List';
 import DataPicker_Day from '../../../components/DatePicker_Day';
 import Select_Object from '../../../components/Select_Object';
 import Table_Header_CustomerManagement from '../../../data/Table_Header_CustomerManagement';
-// APIs
-import countryApi from '../../../apis/countryApi';
-import docTypeApi from '../../../apis/docTypeApi';
-import mainIndustryApi from '../../../apis/mainIndustryApi';
-import industryApi from '../../../apis/industryApi';
-import mainSectorApi from '../../../apis/mainSectorApi';
-import subSectorApi from '../../../apis/subSectorApi';
-import cityApi from '../../../apis/cityApi';
-import accountOfficerApi from '../../../apis/accountOfficerApi';
 import Table_Object from '../../../components/Table_Object';
 import Message_String from '../../../components/Message_String';
 import CustomerType from '../../../data/CustomerType';
@@ -31,14 +22,38 @@ import customerApi from '../../../apis/customerApi';
 import IndividualCustomer_Components from './IndividualCustomer_Components';
 import CorporateCustomer_Components from './CorporateCustomer_Components';
 import Alert_String from '../../../components/Alert_String';
+// APIs
+// Fetch API by Custom Hook
+import useFetchCity from '../../../customHooks/useFetchCity';
+import useFetchCountry from '../../../customHooks/useFetchCountry';
+import useFetchDocType from '../../../customHooks/useFetchDocType';
+import useFetchMainIndustry from '../../../customHooks/useFetchMainIndustry';
+import useFetchMainSector from '../../../customHooks/useFetchMainSector';
+import useFetchIndustry from '../../../customHooks/useFetchIndustry';
+import useFetchSubSector from '../../../customHooks/useFetchSubSector';
+import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
+
+
 // --------------- MUST HAVE -------------
 // Data
 let arrError = []
 // ----------------------------------------
 // Create Data
 function createData(id, CustomerType, GBFullName, DocID, CellPhoneOfficeNum, Detail) {
-        return { id, CustomerType, GBFullName, DocID, CellPhoneOfficeNum, Detail };}
+        return { id, CustomerType, GBFullName, DocID, CellPhoneOfficeNum, Detail };
+}
+
+// ----- MAIN -----
 function Customer_Management() {
+// Fetch Data 
+const cityList = useFetchCity();
+const countryList = useFetchCountry();
+const docTypeList = useFetchDocType();
+const mainIndustryList = useFetchMainIndustry();
+const industryList = useFetchIndustry();
+const mainSectorList = useFetchMainSector();
+const subSectorList = useFetchSubSector();
+const accountOfficerList = useFetchAccountOfficer();
 // rersolve from text to id with Name
 function resolveNameID(object, text) {
         let temp = null
@@ -85,33 +100,7 @@ function clearTextFields() {
   // Expand panels
   const [expanded, setExpanded] = React.useState('panel1');const handleChange = (panel) => (event, newExpanded) => {setExpanded(newExpanded ? panel : false);};
   // ------------------ FETCH API ---------------
-  // Fetch API City
-  const [cityList, setCityList] = useState([]);useEffect(() => {const fetchCityList = async () => {try {const response = await cityApi.getAll();setCityList(response.rows)} catch (error) {console.log('Failed to fetch cityList: ', error)}}
-      fetchCityList();}, [])
-  // Fetch API Country
-  const [countryList, setCountryList] = useState([]);useEffect(() => {const fetchCountryList = async () => {try {const response = await countryApi.getAll();setCountryList(response.rows)} catch (error) {console.log('Failed to fetch countryList: ', error)}}
-      fetchCountryList();}, [])
-  // Fetch API Doc Type
-  const [docTypeList, setDocTypeList] = useState([]); useEffect(() => {const fetchDocTypeList = async () => {try {const response = await docTypeApi.getAll();setDocTypeList(response.rows)} catch (error) {console.log('Failed to fetch docTypeList: ', error)}}
-      fetchDocTypeList();}, [])
-  // Fetch API Main Industry
-  const [mainIndustryList, setMainIndustryList] = useState([]);useEffect(() => {const fetchMainIndustryList = async () => {try {const response = await mainIndustryApi.getAll();setMainIndustryList(response.rows)} catch (error) {console.log('Failed to fetch mainIndustryList: ', error)}}
-      fetchMainIndustryList();}, [])
-  // Fetch API Sub Industry
-  const [industryList, setIndustryList] = useState([]);useEffect(() => {const fetchIndustryList = async () => {try {const response = await industryApi.getAll();setIndustryList(response.data.subIndustry)} catch (error) {console.log('Failed to fetch industryList: ', error)}}
-  fetchIndustryList();}, [])
-  // Fetch API MainSector
-  const [mainSectorList, setMainSectorList] = useState([]);useEffect(() => {const fetchMainSectorList = async () => {try {const response = await mainSectorApi.getAll();setMainSectorList(response.rows)} catch (error) {console.log('Failed to fetch mainSectorList: ', error)}}
-  fetchMainSectorList();}, [])
-  // Fetch API SubSector
-  const [subSectorList, setSubSectorList] = useState([]);useEffect(() => {const fetchSubSectorList = async () => {try {const response = await subSectorApi.getAll();setSubSectorList(response.data.subsector)} catch (error) {console.log('Failed to fetch subSectorList: ', error)}}
-  fetchSubSectorList();}, [])
-  // Fetch API Account Officer
-  const [accountOfficerList, setAccountOfficerList] = useState([]);useEffect(() => {const fetchAccountOfficerList = async () => {try {const response = await accountOfficerApi.getAll();setAccountOfficerList(response.rows)} catch (error) {console.log('Failed to fetch accountOfficer: ', error)}}
-  fetchAccountOfficerList();}, [])
-  // Fetch API Customer
-  const [customerList, setCustomerList] = useState([]);useEffect(() => {const fetchCustomerList = async () => {try {const response = await customerApi.getAll();setCustomerList(response.data.customer)} catch (error) {console.log('Failed to fetch customerlist: ', error)}};fetchCustomerList();}, [])
-  // Fetch Specific Information Individual Customer
+ // Fetch Specific Information Individual Customer
   const [specificCustomerList, setSpecificCustomerList] = useState([]);
   // Config Table
   const [columnsTable, setColumnsTable] = useState([])
@@ -304,14 +293,15 @@ function clearTextFields() {
                   </Block_Children>
                   {/* Block 3 - 1.3 Enquiry Customer */}
                   <Block_Children>
-                        <Select_Object id='slt_MainSector_EnquiryCustomer'label='Main Sector'required={true} object={mainSectorList}length='25'/>
-                        <Select_Object id='slt_SubSector_EnquiryCustomer'label='Sub Sector'required={true} object={subSectorList}length='25'/>
+                        <Select_Object id='slt_MainSector_EnquiryCustomer'label='Main Sector' object={mainSectorList}length='25'/>
+                        <Select_Object id='slt_SubSector_EnquiryCustomer'label='Sub Sector'object={subSectorList}length='25'/>
                         <Select_Object id='slt_MainIndustry_EnquiryCustomer'label='Main Industry'object={mainIndustryList}length='25'/>
                         <Select_Object id='slt_Industry_EnquiryCustomer'label='Industry'object={industryList}length='25'/>
                   </Block_Children>
                   <Block_Button>
                         <Button
                                 variant="contained"
+                                endIcon={<SearchIcon />}
                                 onClick={() => {
                                         let data = []
                                         let params = {}
@@ -332,13 +322,18 @@ function clearTextFields() {
                                                 setSpecificCustomerList(response.data)
                                         }
                                         fetchspecificCustomerList();
-                                        console.log("customer list")
-                                        console.log(specificCustomerList)
                                         specificCustomerList.map((value, index) => {
-                                                data.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber, {id: value.id, type: value.CustomerType}))
+                                                // data.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber, {id: value.id, type: value.CustomerType}))
+                                                let param1 = value.id
+                                                let param2 = value.CustomerType
+                                                let param3 = value.GB_FullName
+                                                let param4 = value.DocID
+                                                let param5 = value.PhoneNumber
+                                                let param6 = {id: value.id, type: value.CustomerType}
+                                                data.push(createData(param1, param2, param3, param4, param5, param6))
                                         })
-                                        setRowsTable(data)
                                         setColumnsTable(Table_Header_CustomerManagement)
+                                        setRowsTable(data)
                                 }}
                         >
                                 Search
