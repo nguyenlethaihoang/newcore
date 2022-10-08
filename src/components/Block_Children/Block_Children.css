@@ -10,9 +10,11 @@
     font-size: 17px;
     font-weight: 700;
     color: #3c6382;
+    padding-top: 30px;
 }
 
-.main_Block_Children * {
+.main_Block_Children {
+    /* padding-bottom: 10px; */
     /* display: flex; */
     /* background-color: aqua;
     border-radius: 50%; */

@@ -4,15 +4,39 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 
 
-function AutoComplete_Object({id, object, length, disabled, dataID}) {
+function AutoComplete_Object({id, object, length, disabled, dataID, label, params1, params2, params3, params4, required}) {
 
     // Convert sang new arr 
     let convertObject = []
+    console.log ('object')
+    console.log (object)
     object.map((data, i) => {
-        let resObj = {
-            id: data.id,
-            label: `${data.Name}`
-
+        let resObj = {}
+        if (params4) {
+            resObj = {
+                id: data.id,
+                label: `${data[params1][params2]} - ${data[params3][params4]} `
+    
+            }
+        } 
+        else if (params3) {
+            resObj = {
+                id: data.id,
+                label: `${data[params1][params2][params3]} `
+    
+            }
+        } else if (params2) {
+            resObj = {
+                id: data.id,
+                label: `${data[params1]} - ${data[params2]}`
+    
+            }
+        } else if (params1) {
+            resObj = {
+                id: data.id,
+                label: `${data[params1]} `
+    
+            }
         }
         convertObject.push(resObj)
 
@@ -26,7 +50,7 @@ function AutoComplete_Object({id, object, length, disabled, dataID}) {
             id={id}
             disabled={disabled}
             options={convertObject}
-            renderInput={(params) => <TextField {...params} label="Province auto" />}
+            renderInput={(params) => <TextField {...params} label={label} required={required}/>}
 
             sx={{ 
                 minWidth: `${length}ch`, 

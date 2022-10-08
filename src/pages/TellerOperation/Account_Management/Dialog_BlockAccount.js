@@ -11,10 +11,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+
 // Components
 import Block_Children from '../../../components/Block_Children';
-
-import IndividualCustomer_Components from './IndividualCustomer_Components';
 import Block_Button from '../../../components/Block_Button';
 // APIs
 import countryApi from '../../../apis/countryApi';
@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Dialog_Individual({CustomerID}) {
+export default function Dialog_BlockAccount({CustomerID}) {
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -80,12 +80,13 @@ export default function Dialog_Individual({CustomerID}) {
 
   return (
     <div>
-      <Button 
-            variant="outlined" 
-            onClick={handleClickOpen}
+      <IconButton 
+          color="primary"
+          aria-label="block"
+          onClick={handleClickOpen}
       >
-        Open
-      </Button>
+          <DoDisturbIcon />
+      </IconButton>
       <Dialog
         fullScreen
         open={open}
@@ -135,10 +136,6 @@ export default function Dialog_Individual({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
-        {(isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={isDisabledDialog} object={customerList}/>}
-        {(!isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={false}/>}
-        
-
       </Dialog>
     </div>
   );

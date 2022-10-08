@@ -11,10 +11,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
+import InfoIcon from '@mui/icons-material/Info';
 // Components
 import Block_Children from '../../../components/Block_Children';
-
-import IndividualCustomer_Components from './IndividualCustomer_Components';
 import Block_Button from '../../../components/Block_Button';
 // APIs
 import countryApi from '../../../apis/countryApi';
@@ -26,6 +25,7 @@ import subSectorApi from '../../../apis/subSectorApi';
 import cityApi from '../../../apis/cityApi';
 import accountOfficerApi from '../../../apis/accountOfficerApi';
 import customerApi from '../../../apis/customerApi';
+import OpenAccount_Components from './OpenAccount_Components';
 
 
 
@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Dialog_Individual({CustomerID}) {
+export default function Dialog_OpenAccount({CustomerID}) {
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -80,12 +80,19 @@ export default function Dialog_Individual({CustomerID}) {
 
   return (
     <div>
-      <Button 
+      {/* <Button 
             variant="outlined" 
-            onClick={handleClickOpen}
+            
       >
         Open
-      </Button>
+      </Button> */}
+      <IconButton 
+          color="primary"
+          aria-label="detail"
+          onClick={handleClickOpen}
+      >
+          <InfoIcon />
+      </IconButton>
       <Dialog
         fullScreen
         open={open}
@@ -135,10 +142,7 @@ export default function Dialog_Individual({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
-        {(isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={isDisabledDialog} object={customerList}/>}
-        {(!isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={false}/>}
-        
-
+        <OpenAccount_Components />
       </Dialog>
     </div>
   );

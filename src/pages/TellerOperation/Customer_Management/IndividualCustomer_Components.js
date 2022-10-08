@@ -17,7 +17,7 @@ import subSectorApi from '../../../apis/subSectorApi';
 import cityApi from '../../../apis/cityApi';
 import accountOfficerApi from '../../../apis/accountOfficerApi';
 import customerApi from '../../../apis/customerApi';
-function IndividualCustomer_Components({suffixID,forceDisable}) {
+function IndividualCustomer_Components({suffixID,forceDisable, object}) {
 // Manage Disable
 if (forceDisable === undefined) forceDisable = false
 const [isDisabled, setIsDisabled] = useState(forceDisable)
