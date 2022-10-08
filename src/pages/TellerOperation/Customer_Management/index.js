@@ -301,7 +301,6 @@ function clearTextFields() {
                         <TextField_Value id='txt_CellPhone/OfficeNum_EnquiryCustomer' label='Cell Phone/Office Num' length='23'/>
                         <TextField_Value id='txt_GBFullName_EnquiryCustomer' label='GB Full Name' length='28'/>
                         <TextField_Value id='txt_DocID_EnquiryCustomer' label='Doc ID' length='20'/>
-                        
                   </Block_Children>
                   {/* Block 3 - 1.3 Enquiry Customer */}
                   <Block_Children>

@@ -3,12 +3,11 @@ import './Block_Children.css'
 function Block_Children(props) {
     return ( 
         <div className='main_Block_Children'>
-            <div
-                className="header1"
-            >{props.header1}</div>
+            {(props.header1 !== undefined) &&<div className="header1">{props.header1}</div> }
+            {(props.header2 !== undefined) && 
             <div
                 className="header2"
-            >{props.header2}</div>
+            >{props.header2}</div>}
             <div
                 style={{ 
                     display: "flex", 
