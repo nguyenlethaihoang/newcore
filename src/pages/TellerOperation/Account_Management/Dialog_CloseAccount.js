@@ -126,8 +126,8 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
           </Button>
         </Block_Button>
         
-        {isChangeComponent01 && <CloseAccount_Components01 />}
-        {!isChangeComponent01 && <CloseAccount_Components02 />}
+        {isChangeComponent01 && <CloseAccount_Components01 suffixID='CloseAccount_Popup01'/>}
+        {!isChangeComponent01 && <CloseAccount_Components02 suffixID='CloseAccount_Popup02'/>}
       </Dialog>
     </div>
   );

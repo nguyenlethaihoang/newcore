@@ -26,6 +26,7 @@ import subSectorApi from '../../../apis/subSectorApi';
 import cityApi from '../../../apis/cityApi';
 import accountOfficerApi from '../../../apis/accountOfficerApi';
 import customerApi from '../../../apis/customerApi';
+import BlockAccount_Components from './BlockAccount_Components';
 
 
 
@@ -82,7 +83,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Block Account - Customer ID: {CustomerID}
+              Block Account - Account Code: {CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
@@ -110,6 +111,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
+        <BlockAccount_Components suffixID='BlockAccount_Popup'/> 
       </Dialog>
     </div>
   );

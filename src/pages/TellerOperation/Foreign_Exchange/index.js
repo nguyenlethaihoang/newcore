@@ -14,6 +14,7 @@ import Image_List from '../../../components/Image_List';
 import DataPicker_Day from '../../../components/DatePicker_Day';
 import Select_Object from '../../../components/Select_Object';
 import Table_Header_CustomerManagement from '../../../data/Table_Header_CustomerManagement';
+import ForeignExchange_Components from './ForeignExchange_Components';
 
 function Foreign_Exchange() {
 // Callback childs -> parent
@@ -23,6 +24,7 @@ const callbackFunction = (childData) => {setMessage(childData)}
         <div>
             {/* 4.1 Foreign Exchange  */}
             <Accordian_Children title='4. Foreign Exchange' label='label1' parentCallback={callbackFunction} message={message}>  
+                <ForeignExchange_Components suffixID='ForeignExchange'/>
             </Accordian_Children>
         </div>
      );
