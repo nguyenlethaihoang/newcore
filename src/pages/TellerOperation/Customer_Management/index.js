@@ -145,7 +145,7 @@ function clearTextFields() {
                                                 params.Residence = resolveCodeID(countryList,document.getElementById('slt_Residence_OpenIndividual').innerText);
                                                 params.DocType = resolveNameID(docTypeList,document.getElementById('slt_DocType_OpenIndividual').innerText);
                                                 params.DocID = document.getElementById('txt_DocID_OpenIndividual').value;
-                                                params.DocIssueDate = document.getElementById('dp_DocIssueDate_OpenIndividual').value;
+                                                params.DocIssuePlace = document.getElementById('dp_DocIssuePlace_OpenIndividual').value;
                                                 params.DocExpiryDate = document.getElementById('dp_DocExpiryDate_OpenIndividual').value;
                                                 params.EmailAddress = document.getElementById('txt_EmailAddress_OpenIndividual').value;
 
@@ -176,6 +176,7 @@ function clearTextFields() {
                                                         arrError.push('Main Industry is Required')
                                                 if (resolveNameID(industryList,document.getElementById('slt_Industry_OpenIndividual').innerText) === null)
                                                         arrError.push('Industry is Required')
+                                                        ///
                                                 if (
                                                         arrError.length == 0
                                                 ) {
@@ -314,14 +315,28 @@ function clearTextFields() {
                                 variant="contained"
                                 onClick={() => {
                                         let data = []
-                                        const fetchCustomerList = async () => 
+                                        let params = {}
+                                        
+                                        params.CustomerType = resolveNameID(CustomerType, document.getElementById('slt_CustomerType_EnquiryCustomer').innerText);
+                                        params.CustomerID = document.getElementById('txt_CustomerID_EnquiryCustomer').value;
+                                        params.GB_FullName = document.getElementById('txt_GBFullName_EnquiryCustomer').value;
+                                        params.PhoneNumber = document.getElementById('txt_CellPhone/OfficeNum_EnquiryCustomer').value;
+                                        params.DocID = document.getElementById('txt_DocID_EnquiryCustomer').value;
+                                        params.MainSector = resolveNameID(mainSectorList, document.getElementById('slt_MainSector_EnquiryCustomer').innerText);
+                                        params.SubSector = resolveNameID(subSectorList, document.getElementById('slt_SubSector_EnquiryCustomer').innerText);
+                                        params.MainIndustry = resolveNameID(mainIndustryList, document.getElementById('slt_MainIndustry_EnquiryCustomer').innerText);
+                                        params.SubIndustry = resolveNameID(industryList, document.getElementById('slt_Industry_EnquiryCustomer').innerText);
+                                        const fetchspecificCustomerList = async () => 
                                         {
-                                                const response = await customerApi.getAll();
-                                                setCustomerList(response.data.customer)
+                                                const response = await customerApi.enquiry(params);
+                                                
+                                                setSpecificCustomerList(response.data)
                                         }
-                                        fetchCustomerList();
-                                        customerList.map((value, index) => {
-                                                data.push(createData(value.customer.id, value.customer.CustomerType, value.customer.GB_FullName, value.customer.DocID, value.customer.PhoneNumber, {id: value.customer.id, type: value.customer.CustomerType}))
+                                        fetchspecificCustomerList();
+                                        console.log("customer list")
+                                        console.log(specificCustomerList)
+                                        specificCustomerList.map((value, index) => {
+                                                data.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber, {id: value.id, type: value.CustomerType}))
                                         })
                                         setRowsTable(data)
                                         setColumnsTable(Table_Header_CustomerManagement)
