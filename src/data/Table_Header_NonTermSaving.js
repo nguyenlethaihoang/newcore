@@ -19,12 +19,12 @@ import Dialog_BlockAccount from '../pages/TellerOperation/Account_Management/Dia
 
 
 const Table_Header_NonTermSaving = [
-    {field: 'AccountCode',headerName: 'Account Code',width: 110,},
-    {field: 'id',headerName: 'Customer ID',width: 100,},
-    {field: 'GBFullName',headerName: 'Customer Name',width: 130,},
+    {field: 'AccountCode',headerName: 'AC',width: 50,},
+    {field: 'id',headerName: 'CID',width: 50,},
+    {field: 'GBFullName',headerName: 'Customer Name',width: 170,},
     {field: 'DocID',headerName: 'Doc ID',width: 70,},
-    {field: 'Category',headerName: 'Category',width: 80,},  
-    {field: 'ProductLine',headerName: 'Product Line',width: 100,},
+    {field: 'Category',headerName: 'Category',width: 200,},  
+    {field: 'ProductLine',headerName: 'Product Line',width: 300,},
     {field: 'Currency',headerName: 'Currency',width: 80,},
     {field: 'ActualBallance',headerName: 'Actual Ballance',width: 120,},
     {field: 'WorkingAmount',headerName: 'Working Amount',width: 120,},

@@ -8,8 +8,8 @@ function Table_Object({rows, columns, pageSize}) {
         <DataGrid
             rows={rows}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[4]}
+            pageSize={7}
+            rowsPerPageOptions={[7]}
             // checkboxSelection
         />
         </div>

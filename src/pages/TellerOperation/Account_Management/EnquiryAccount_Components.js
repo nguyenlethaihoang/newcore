@@ -37,6 +37,46 @@ import Table_Header_CustomerManagement from '../../../data/Table_Header_Customer
 import Table_Object from '../../../components/Table_Object';
 import Table_Header_NonTermSaving from '../../../data/Table_Header_NonTermSaving';
 import Search from '@mui/icons-material/Search';
+import debitAccountApi from '../../../apis/debitAccountApi';
+
+
+// --------- CONVERT -------------------
+// rersolve from text to id with Name
+function resolveNameID(object, text) {
+        let temp = null
+        object.map((data, index) => {
+                if (data.Name == text)
+                {
+                temp = data.id.toString()
+                
+                }
+        })
+        return temp
+    }
+    // rersolve from text to id with Name Customer
+    function resolveStrtoID(text) {
+        let subArr = text.toString().split(" - ");
+        let subStr = subArr[0]
+        if(subStr){
+            return subStr
+        }
+        return null
+    }
+    
+    
+    // rersolve from text to id with Code
+    function resolveCodeID(object, text) {
+        let temp = null
+        object.map((data, index) => {
+                if (data.Code == text)
+                {
+                temp = data.id.toString()
+                
+                }
+        })
+        return temp
+    }
+// -------------------------------------------------------
 
 // --------------- MUST HAVE -------------
 // Data
@@ -88,6 +128,7 @@ const [chargeCodeList, setChargeCodeList] = useState([]);useEffect(() => {const 
 // Fetch API Relation Code
 const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {const fetchRelationCodeList = async () => {try {const response = await relationCodeApi.getAll();setRelationCodeList(response.rows)} catch (error) {console.log('Failed to fetch relationCodelist: ', error)}};fetchRelationCodeList();}, [])
   // Config Table
+  const [accountList, setAccountList] = useState([]);
   const [columnsTable, setColumnsTable] = useState([])
   const [rowsTable, setRowsTable] = useState([])
     return ( 
@@ -114,18 +155,35 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                 <Button
                         endIcon={<Search />}
                         variant="contained"
-                        onClick={() => {
+                        onClick={ () => {
+                                console.log('enquiry')
+                                let params = {}
+                                params.AccountID = document.getElementById('txt_AccountCode_'+suffixID).value
+                                params.CustomerType = resolveNameID(CustomerType, document.getElementById('slt_CustomerType_'+suffixID).innerText)
+                                params.CustomerID = document.getElementById('txt_CustomerID_'+suffixID).value
+                                params.DocID = document.getElementById('txt_DocID_'+suffixID).value
+                                params.GB_FullName = document.getElementById('txt_GBFullName_'+suffixID).value
+                                params.ProductLine = resolveNameID(productLineList, document.getElementById('slt_ProductLine_'+suffixID).innerText)
+                                params.Category = resolveNameID(Category_EnquiryAccount, document.getElementById('slt_Category_'+suffixID).innerText)
+                                params.Currency = resolveNameID(currencyList, document.getElementById('slt_Currency_'+suffixID).innerText)
+                                //params.Status = 
                                 let data = []
-                                data.push(createData('acc1', '1', 'FullName', 'DOC123', 'Cate', 'product', 'currency', 'actual', 'working', 'detail', 'cclose', 'block'))
-                                // const fetchCustomerList = async () => 
-                                // {
-                                //         const response = await customerApi.getAll();
-                                //         setCustomerList(response.data.customer)
-                                // }
-                                // fetchCustomerList();
-                                // customerList.map((value, index) => {
-                                //         data.push(createData(value.customer.id, value.customer.CustomerType, value.customer.GB_FullName, value.customer.DocID, value.customer.PhoneNumber, {id: value.customer.id, type: value.customer.CustomerType}))
-                                // })
+                                //data.push(createData('acc1', '1', 'FullName', 'DOC123', 'Cate', 'product', 'currency', 'actual', 'working', 'detail', 'cclose', 'block'))
+                                
+                                const fetchAccountList = async () => {
+                                        const response = await debitAccountApi.enquiry(params);
+                                        setAccountList(response.data) 
+                                }
+                                fetchAccountList();
+                                console.log('account list')
+                                console.log(accountList)
+                                data = []
+                                accountList.map((value, index) => {
+                                        console.log("index", index)
+                                        console.log(value.id)
+                                        data.push(createData(value.id, value.CustomerID, value.Customer.GB_FullName, value.Customer.DocID, value.CATEGORY.Name, value.PRODUCTLINE.Name, value.CURRENCY.Name, value.ActualBalance, value.WorkingAmount, {id: value.id}, {id: value.id}, {id: value.id}))
+                                })
+                                
                                 setRowsTable(data)
                                 setColumnsTable(Table_Header_NonTermSaving)
                         }}

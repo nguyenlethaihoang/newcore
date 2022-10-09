@@ -22,6 +22,20 @@ const debitAccountApi = {
         .catch(err => {
             return ('fail')
         })
+    },
+    enquiry: async (params) => {
+        const url = 'account/debit_account/enquiry';
+        return axiosClient.post(url, {
+            account: params.AccountID,
+            customerType: params.CustomerType,
+            customerID: params.CustomerID,
+            docID: params.DocID,
+            GB_FullName: params.GB_FullName,
+            productLine: params.ProductLine,
+            category: params.Category,
+            currency: params.Currency,
+            status: params.Status
+        })
     }
 
 }

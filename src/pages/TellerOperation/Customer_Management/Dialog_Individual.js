@@ -89,8 +89,6 @@ const accountOfficerList = useFetchAccountOfficer();
     {
       try {
         const response = await customerApi.getIndividual(CustomerID);
-        console.log("customer item")
-        console.log(response.data)
         setCustomerItem(response.data)} 
       catch (error) {
         console.log('Failed to fetch customerItem: ', error)
@@ -186,8 +184,6 @@ const accountOfficerList = useFetchAccountOfficer();
               params.MainIndustry = resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenIndividual_Popup').innerText);
               params.Industry = resolveNameID(industryList,document.getElementById('slt_Industry_OpenIndividual_Popup').innerText);
               params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_OpenIndividual_Popup').innerText);
-              console.log('params');
-              console.log(params);
 
               arrError = []
               if (document.getElementById('txt_GBShortName_OpenIndividual_Popup').value.length <= 2)
@@ -211,8 +207,6 @@ const accountOfficerList = useFetchAccountOfficer();
                       arrError.push('Industry is Required')
               if(arrError.length == 0){
                 const res = await customerApi.updateIndividual(params, CustomerID);
-                console.log("ress")
-                console.log(res)
                 if(res != 'fail') {
                   setIsNotification_Success_01(true); 
                   setTimeout(() => {setIsNotification_Success_01(false)}, 3000);
