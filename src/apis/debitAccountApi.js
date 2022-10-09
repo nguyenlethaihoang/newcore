@@ -34,9 +34,52 @@ const debitAccountApi = {
             productLine: params.ProductLine,
             category: params.Category,
             currency: params.Currency,
-            status: params.Status
+            isBlocked: params.isBlocked,
+            isClosed: params.isClosed,
+            isActive: params.isActive
         })
-    }
+    },
+    getID: async (id) => {
+        const url = `account/debit_account/get/${id}`
+        return axiosClient.get(url)
+    },
+    updateAccount: async (params, id) => {
+        const url = `account/debit_account/update/${id}`;
+        return axiosClient.put(url, {
+            customerID: params.CustomerID,
+            category: params.Category,
+            productLine: params.ProductLine,
+            currency: params.Currency,
+            accountTitle: params.AccountTitle,
+            shortTitle: params.ShortTitle,
+            accountOfficer: params.AccountOfficer,
+            chargeCode: params.ChargeCode,
+            joinHolder: params.JoinHolder,
+            relationCode: params.RelationCode,
+            joinNotes: params.JoinNotes
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        })
+    },
+    closeAccount: async (params, id) => {
+        const url = `account/debit_account/close/${id}`;
+        return axiosClient.put(url, {
+            paymentType: params.PaymentType,
+            transferredAccount: params.TransferredAccount,
+            closeDate: params.CloseDate,
+            notes: params.Notes
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        })
+    },
 
 }
     export default debitAccountApi;

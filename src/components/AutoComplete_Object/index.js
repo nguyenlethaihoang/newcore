@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 
 
-function AutoComplete_Object({id, object, length, disabled, dataID, label, params1, params2, params3, params4, required}) {
+function AutoComplete_Object({id, object, length, disabled, dataID, label, params1, params2, params3, params4, required, defaultValue}) {
 
     // Convert sang new arr 
     let convertObject = []
@@ -39,16 +39,16 @@ function AutoComplete_Object({id, object, length, disabled, dataID, label, param
         convertObject.push(resObj)
 
     })
-    
     // Kiem tra cac props
     if (disabled === undefined) disabled = false;
     return ( 
         <Autocomplete
             disablePortal
+            defaultValue={defaultValue?defaultValue:''}
             id={id}
             disabled={disabled}
             options={convertObject}
-            renderInput={(params) => <TextField {...params} label={label} required={required}/>}
+            renderInput={(params) => <TextField {...params} label={label} required={required} />}
 
             sx={{ 
                 minWidth: `${length}ch`, 

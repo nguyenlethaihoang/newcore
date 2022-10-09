@@ -26,6 +26,7 @@ import subSectorApi from '../../../apis/subSectorApi';
 import cityApi from '../../../apis/cityApi';
 import accountOfficerApi from '../../../apis/accountOfficerApi';
 import customerApi from '../../../apis/customerApi';
+import debitAccountApi from '../../../apis/debitAccountApi';
 import BlockAccount_Components from './BlockAccount_Components';
 
 
@@ -51,6 +52,18 @@ export default function Dialog_BlockAccount({CustomerID}) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // APIs - GET ACCOUNT BY ID
+  const [account, setAccount] = useState([]);
+  useEffect(() => 
+  {
+      const fetchAccount = async () => {
+        const response = await debitAccountApi.getID(CustomerID);
+        setAccount(response.data) 
+      }
+      fetchAccount();
+  }, [])
+
   return (
     <div>
       <IconButton 

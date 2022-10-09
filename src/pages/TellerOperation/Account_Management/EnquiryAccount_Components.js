@@ -140,8 +140,8 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                 <Select_Object id={'slt_Currency_'+suffixID} label='Currency'object={currencyList}length='14' disabled={isDisabled}/>
                 <Select_Object id={'slt_CustomerType_'+suffixID} label='Customer Type'object={CustomerType}length='20' disabled={isDisabled}/>
                 <Block_Button>
-                    <CheckBox_Value label='Blocked'/>
-                    <CheckBox_Value label='Closed'/>    
+                    <CheckBox_Value label='Blocked' id={'ckb_Blocked_' + suffixID} value={'Blocked'}/>
+                    <CheckBox_Value label='Closed'  id={'ckb_Closed_' + suffixID} value={'Closed'}/>    
                 </Block_Button>
             </Block_Children>
             <Block_Children>
@@ -166,6 +166,8 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                                 params.ProductLine = resolveNameID(productLineList, document.getElementById('slt_ProductLine_'+suffixID).innerText)
                                 params.Category = resolveNameID(Category_EnquiryAccount, document.getElementById('slt_Category_'+suffixID).innerText)
                                 params.Currency = resolveNameID(currencyList, document.getElementById('slt_Currency_'+suffixID).innerText)
+                                params.isBlocked = document.getElementById('ckb_Blocked_'+suffixID).value
+                                params.isClosed = document.getElementById('ckb_Closed_'+suffixID).value
                                 //params.Status = 
                                 let data = []
                                 //data.push(createData('acc1', '1', 'FullName', 'DOC123', 'Cate', 'product', 'currency', 'actual', 'working', 'detail', 'cclose', 'block'))

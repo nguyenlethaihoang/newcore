@@ -10,7 +10,7 @@ import DataPicker_Day from '../../../components/DatePicker_Day';
 import Select_Object from '../../../components/Select_Object';
 import AutoComplete_Object from '../../../components/AutoComplete_Object';
 import Category_OpenAccount from '../../../data/Category_OpenAccount';
-
+import Close_Account_PaymentType from '../../../data/Close_Account_PaymentType';
 // APIs
 import useFetchCurrency from '../../../customHooks/useFetchCurrency';
 
@@ -35,6 +35,7 @@ function CloseAccount_Components02({suffixID, forceDisable, object}) {
                 <TextField_Value id={'txt_CloseAccount_'+suffixID} label='Close Account' length='20' disabled={true}/>
                 <TextField_Value id={'txt_DebitAmount_'+suffixID} label='Debit Amount' length='30' disabled={true}/>
                 <DataPicker_Day id={'dp_DebitDate_'+suffixID}label='Debit Date' disabled={true}/>
+                <Select_Object id={'slt_PaymentType_'+suffixID} label='Payment Type'dataID='10' object={Close_Account_PaymentType}length='15'/>
             </Block_Children>
             {/* Block 2 - 3.1.2 Enquiry - Close Account */}
             <Block_Children header2='CREDIT INFORMATION'>
