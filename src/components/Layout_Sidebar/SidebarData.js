@@ -10,7 +10,6 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 export const SidebarData = [
   {
@@ -34,11 +33,6 @@ export const SidebarData = [
         title: "Account Management",
         path: "/account_management",
         icon: <BadgeIcon />
-      },
-      {
-        title: "Transactions",
-        path: "/transactions",
-        icon: <AccountBalanceIcon />
       },
       {
         title: "Foreign Exchange",

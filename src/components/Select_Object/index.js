@@ -6,8 +6,6 @@ function Select_Object({required, disabled, length, label, object, dataID, id, k
     const handleChangeSelect = (event) => {
       setValue(event.target.value);
     };
-    
-
     // Kiem tra cac props
     if (required === undefined) required = false;
     if (disabled === undefined) disabled = false;

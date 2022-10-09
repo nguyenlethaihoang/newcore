@@ -13,19 +13,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import InfoIcon from '@mui/icons-material/Info';
 // Components
-import Block_Button from '../../../components/Block_Button';
+import Block_Button from '../../../../components/Block_Button';
 import OpenAccount_Components from './OpenAccount_Components';
-import debitAccountApi from '../../../apis/debitAccountApi';
-import Category_OpenAccount from '../../../data/Category_OpenAccount';
-import Alert_String from '../../../components/Alert_String';
-import Message_String from '../../../components/Message_String';
+import debitAccountApi from '../../../../apis/debitAccountApi';
+import Category_OpenAccount from '../../../../data/Category_OpenAccount';
+import Alert_String from '../../../../components/Alert_String';
+import Message_String from '../../../../components/Message_String';
 // Fetch API by Custom Hook
-import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
-import useFetchCurrency from '../../../customHooks/useFetchCurrency';
-import useFetchCustomer from '../../../customHooks/useFetchCustomer';
-import useFetchProductLine from '../../../customHooks/useFetchProductLine';
-import useFetchChargeCode from '../../../customHooks/useFetchChargeCode';
-import useFetchRelationCode from '../../../customHooks/useFetchRelationCode';
+import useFetchAccountOfficer from '../../../../customHooks/useFetchAccountOfficer';
+import useFetchCurrency from '../../../../customHooks/useFetchCurrency';
+import useFetchCustomer from '../../../../customHooks/useFetchCustomer';
+import useFetchProductLine from '../../../../customHooks/useFetchProductLine';
+import useFetchChargeCode from '../../../../customHooks/useFetchChargeCode';
+import useFetchRelationCode from '../../../../customHooks/useFetchRelationCode';
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -55,20 +55,6 @@ function resolveStrtoID(text) {
       return subStr
   }
   return null
-}
-
-
-// rersolve from text to id with Code
-function resolveCodeID(object, text) {
-  let temp = null
-  object.map((data, index) => {
-          if (data.Code == text)
-          {
-          temp = data.id.toString()
-          
-          }
-  })
-  return temp
 }
 // -------------------------------------------------------
 

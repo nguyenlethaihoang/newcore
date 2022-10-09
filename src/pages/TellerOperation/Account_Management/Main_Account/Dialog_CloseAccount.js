@@ -11,31 +11,22 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
-import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 // Components
-import Block_Children from '../../../components/Block_Children';
-import Block_Button from '../../../components/Block_Button';
-// APIs
-import countryApi from '../../../apis/countryApi';
-import docTypeApi from '../../../apis/docTypeApi';
-import mainIndustryApi from '../../../apis/mainIndustryApi';
-import industryApi from '../../../apis/industryApi';
-import mainSectorApi from '../../../apis/mainSectorApi';
-import subSectorApi from '../../../apis/subSectorApi';
-import cityApi from '../../../apis/cityApi';
-import accountOfficerApi from '../../../apis/accountOfficerApi';
-import customerApi from '../../../apis/customerApi';
-import debitAccountApi from '../../../apis/debitAccountApi';
-import BlockAccount_Components from './BlockAccount_Components';
-
+import Block_Button from '../../../../components/Block_Button';
+import CloseAccount_Components01 from './CloseAccount_Components01';
+import CloseAccount_Components02 from './CloseAccount_Components02';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Dialog_BlockAccount({CustomerID}) {
+export default function Dialog_CloseAccount({CustomerID}) {
+  // Manage Change color button
+  const [isContained, setIsContained] = useState(true)
+// Manage Change Component when on Click
+const [isChangeComponent01, setIsChangeComponent01] = useState(true)
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -52,26 +43,14 @@ export default function Dialog_BlockAccount({CustomerID}) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // APIs - GET ACCOUNT BY ID
-  const [account, setAccount] = useState([]);
-  useEffect(() => 
-  {
-      const fetchAccount = async () => {
-        const response = await debitAccountApi.getID(CustomerID);
-        setAccount(response.data) 
-      }
-      fetchAccount();
-  }, [])
-
   return (
     <div>
       <IconButton 
           color="primary"
-          aria-label="block"
+          aria-label="close"
           onClick={handleClickOpen}
       >
-          <DoDisturbIcon />
+          <CloseIcon />
       </IconButton>
       <Dialog
         fullScreen
@@ -96,7 +75,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Block Account - Account Code: {CustomerID}
+              Close Account - Account Code: 
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save
@@ -105,9 +84,9 @@ export default function Dialog_BlockAccount({CustomerID}) {
         </AppBar>
         <Block_Button>
             <Button
+                disabled
                 variant="contained"
                 endIcon={<EditIcon />}
-                disabled
                 onClick={() => {
                     setIsDisabledDialog(false)
                 }}
@@ -116,15 +95,37 @@ export default function Dialog_BlockAccount({CustomerID}) {
             </Button>
             <Button
                 variant="contained"
-                endIcon={<PrintIcon />}
                 disabled
+                endIcon={<PrintIcon />}
                 onClick={() => {
                 }}
             >
                 Print
             </Button>
         </Block_Button>
-        <BlockAccount_Components suffixID='BlockAccount_Popup'/> 
+        <Block_Button>
+          <Button
+            variant={isContained ? 'contained' : 'outlined'}
+            onClick={() => {
+              setIsChangeComponent01(true)
+              setIsContained(true)
+            }}
+          >
+              Close Account
+          </Button>
+          <Button
+            variant={isContained ? 'outlined' : 'contained'}
+            onClick={() => {
+              setIsChangeComponent01(false)
+              setIsContained(false)
+            }}
+          >
+              FT Acc Close
+          </Button>
+        </Block_Button>
+        
+        {isChangeComponent01 && <CloseAccount_Components01 suffixID='CloseAccount_Popup01'/>}
+        {!isChangeComponent01 && <CloseAccount_Components02 suffixID='CloseAccount_Popup02'/>}
       </Dialog>
     </div>
   );

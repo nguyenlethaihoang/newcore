@@ -9,6 +9,7 @@ import ForeignExchange_Components from './ForeignExchange_Components';
 import EnquiryForeignExchange_Components from './EnquiryForeignExchange_Components';
 import Block_Button from '../../../components/Block_Button';
 import { Button } from '@mui/material';
+import Navigation_Panel from '../Account_Management/Navigation_Panel';
 
 function Foreign_Exchange() {
 // Callback childs -> parent

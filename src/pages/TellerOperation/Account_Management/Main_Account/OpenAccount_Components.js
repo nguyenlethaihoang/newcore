@@ -4,19 +4,19 @@ import { useState, useEffect } from 'react';
 import { Box, Button, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 // Components
-import Block_Children from '../../../components/Block_Children';
-import TextField_Value from '../../../components/TextField_Value';
-import Select_Object from '../../../components/Select_Object';
-import AutoComplete_Object from '../../../components/AutoComplete_Object';
-import Category_OpenAccount from '../../../data/Category_OpenAccount';
-import Block_Button from '../../../components/Block_Button';
+import Block_Children from '../../../../components/Block_Children'; 
+import TextField_Value from '../../../../components/TextField_Value'; 
+import Select_Object from '../../../../components/Select_Object'; 
+import AutoComplete_Object from '../../../../components/AutoComplete_Object'; 
+import Category_OpenAccount from '../../../../data/Category_OpenAccount';
+import Block_Button from '../../../../components/Block_Button';
 // Fetch API by Custom Hook
-import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
-import useFetchCurrency from '../../../customHooks/useFetchCurrency';
-import useFetchCustomer from '../../../customHooks/useFetchCustomer';
-import useFetchProductLine from '../../../customHooks/useFetchProductLine';
-import useFetchChargeCode from '../../../customHooks/useFetchChargeCode';
-import useFetchRelationCode from '../../../customHooks/useFetchRelationCode';
+import useFetchAccountOfficer from '../../../../customHooks/useFetchAccountOfficer';
+import useFetchCurrency from '../../../../customHooks/useFetchCurrency';
+import useFetchCustomer from '../../../../customHooks/useFetchCustomer';
+import useFetchProductLine from '../../../../customHooks/useFetchProductLine';
+import useFetchChargeCode from '../../../../customHooks/useFetchChargeCode';
+import useFetchRelationCode from '../../../../customHooks/useFetchRelationCode';
 
 // rersolve from text to id with Name
 function resolveNameID(object, text) {
@@ -43,6 +43,9 @@ function resolveNameID(object, text) {
 
 // ----- MAIN -----
 function OpenAccount_Components({suffixID, forceDisable, object}) {
+    // Callback childs -> parent
+    const [message, setMessage] = useState('panel1')
+    const callbackFunction = (childData) => {setMessage(childData)}
   // Fetch Data 
 const accountOfficerList = useFetchAccountOfficer();
 const currencyList = useFetchCurrency();
@@ -56,16 +59,16 @@ const [isDisabled, setIsDisabled] = useState(forceDisable)
 const handleClick = () => {
   setIsDisabled(true);
 };
-      // SET STATE PRODUCT LINE
-          
-      const [bioProductLine, setBioProductLine] = useState([]);
-      // ------------------ FETCH API ---------------
+// SET STATE PRODUCT LINE
+    
+const [bioProductLine, setBioProductLine] = useState([]);
+// ------------------ FETCH API ---------------
 
-      // GET SUB OBJECT
-      let customerID = ''
-      if(!object){
-        object = ""
-      }
+// GET SUB OBJECT
+let customerID = ''
+if(!object){
+  object = ""
+}
       return ( 
         <div
           onClick={() => {
