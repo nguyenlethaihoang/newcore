@@ -14,8 +14,9 @@ import CheckBox_Value from '../../../../components/CheckBox_Value';
 import useFetchAccountOfficer from '../../../../customHooks/useFetchAccountOfficer';
 import useFetchCurrency from '../../../../customHooks/useFetchCurrency';
 import useFetchCustomer from '../../../../customHooks/useFetchCustomer';
+
 // ----- MAIN -----
-function BlockAccount_Components({suffixID, forceDisable}) {
+function BlockAccount_Components({suffixID, forceDisable, object, blockage}) {
      // Fetch Data 
      const accountOfficerList = useFetchAccountOfficer();
      const currencyList = useFetchCurrency();
@@ -26,14 +27,23 @@ const [isDisabled, setIsDisabled] = useState(forceDisable)
 const handleClick = () => {
   setIsDisabled(true);
 };
+let startDateValue, endDateValue, isBlocked = false
+if(!blockage){
+     blockage=''
+ }else{
+     isBlocked = true
+ }
+ if(!object){
+     object=''
+ }
     return ( 
         <div>
           <Box m={2}>
             {/* Block 1 - 3.1.2 Enquiry - Block Account */}
            <Block_Children>
-                <AutoComplete_Object id={'aut_CustomerID_'+suffixID} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={true}/>
-                <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='30' disabled={true}/>
-                <TextField_Value id={'txt_Amount_'+suffixID} label='Amount' length='30' value='0'/>
+                <AutoComplete_Object id={'aut_CustomerID_'+suffixID} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={true} defaultValue={object.CustomerID?`${object.CustomerID} - ${object.Customer?.GB_FullName}`:''}/>
+                <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='30' disabled={true} value={object.id}/>
+               <TextField_Value id={'txt_Amount_'+suffixID} label='Amount' length='30' value={object.WorkingAmount} disabled={isBlocked? true : false}/>
            </Block_Children>
             {/* Block 2 - 3.1.2 Enquiry - Block Account */}
            <Block_Children>
@@ -43,9 +53,9 @@ const handleClick = () => {
            </Block_Children>
            {/* Block 3 - 3.1.2 Enquiry - Block Account */}
            <Block_Children>
-               <DataPicker_Day id={'dp_FromDate_'+suffixID}label='From Date'disabled={isDisabled}/>
-               <DataPicker_Day id={'dp_ToDate_'+suffixID}label='To Date'disabled={isDisabled}/>
-               <TextField_Value id={'txt_Description_'+suffixID} label='Description' length='30' disabled={true} value='PHONG TOA TK:'/>
+               <DataPicker_Day id={'dp_FromDate_'+suffixID}label='From Date'disabled={isBlocked? true : false} defaultValue={blockage.StartDate}/>
+               <DataPicker_Day id={'dp_ToDate_'+suffixID}label='To Date'disabled={isBlocked? true : false} defaultValue={blockage.EndDate}/>
+               <TextField_Value id={'txt_Description_'+suffixID} label='Description' length='30' disabled={true} value={`PHONG TOA TK: ${object.id}`}/>
            </Block_Children>
 
 

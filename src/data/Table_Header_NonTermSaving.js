@@ -5,8 +5,8 @@ import Dialog_BlockAccount from '../pages/TellerOperation/Account_Management/Mai
 
 
 const Table_Header_NonTermSaving = [
-    {field: 'AccountCode',headerName: 'AC',width: 50,},
-    {field: 'id',headerName: 'CID',width: 50,},
+    {field: 'id',headerName: 'AC',width: 50,},
+    {field: 'CustomerID',headerName: 'CID',width: 50,},
     {field: 'GBFullName',headerName: 'Customer Name',width: 170,},
     {field: 'DocID',headerName: 'Doc ID',width: 70,},
     {field: 'Category',headerName: 'Category',width: 200,},  

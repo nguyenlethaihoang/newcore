@@ -8,9 +8,9 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
-function DataPicker_Day({label, id, disabled}) {
-  const [value, setValue] = React.useState(dayjs('2022-10-18T21:11:54'));
+// 2022-10-18T21:11:54
+function DataPicker_Day({label, id, disabled, defaultValue}) {
+  const [value, setValue] = React.useState(dayjs(defaultValue));
   const handleChange = (newValue) => {
     setValue(newValue);
   };

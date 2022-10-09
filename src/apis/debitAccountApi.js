@@ -80,6 +80,30 @@ const debitAccountApi = {
             return ('fail')
         })
     },
+    getClosure:  async (id) => {
+        const url = `account/debit_account/get_closure/${id}`;
+        return axiosClient.get(url)
 
+    },
+    blockAccount: async (params, id) => {
+        const url = `account/debit_account/block/${id}`;
+        return axiosClient.post(url, {
+            startDate: params.StartDate,
+            endDate: params.EndDate,
+            amount: params.Amount,
+            notes: params.Notes
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        })
+    },
+    getBlocked:  async (id) => {
+        const url = `account/debit_account/get_blockage/${id}`;
+        return axiosClient.get(url)
+
+    },
 }
     export default debitAccountApi;

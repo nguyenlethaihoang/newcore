@@ -77,8 +77,8 @@ function resolveNameID(object, text) {
 let arrError = []
 // ----------------------------------------
 // Create Data
-function createData(AccountCode, id, GBFullName, DocID, Category, ProductLine, Currency,ActualBallance, WorkingAmount,Detail,CloseAccount,BlockUnblockAccount) {
-        return { AccountCode, id, GBFullName, DocID, Category, ProductLine, Currency, ActualBallance,WorkingAmount,Detail,CloseAccount,BlockUnblockAccount };}
+function createData(id, CustomerID, GBFullName, DocID, Category, ProductLine, Currency,ActualBallance, WorkingAmount,Detail,CloseAccount,BlockUnblockAccount) {
+        return { id, CustomerID, GBFullName, DocID, Category, ProductLine, Currency, ActualBallance,WorkingAmount,Detail,CloseAccount,BlockUnblockAccount };}
 function EnquiryAccount_Components({suffixID, forceDisable}) {
 // Manage Disable
 if (forceDisable === undefined) forceDisable = false
@@ -179,7 +179,8 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                                         console.log(value.id)
                                         data.push(createData(value.id, value.CustomerID, value.Customer.GB_FullName, value.Customer.DocID, value.CATEGORY.Name, value.PRODUCTLINE.Name, value.CURRENCY.Name, value.ActualBalance, value.WorkingAmount, {id: value.id}, {id: value.id}, {id: value.id}))
                                 })
-                                
+                                console.log('table data')
+                                console.log(data)
                                 setRowsTable(data)
                                 setColumnsTable(Table_Header_NonTermSaving)
                         }}
