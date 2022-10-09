@@ -62,7 +62,8 @@ function Accordian_Children(props) {
         <div className="main_Accordian_Children">
             <Accordion
                 id = {props.label}
-                expanded = {props.message === props.label}
+                // expanded = {props.message === props.label}
+                expanded = {true}
                 onChange={() => {
                     if (checkState)
                         checkState = false;

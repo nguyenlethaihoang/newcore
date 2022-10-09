@@ -32,26 +32,27 @@ const handleClick = () => {
     return ( 
         <div>
           <Box m={2}>
-            {/* Block 1 - 3.1.2 Enquiry - Block Account */}
+            {/* Block 1 - Foreign Exchange */}
            <Block_Children>
-                <AutoComplete_Object id={'aut_CustomerID_'+suffixID} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={true}/>
-                <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='30' disabled={true}/>
-                <TextField_Value id={'txt_Amount_'+suffixID} label='Amount' length='30' value='0'/>
+                <TextField_Value id={'txt_CustomerName_'+suffixID} label='Customer Name' length='40' required={true} disabled={isDisabled}/>
+                <TextField_Value id={'txt_Address_'+suffixID} label='Address' length='40' required={true} disabled={isDisabled}/>
+                <TextField_Value id={'txt_PhoneNumber_'+suffixID} label='Phone Number' length='20' disabled={isDisabled}/>
            </Block_Children>
-            {/* Block 2 - 3.1.2 Enquiry - Block Account */}
+            {/* Block 2 - Foreign Exchange */}
            <Block_Children>
-               <Block_Button>
-                    <CheckBox_Value label='Blocked'/>   
-               </Block_Button>
+                <TextField_Value id={'txt_TellerID_'+suffixID} label='Teller ID' length='20' required={true} value='vietvictory' disabled={isDisabled}/>
+                {/* <Select_Object id={'slt_DebitCurrency_'+suffixID} label='Debit Currency'required={true}object={}length='25' disabled={isDisabled}/> */}
+                {/* <Select_Object id={'slt_DebitAccount_'+suffixID} label='Debit Account'required={true}object={}length='25' disabled={isDisabled}/> */}
+                <TextField_Value id={'txt_DebitAmtLCY_'+suffixID} label='Debit Amt LCY' length='25' required={true} disabled={true}/>
+                <TextField_Value id={'txt_DebitAmtFCY_'+suffixID} label='Debit Amt FCY' length='25' disabled={isDisabled}/>
+                <TextField_Value id={'txt_DebitDealRate_'+suffixID} label='Debit Deal Rate' length='25' disabled={true}/>
            </Block_Children>
-           {/* Block 3 - 3.1.2 Enquiry - Block Account */}
-           <Block_Children>
-               <DataPicker_Day id={'dp_FromDate_'+suffixID}label='From Date'disabled={isDisabled}/>
-               <DataPicker_Day id={'dp_ToDate_'+suffixID}label='To Date'disabled={isDisabled}/>
-               <TextField_Value id={'txt_Description_'+suffixID} label='Description' length='30' disabled={true} value='PHONG TOA TK:'/>
-           </Block_Children>
-
-
+            {/* Block 3 - Foreign Exchange */}
+            <Block_Children>
+                {/* <Select_Object id={'slt_CurrencyPaid_'+suffixID} label='Currency Paid'required={true}object={}length='25' disabled={isDisabled}/> */}
+                <TextField_Value id={'txt_TellerID_'+suffixID} label='Teller ID' length='20' value='vietvictory' disabled={isDisabled}/>
+                {/* <Select_Object id={'slt_CreditAccount_'+suffixID} label='Credit Account'required={true}object={}length='25' disabled={isDisabled}/> */}
+            </Block_Children>
         </Box>
         
         </div>
