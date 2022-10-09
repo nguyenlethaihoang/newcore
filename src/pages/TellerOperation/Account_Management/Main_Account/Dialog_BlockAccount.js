@@ -128,7 +128,15 @@ export default function Dialog_BlockAccount({CustomerID}) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Block Account - Account Code: {CustomerID} - {accountStatus}
             </Typography> 
-            <Button autoFocus color="inherit" display={'none'} onClick={async() => {
+            <Button autoFocus color="inherit" display={'none'} 
+            sx={{
+              display: '',
+                ...(accountStatus === 'Blocked' && {
+                    display: 'none'
+                }),
+              }
+            } 
+            onClick={async() => {
               if(accountStatus != 'Active'){
                 arrError = []
                 arrError.push(`Account was ${accountStatus}`)
@@ -170,9 +178,28 @@ export default function Dialog_BlockAccount({CustomerID}) {
               
                 
             }}>
-              save
+              Block
+
+{/* 
+                  sx={{ 
+                    display: '',
+                    ...(isChangeComponent === '2' && {
+                        display: 'none'
+                    }),
+                    ...(isChangeComponent === '3' && {
+                        display: 'none'
+                    }),
+                }} */}
             </Button>
-            <Button autoFocus color="inherit" display={accountStatus == 'Blocked'? 'inline-flex': 'none'} onClick={async() => {
+            <Button autoFocus color="inherit" 
+                sx={{
+                  display: '',
+                    ...(accountStatus !== 'Blocked' && {
+                        display: 'none'
+                    }),
+                  }
+                } 
+           onClick={async() => {
               console.log('unblock')
             }}>
               Unblock
