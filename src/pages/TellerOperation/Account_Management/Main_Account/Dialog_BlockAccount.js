@@ -12,6 +12,8 @@ import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import LockIcon from '@mui/icons-material/Lock';
 
 // Components
 import Block_Button from '../../../../components/Block_Button';
@@ -128,7 +130,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Block Account - Account Code: {CustomerID} - {accountStatus}
             </Typography> 
-            <Button autoFocus color="inherit" display={'none'} 
+            <Button autoFocus color="inherit" display={'none'} startIcon={<LockIcon />}
             sx={{
               display: '',
                 ...(accountStatus === 'Blocked' && {
@@ -191,7 +193,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
                     }),
                 }} */}
             </Button>
-            <Button autoFocus color="inherit" 
+            <Button autoFocus color="inherit" startIcon={<LockOpenIcon />}
                 sx={{
                   display: '',
                     ...(accountStatus !== 'Blocked' && {

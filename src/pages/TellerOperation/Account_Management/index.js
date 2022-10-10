@@ -8,6 +8,7 @@ import SaveIcon from '@mui/icons-material/Save';
 // Components
 import Accordian_Children from '../../../components/Accordian_Children';
 import Navigation_Panel from './Navigation_Panel';
+import SavingAccount_Navigation_Panel from './SavingAccount_Navigation_Panel';
 
 function Account_Management() {
     return ( 
@@ -18,6 +19,7 @@ function Account_Management() {
             </Accordian_Children>
             {/* 3.2 Saving Account  */}
             <Accordian_Children title='3.2 Saving Account' label='label2'>  
+                <SavingAccount_Navigation_Panel />
             </Accordian_Children>
         </div>
      );
