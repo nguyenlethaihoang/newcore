@@ -201,9 +201,23 @@ export default function Dialog_BlockAccount({CustomerID}) {
                     }),
                   }
                 } 
-           onClick={async() => {
-              console.log('unblock')
-            }}>
+                onClick={async() => {
+              
+                  let params = {}
+                  params.RelievedDate = convertDatetime(document.getElementById('dp_RelievedDate_BlockAccount_Popup').value)
+                  params.Notes = document.getElementById('txt_Notes_BlockAccount_Popup').value
+                  console.log('param')
+                  console.log(params)
+                  const res = await debitAccountAPI.unBlock(params, CustomerID);
+                  if(res != 'fail') {
+                    setIsNotification_Success_01(true); 
+                    setTimeout(() => {setIsNotification_Success_01(false)}, 3000);
+                    setTimeout(() => {handleClose();}, 3000);
+                  } else {
+                    setIsNotification_Failed_01(true)
+                    setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
+                  }
+                }}>
               Unblock
             </Button>
           </Toolbar>

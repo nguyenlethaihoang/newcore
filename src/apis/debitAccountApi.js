@@ -105,5 +105,18 @@ const debitAccountApi = {
         return axiosClient.get(url)
 
     },
+    unBlock:  async (params, id ) => {
+        const url = `account/debit_account/unblock/${id}`;
+        return axiosClient.put(url, {
+            relievedDate: params.RelievedDate,
+            notes: params.Notes
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        })
+    },
 }
     export default debitAccountApi;

@@ -58,7 +58,10 @@ if(!blockage){
                <TextField_Value id={'txt_Description_'+suffixID} label='Description' length='30' disabled={true} value={`PHONG TOA TK: ${object.id}`}/>
            </Block_Children>
 
-
+           <Block_Children>
+                <DataPicker_Day id={'dp_RelievedDate_'+suffixID} label='Relieved Date' disabled={isBlocked? false  : true} defaultValue={blockage.EndDate}/>
+                <TextField_Value id={'txt_Notes_'+suffixID} label='Notes' length='30' disabled={isBlocked? false  : true} />
+           </Block_Children>
         </Box>
         
         </div>
