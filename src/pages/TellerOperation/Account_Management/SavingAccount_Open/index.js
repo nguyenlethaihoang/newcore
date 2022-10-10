@@ -190,11 +190,7 @@ return (
                     </Button>
                     <Button
                         variant={isChangeComponent02 == '2' ? 'contained' : 'outlined'}
-                        onClick={() => {
-                            document.getElementById('txt_Customer_Open_Discounted_SavingAccount02').value = document.getElementById('aut_CustomerID_Open_Discounted_SavingAccount01').value;
-                            document.getElementById('txt_Category_Open_Discounted_SavingAccount02').value = document.getElementById('slt_Category_Open_Discounted_SavingAccount01').innerText;
-                            document.getElementById('txt_Currency_Open_Discounted_SavingAccount02').value = document.getElementById('slt_Currency_Open_Discounted_SavingAccount01').innerText;
-                            setIsChangeComponent02('2');
+                        onClick={() => {setIsChangeComponent02('2');
                         }}
                     >
                         Trand Sav - Deposited
@@ -202,11 +198,7 @@ return (
                     <Button
                         variant={isChangeComponent02 == '3' ? 'contained' : 'outlined'}
                         onClick={() => {
-                            setIsChangeComponent02('3');
-                            let debitAccountID = resolveNameID(Currency_ForeignExchange, document.getElementById('slt_Currency_Open_Discounted_SavingAccount01')?.innerText || '' )
-                            document.getElementById('slt_PaymentCCY_Open_Discountedq_SavingAccount03').innerText = document.getElementById('slt_Currency_Open_Discounted_SavingAccount01')?.innerText || '' ;
-                            document.getElementById('slt_DebitAccount_Open_Discounted_SavingAccount03').innerText = Account_ForeignExchange[debitAccountID-1]?.Name || '';
-                        }} 
+                            setIsChangeComponent02('3');}} 
                     >
                         Disc Interest Payment
                     </Button>

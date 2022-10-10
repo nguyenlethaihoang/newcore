@@ -20,30 +20,21 @@ function SavingAccount_OpenArrear_Components03({suffixID, object, forceDisable})
 return ( 
 <div>
 <Block_Spacing>
-    <Block_Children>
-        <TextField_Value id={'txt_AcccountNumber_'+suffixID} label='Acccount Number' length='40' disabled={true} /> 
-        <TextField_Value id={'txt_PaymentNumber_'+suffixID} label='Payment Number' length='25' /> 
-        <Select_Object id={'slt_PaymentCCY_'+suffixID} label='Payment CCY'object={Currency_ForeignExchange}length='20' disabled={isDisabled} disabled={true} noValue='true' dataID='1'/>
-        <TextField_Value id={'txt_ForTeller_'+suffixID} label='For Teller' length='25' value='vietvictory'/> 
-        <Select_Object id={'slt_DebitAccount_'+suffixID} label='Debit Account'object={Currency_ForeignExchange}length='30' disabled={isDisabled} disabled={true} noValue='true' dataID='1'/>
-        <TextField_Value id={'txt_Narative_'+suffixID} label='Narative' length='30'/> 
-    </Block_Children>
-    <Block_Children>
-        <Block_Info>
-            <TextField_Value id={'txt_AccountCCY_'+suffixID} label='Account CCY' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_CustomerID_'+suffixID} label='Customer ID' length='20' disabled={true} /> 
-            <TextField_Value id={'txt_AccountNumber_'+suffixID} label='Account Number' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_AccountLCY_'+suffixID} label='Account LCY' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_AccountFCY_'+suffixID} label='Account FCY' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_Narrative01_'+suffixID} label='Narrative' length='30' disabled={true} value='AZ Deposit Credit'/> 
-            <TextField_Value id={'txt_Narrative02_'+suffixID} label='Narrative' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_Narrative03_'+suffixID} label='Narrative' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_Narrative04_'+suffixID} label='Narrative' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='30' disabled={true} /> 
-            <TextField_Value id={'txt_AccountInLCY_'+suffixID} label='Account In LCY' length='30' disabled={true} /> 
+    <Block_Info>
+        <TextField_Value id={'txt_Customer_'+suffixID} label='Customer' length='30' disabled={true} value='_'/>
+        <TextField_Value id={'txt_Currency_'+suffixID} label='Currency' length='15' disabled={true} value='_'/>
+        <TextField_Value id={'txt_DrAccount_'+suffixID} label='Dr Account' length='40' disabled={true} value='_'/>
+        <TextField_Value id={'txt_AmountLCY_'+suffixID} label='Amount LCY' length='20' disabled={true} value='_'/>
+        <TextField_Value id={'txt_AmountFCY_'+suffixID} label='Amount FCY' length='20' disabled={true} value='_'/>
+        <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='20' disabled={true} value='_'/>
+        <Select_Object id={'slt_PaymentCCY_'+suffixID} label='Payment CCY'length='25' disabled={isDisabled} noValue={true}/>
+        <TextField_Value id={'txt_ForTeller_'+suffixID} label='For Teller' length='20' disabled={isDisabled} value='vietvictory'/>
+        <Select_Object id={'slt_CreditAccount_'+suffixID} label='Credit Account'length='30' disabled={isDisabled} noValue={true}/>
+        <TextField_Value id={'txt_ExchRate_'+suffixID} label='Exch Rate' length='20' disabled={isDisabled} number={true}/>
+        <TextField_Value id={'txt_NewCustBal_'+suffixID} label='New Cust Bal' length='20' disabled={true} value='0.00'/>
+        <TextField_Value id={'txt_AmtPaid_'+suffixID} label='Amt Paid' length='20' disabled={true} />
 
-        </Block_Info>
-    </Block_Children>
+    </Block_Info>
 </Block_Spacing>
 </div>
 );

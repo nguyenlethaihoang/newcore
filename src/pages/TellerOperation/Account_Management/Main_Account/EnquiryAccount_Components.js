@@ -149,7 +149,7 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                 <Button
                         endIcon={<Search />}
                         variant="contained"
-                        onClick={ () => {
+                        onClick={async () => {
                                 console.log('enquiry')
                                 let params = {}
                                 params.AccountID = document.getElementById('txt_AccountCode_'+suffixID).value

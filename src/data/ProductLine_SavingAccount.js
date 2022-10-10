@@ -25,7 +25,7 @@ const ProductLine_SavingAccount = [
     },
     {
         id: 7,
-        Name: '30007 - Tiết kiejeem có kỳ hạn tích lũy bảo hiểm',
+        Name: '30007 - Tiết kiệm có kỳ hạn tích lũy bảo hiểm',
     },
     {
         id: 8,
