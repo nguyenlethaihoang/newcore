@@ -25,6 +25,7 @@ import Table_Object from '../../../components/Table_Object';
 import Table_Header_ForeignExchange from '../../../data/Table_Header_ForeignExchange';
 import useFetchForeignExchange from '../../../customHooks/useFetchForeignExchange';
 import Currency_ForeignExchange from '../../../data/Currency_ForeignExchange'
+import foreignExchangeApi from '../../../apis/foreignExchangeApi';
 
 // ----- MAIN -----
 function EnquiryForeignExchange_Components({suffixID, forceDisable}) {
@@ -32,7 +33,8 @@ function EnquiryForeignExchange_Components({suffixID, forceDisable}) {
      const accountOfficerList = useFetchAccountOfficer();
      const currencyList = useFetchCurrency();
      const customerList = useFetchCustomer();
-     const foreignExchangeList = useFetchForeignExchange();
+     const [foreignExchangeList, setForeignExchangeList] = useState([]);
+
      
      // Function create Data for pushing to rows of the table
      function createData(id, Account, Amount, Status, CustomerName, CustomerPassportNumber, Detail) {
@@ -70,6 +72,11 @@ const handleClick = () => {
                     onClick={() => {
                          
                          let data = []
+                         const fetchForeignExchangeList = async () => {
+                              const response = await foreignExchangeApi.getAll();
+                              setForeignExchangeList(response.data) 
+                          }
+                          fetchForeignExchangeList();
                          foreignExchangeList.map((value, index) => {
                               let param1 = genTT(value.CustomerName)
                               let param2 = '1001-1126-2002'
