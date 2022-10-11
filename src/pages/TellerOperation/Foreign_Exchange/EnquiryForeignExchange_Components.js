@@ -23,15 +23,33 @@ import useFetchChargeCode from '../../../customHooks/useFetchChargeCode';
 import useFetchRelationCode from '../../../customHooks/useFetchRelationCode';
 import Table_Object from '../../../components/Table_Object';
 import Table_Header_ForeignExchange from '../../../data/Table_Header_ForeignExchange';
+import useFetchForeignExchange from '../../../customHooks/useFetchForeignExchange';
+import Currency_ForeignExchange from '../../../data/Currency_ForeignExchange'
+
 // ----- MAIN -----
 function EnquiryForeignExchange_Components({suffixID, forceDisable}) {
      // Fetch Data 
      const accountOfficerList = useFetchAccountOfficer();
      const currencyList = useFetchCurrency();
      const customerList = useFetchCustomer();
-function createData(id, Account, Amount, Status, CustomerName, CustomerPassportNumber, Detail) {
-return { id, Account, Amount, Status, CustomerName, CustomerPassportNumber, Detail};}
-  
+     const foreignExchangeList = useFetchForeignExchange();
+     
+     // Function create Data for pushing to rows of the table
+     function createData(id, Account, Amount, Status, CustomerName, CustomerPassportNumber, Detail) {
+     return { id, Account, Amount, Status, CustomerName, CustomerPassportNumber, Detail};}
+     // Function generate TT Number
+     function genTT(text) {
+          let newText = ''
+          for (let i = 0; i < 6; i++) {
+               if ((text.length-1) >= i) {
+                    newText += (text[i].charCodeAt(0) + text.length).toString();
+               }
+               else newText += '0'
+             }
+          
+          newText = 'TT.' + newText[0]+ newText[1]+ newText[2]+ newText[3]+ newText[4]+ newText[5] + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10) + Math.floor(Math.random() * 10);
+          return newText;
+     }
 //
 const [columnsTable, setColumnsTable] = useState([])
 const [rowsTable, setRowsTable] = useState([])
@@ -50,11 +68,22 @@ const handleClick = () => {
                     endIcon={<SearchIcon />}
                     variant='contained'
                     onClick={() => {
-                         setColumnsTable(Table_Header_ForeignExchange)  
+                         
                          let data = []
-                         data.push(createData('1', 'Account', 'Amount', 'Status', 'CustomerName', 'Passport', 'details',))
+                         foreignExchangeList.map((value, index) => {
+                              let param1 = genTT(value.CustomerName)
+                              let param2 = '1001-1126-2002'
+                              let param3 = value.AmountPaidToCust + Currency_ForeignExchange[value.DebitCurrencyID]?.Name ? value.AmountPaidToCust + ' ' + Currency_ForeignExchange[value.DebitCurrencyID]?.Name : '0'
+                              let param4 = 'AUT'
+                              let param5 = value.CustomerName
+                              let param6 = value.PhoneNo
+                              let param7 = {id: genTT(value.CustomerName), object: value}
+                              data.push(createData(param1, param2, param3, param4, param5, param6, param7))
+                          })
+                         setColumnsTable(Table_Header_ForeignExchange)  
                          setRowsTable(data)
                     }}
+                    
                >
                     Search
                </Button>

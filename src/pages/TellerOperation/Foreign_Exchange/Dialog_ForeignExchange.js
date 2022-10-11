@@ -22,7 +22,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 // ----- MAIN -----
-export default function Dialog_ForeignExchange({CustomerID}) {
+export default function Dialog_ForeignExchange({CustomerID, object}) {
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -105,7 +105,7 @@ export default function Dialog_ForeignExchange({CustomerID}) {
                 Print
             </Button>
         </Block_Button>
-        {isDisabledDialog && <ForeignExchange_Components suffixID='ForeignExchange_Popup' forceDisable={true}/>}
+        {isDisabledDialog && <ForeignExchange_Components suffixID='ForeignExchange_Popup' forceDisable={true} object={object}/>}
       </Dialog>
     </div>
   );

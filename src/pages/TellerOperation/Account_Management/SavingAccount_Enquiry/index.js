@@ -102,8 +102,9 @@ return (
                     // Temp Data
                     let data = []
                     data.push(createData_Discounted(1, 'LDID', 'Status', 'WorkingAccID', 'WorkingAccName', 'Currency', 'Principal', {id: 7, type: 1}))
-                    setColumnsTable_Discounted(Table_Header_Discounted)
-                    setRowsTable_Discounted(data)
+                    // setColumnsTable_Discounted(Table_Header_Discounted)
+                    // setRowsTable_Discounted(data)
+                    
                 }}
             >
                 Search

@@ -245,8 +245,8 @@ export default function Dialog_BlockAccount({CustomerID}) {
         </Block_Button>
         <BlockAccount_Components suffixID='BlockAccount_Popup' object = {account} blockage={blockage}/> 
         
-        {isNotification_Success_01 && <Message_String type='success' text='Block Account Successfully'/>}                  
-        {isNotification_Failed_01 && <Message_String type='error' text='Block Account Failed'/>}  
+        {isNotification_Success_01 && <Message_String type='success' text={accountStatus === 'Blocked'? 'Un-Block Account Successfully' : 'Block Account Successfully'} />}                  
+        {isNotification_Failed_01 && <Message_String type='error' text={accountStatus === 'Blocked'? 'Un-Block Account Failed' : 'Block Account Failed'}/>}  
         {isNotification_Message_01 && <Alert_String arrError={arrError}/>}  
       </Dialog>
     </div>
