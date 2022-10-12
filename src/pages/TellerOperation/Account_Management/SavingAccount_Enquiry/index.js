@@ -22,9 +22,12 @@ import Table_Header_ArrearPeriodic from '../../../../data/Table_Header_ArrearPer
 import useFetchCustomer from "../../../../customHooks/useFetchCustomer";
 import AutoComplete_Object from "../../../../components/AutoComplete_Object";
 import Table_Header_Discounted from '../../../../data/Table_Header_Discounted';
+import savingAccountApi from '../../../../apis/savingAccountApi';
+
 // ----- MAIN -----
 function SavingAccount_Enquiry() {
     // Init Table 
+    const [accountList, setAccountList] = useState([]);
     const [columnsTable, setColumnsTable] = useState([])
     const [rowsTable, setRowsTable] = useState([])
     // Init Table Discounted
@@ -59,7 +62,21 @@ return (
                 onClick={() => {
                     // Temp Data
                     let data = []
-                    data.push(createData(1, 'Status', 'CustomerID', 'Category', 'CCY', 'ProductLine', 'Principal', {id: 7, type: 1}))
+                    // data.push(createData(1, 'Status', 'CustomerID', 'Category', 'CCY', 'ProductLine', 'Principal', {id: 7, type: 1}))
+                    
+
+                    let params = {}
+                    const fetchArrearList = async () => {
+                        const response = await savingAccountApi.postEnquiryArrear(params);
+                        setAccountList(response.data) 
+                    }
+                    fetchArrearList();
+                    // console.log('accountList')
+                    // console.log(accountList)
+
+                    accountList.map((value, index) => {                                                                                     
+                        data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.PaymentCurrency]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 1, object: value}))
+                    })
                     setColumnsTable(Table_Header_ArrearPeriodic)
                     setRowsTable(data)
                 }}
@@ -128,7 +145,7 @@ return (
 }
 export default SavingAccount_Enquiry;
 
-// Create Data
+// Create Data Arrear and Periodic
 function createData(id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail) {
     return { id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail };
 }

@@ -33,13 +33,13 @@ return (
                 <TextField_Value id={'txt_AccountTitle_'+suffixID} label='Account Title' length='35' disabled={isDisabled} value={object.AccountTitle} required={true}/>
                 <TextField_Value id={'txt_ShortTitle_'+suffixID} label='Short Title' length='20' disabled={isDisabled} value={object.AccountTitle}/>
                 <Select_Object id={'slt_Currency_'+suffixID} label='Currency'required={true}object={Currency_ForeignExchange}length='15' disabled={isDisabled} />
+                <Select_Object id={'slt_AccountOfficer_'+suffixID} label='Account Officer'object={accountOfficerList}length='30' disabled={isDisabled} dataID={object.Category}/>
+                <Select_Object id={'slt_ProductLine_'+suffixID} label='Product Line' object={ProductLine_SavingAccount}length='40' disabled={isDisabled} value={object.ProductLine}/>
         </Block_Children>
         <Block_Children header2='JOIN ACCOUNT INFOMATION'>
                 <AutoComplete_Object id={'aut_JointA/CHolder_'+suffixID} label='Joint A/C Holder' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' disabled={isDisabled} defaultValue={object.CustomerID?`${object.CustomerID} - ${object.Customer?.GB_FullName}`:''}/>
                 <Select_Object id={'slt_Relationship_'+suffixID} label='Relationship'object={relationCodeList}length='30' disabled={isDisabled} dataID={object.Category}/>
                 <TextField_Value id={'txt_Notes_'+suffixID} label='Notes' length='20' disabled={isDisabled} value={object.AccountTitle}/>
-                <Select_Object id={'slt_AccountOfficer_'+suffixID} label='Account Officer'object={accountOfficerList}length='30' disabled={isDisabled} dataID={object.Category}/>
-
         </Block_Children>
     </Box>
 </div>

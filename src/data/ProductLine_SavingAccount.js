@@ -17,7 +17,7 @@ const ProductLine_SavingAccount = [
     },
     {
         id: 5,
-        Name: '30005 - Tiết kiệm có kỳ hạn bột thu',
+        Name: '30005 - Tiết kiệm có kỳ hạn bội thu',
     },
     {
         id: 6,

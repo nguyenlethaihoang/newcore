@@ -150,7 +150,6 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                         endIcon={<Search />}
                         variant="contained"
                         onClick={async () => {
-                                console.log('enquiry')
                                 let params = {}
                                 params.AccountID = document.getElementById('txt_AccountCode_'+suffixID).value
                                 params.CustomerType = resolveNameID(CustomerType, document.getElementById('slt_CustomerType_'+suffixID).innerText)
@@ -171,16 +170,10 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                                         setAccountList(response.data) 
                                 }
                                 fetchAccountList();
-                                console.log('account list')
-                                console.log(accountList)
                                 data = []
                                 accountList.map((value, index) => {
-                                        console.log("index", index)
-                                        console.log(value.id)
                                         data.push(createData(value.id, value.CustomerID, value.Customer.GB_FullName, value.Customer.DocID, value.CATEGORY.Name, value.PRODUCTLINE.Name, value.CURRENCY.Name, value.ActualBalance, value.WorkingAmount, {id: value.id}, {id: value.id}, {id: value.id}))
                                 })
-                                console.log('table data')
-                                console.log(data)
                                 setRowsTable(data)
                                 setColumnsTable(Table_Header_NonTermSaving)
                         }}

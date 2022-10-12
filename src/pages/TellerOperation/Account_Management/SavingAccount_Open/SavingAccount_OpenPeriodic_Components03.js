@@ -28,7 +28,7 @@ return (
         <Select_Object id={'slt_DebitAccount_'+suffixID} label='Debit Account'object={Currency_ForeignExchange}length='30' disabled={isDisabled} disabled={true} noValue='true' dataID='1'/>
         <TextField_Value id={'txt_Narative_'+suffixID} label='Narative' length='30'/> 
     </Block_Children>
-    <Block_Children>
+    {/* <Block_Children>
         <Block_Info>
             <TextField_Value id={'txt_AccountCCY_'+suffixID} label='Account CCY' length='30' disabled={true} /> 
             <TextField_Value id={'txt_CustomerID_'+suffixID} label='Customer ID' length='20' disabled={true} /> 
@@ -43,7 +43,7 @@ return (
             <TextField_Value id={'txt_AccountInLCY_'+suffixID} label='Account In LCY' length='30' disabled={true} /> 
 
         </Block_Info>
-    </Block_Children>
+    </Block_Children> */}
 </Block_Spacing>
 </div>
 );

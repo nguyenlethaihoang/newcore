@@ -43,13 +43,13 @@ return (
     }}
 >
     <Box m={2}>
-        <Block_Info>
+        {/* <Block_Info>
             <Block_Children header2='CUSTOMER INFOMATION'> 
                 <TextField_Value id={'txt_Customer_'+suffixID} label='Customer' length='35' disabled={true} value='_'/> 
                 <TextField_Value id={'txt_Category_'+suffixID} label='Category' length='35' disabled={true} value='_'/> 
                 <TextField_Value id={'txt_Currency_'+suffixID} label='Currency' length='35' disabled={true} value='_'/> 
             </Block_Children>
-        </Block_Info>
+        </Block_Info> */}
         <Block_Children header2='PRODUCT INFOMATION'>
                 <Select_Object id={'slt_Product_'+suffixID} label='Product'object={Product_Periodic_SavingAccount}length='30' disabled={isDisabled} required={true}/>
                 <TextField_Value id={'txt_Principal_'+suffixID} label='Principal' length='35' required={true}/> 

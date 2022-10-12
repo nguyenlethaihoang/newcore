@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { Stack } from '@mui/material';
 
 
-function AutoComplete_Object({id, object, length, disabled, dataID, label, params1, params2, params3, params4, required, defaultValue}) {
+function AutoComplete_Object({id, object, length, disabled, dataID, label, params1, params2, params3, params4, required, defaultValue, noDown}) {
 
     // Convert sang new arr 
     let convertObject = []
@@ -48,7 +48,8 @@ function AutoComplete_Object({id, object, length, disabled, dataID, label, param
             id={id}
             disabled={disabled}
             options={convertObject}
-            renderInput={(params) => <TextField {...params} label={label} required={required} />}
+            
+            renderInput={(params) => <TextField {...params} label={label} required={required} {...(noDown ? { InputLabelProps:{shrink: true,}} : {})}/>}
 
             sx={{ 
                 minWidth: `${length}ch`, 
