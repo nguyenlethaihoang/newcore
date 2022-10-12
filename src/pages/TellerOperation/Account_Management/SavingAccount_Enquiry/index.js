@@ -28,6 +28,7 @@ import savingAccountApi from '../../../../apis/savingAccountApi';
 function SavingAccount_Enquiry() {
     // Init Table 
     const [accountList, setAccountList] = useState([]);
+    const [accountList01, setAccountList01] = useState([]);
     const [columnsTable, setColumnsTable] = useState([])
     const [rowsTable, setRowsTable] = useState([])
     // Init Table Discounted
@@ -43,7 +44,7 @@ return (
         <Block_Spacing>
             {/* Block 1 - 1. Enquiry Arrear and Periodic*/}
             <Block_Children>
-                <Select_Object id={'slt_Type_Enquiry_ArrearPeriodic'} label='Type' object={Type_Enquiry_Arrear_Periodic}length='15'/>
+                <Select_Object id={'slt_Type_Enquiry_ArrearPeriodic'} label='Type' object={Type_Enquiry_Arrear_Periodic}length='15' dataID={1}/>
                 <TextField_Value id={'txt_RefID_Enquiry_ArrearPeriodic'} label='Ref ID' length='15'/>
                 <AutoComplete_Object id={'aut_CustomerID_Enquiry_ArrearPeriodic'} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' />
                 <Select_Object id={'slt_Status_Enquiry_ArrearPeriodic'} label='Status' object={Status_Enquiry_Arrear_Periodic}length='15'/>
@@ -51,7 +52,7 @@ return (
                 <Select_Object id={'slt_ProductLine_Enquiry_ArrearPeriodic'} label='Product Line' object={ProductLine_SavingAccount}length='35'/>
                 <TextField_Value id={'txt_PrincipalFrom_Enquiry_ArrearPeriodic'} label='Principal From' length='20' number={true}/>
                 <TextField_Value id={'txt_PrincipalTo_Enquiry_ArrearPeriodic'} label='Principal To' length='20' number={true}/>
-                <Select_Object id={'slt_Currency_Enquiry_ArrearPeriodic'} label='Currency' object={Currency_ForeignExchange}length='20'/>
+                <Select_Object id={'slt_Currency_Enquidry_ArrearPeriodic'} label='Currency' object={Currency_ForeignExchange}length='20'/>
             </Block_Children>
         </Block_Spacing>
         {/* Button For Search */}
@@ -60,25 +61,37 @@ return (
                 variant="contained"
                 endIcon={<SearchIcon />}
                 onClick={() => {
-                    // Temp Data
-                    let data = []
-                    // data.push(createData(1, 'Status', 'CustomerID', 'Category', 'CCY', 'ProductLine', 'Principal', {id: 7, type: 1}))
-                    
+                    if (document.getElementById('slt_Type_Enquiry_ArrearPeriodic').innerText == 'Periodic') {
+                        // Temp Data
+                        let data = []
+                        let params = {}
+                        const fetchArrearList01 = async () => {
+                            const response = await savingAccountApi.postEnquiryPeriodic(params);
+                            setAccountList01(response.data) 
+                        }
+                        fetchArrearList01();
+                        accountList01.map((value, index) => {                                                                                     
+                            data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.PaymentCurrency]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 2, object: value}))
+                        })
+                        setColumnsTable(Table_Header_ArrearPeriodic)
+                        setRowsTable(data)
 
-                    let params = {}
-                    const fetchArrearList = async () => {
-                        const response = await savingAccountApi.postEnquiryArrear(params);
-                        setAccountList(response.data) 
+                    } else {
+                        // Temp Data
+                        let data = []
+                        let params = {}
+                        const fetchArrearList = async () => {
+                            const response = await savingAccountApi.postEnquiryArrear(params);
+                            setAccountList(response.data) 
+                        }
+                        fetchArrearList();
+                        accountList.map((value, index) => {                                                                                     
+                            data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.PaymentCurrency]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 1, object: value}))
+                        })
+                        setColumnsTable(Table_Header_ArrearPeriodic)
+                        setRowsTable(data)
                     }
-                    fetchArrearList();
-                    // console.log('accountList')
-                    // console.log(accountList)
-
-                    accountList.map((value, index) => {                                                                                     
-                        data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.PaymentCurrency]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 1, object: value}))
-                    })
-                    setColumnsTable(Table_Header_ArrearPeriodic)
-                    setRowsTable(data)
+                    
                 }}
             >
                 Search

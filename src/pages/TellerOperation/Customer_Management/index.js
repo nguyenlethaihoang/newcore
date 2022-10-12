@@ -29,6 +29,7 @@ import useFetchMainSector from '../../../customHooks/useFetchMainSector';
 import useFetchIndustry from '../../../customHooks/useFetchIndustry';
 import useFetchSubSector from '../../../customHooks/useFetchSubSector';
 import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
+import Block_Spacing from '../../../components/Block_Spacing';
 
 
 // --------------- MUST HAVE -------------
@@ -344,6 +345,11 @@ function clearTextFields() {
                                 Reset   
                         </Button>
                   </Block_Button>
+                  <Block_Spacing>
+                  <Block_Children>
+                  *Note: Click twice "Search" to update the table
+                  </Block_Children>
+                  </Block_Spacing>
                   <Table_Object rows={rowsTable} columns={columnsTable}/>
             </Accordian_Children>
         </div>

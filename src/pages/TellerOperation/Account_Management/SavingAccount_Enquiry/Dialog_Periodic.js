@@ -11,23 +11,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
-// Components
-import Block_Children from '../../../components/Block_Children';
-import customerApi from '../../../apis/customerApi';
-import IndividualCustomer_Components from './IndividualCustomer_Components';
-import Block_Button from '../../../components/Block_Button';
-import Message_String from '../../../components/Message_String';
-import Alert_String from '../../../components/Alert_String';
-// APIs
-// Fetch API by Custom Hook
-import useFetchCity from '../../../customHooks/useFetchCity';
-import useFetchCountry from '../../../customHooks/useFetchCountry';
-import useFetchDocType from '../../../customHooks/useFetchDocType';
-import useFetchMainIndustry from '../../../customHooks/useFetchMainIndustry';
-import useFetchMainSector from '../../../customHooks/useFetchMainSector';
-import useFetchIndustry from '../../../customHooks/useFetchIndustry';
-import useFetchSubSector from '../../../customHooks/useFetchSubSector';
-import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
+import Block_Button from '../../../../components/Block_Button';
+import IndividualCustomer_Components from '../../Customer_Management/IndividualCustomer_Components';
+import Message_String from '../../../../components/Message_String';
+import Alert_String from '../../../../components/Alert_String';
+import SavingAccount_OpenArrear_Components01 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components01';
+import SavingAccount_OpenArrear_Components02 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components02';
+import SavingAccount_OpenArrear_Components03 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components03';
+import Block_Children from '../../../../components/Block_Children';
+import SavingAccount_OpenPeriodic_Components01 from '../SavingAccount_Open/SavingAccount_OpenPeriodic_Components01';
+import SavingAccount_OpenPeriodic_Components02 from '../SavingAccount_Open/SavingAccount_OpenPeriodic_Components02';
 
 // import Block_Button from '../../../components/Block_Button';
 
@@ -40,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Dialog_Individual({CustomerID}) {
+export default function Dialog_Periodic({CustomerID, object}) {
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -72,59 +65,17 @@ export default function Dialog_Individual({CustomerID}) {
     const [isNotification_Failed_02, setIsNotification_Failed_02] = useState(false)
     const [isNotification_Message_02, setIsNotification_Message_02] = useState(false)
 
-  // ------------------ FETCH API ---------------
-  // Fetch Data 
-const cityList = useFetchCity();
-const countryList = useFetchCountry();
-const docTypeList = useFetchDocType();
-const mainIndustryList = useFetchMainIndustry();
-const industryList = useFetchIndustry();
-const mainSectorList = useFetchMainSector();
-const subSectorList = useFetchSubSector();
-const accountOfficerList = useFetchAccountOfficer();
-  // Fetch API Customer Item
-  const [customerItem, setCustomerItem] = useState([]);
-  useEffect(() => 
-  {const fetchCustomerItem = async () => 
-    {
-      try {
-        const response = await customerApi.getIndividual(CustomerID);
-        setCustomerItem(response.data)} 
-      catch (error) {
-        console.log('Failed to fetch customerItem: ', error)
-      }
-    };
-    fetchCustomerItem();
-  }, [])
 
-  // CONVERT TO ID
-  function resolveNameID(object, text) {
-    let temp = null
-    object.map((data, index) => {
-            if (data.Name == text)
-            {
-            temp = data.id.toString()
-            
-            }
-    })
-    return temp 
-  }
-    // rersolve from text to id with Code
-    function resolveCodeID(object, text) {
-        let temp = null
-        object.map((data, index) => {
-                if (data.Code == text)
-                {
-                temp = data.id.toString()
-                
-                }
-        })
-        return temp
-    }
-
-
-  return (
-    <div>
+    return (
+    <div
+      onClick={() => {
+        document.getElementById('txt_WorkingAccount_SavingAccount02_Popup').value = document.getElementById('aut_CustomerID_SavingAccount01_Popup').value;
+        document.getElementById('txt_Customer_SavingAccount02_Popup').value = document.getElementById('aut_CustomerID_SavingAccount01_Popup').value;
+        document.getElementById('txt_Category_SavingAccount02_Popup').value = document.getElementById('slt_Category_SavingAccount01_Popup').innerText;
+        document.getElementById('txt_Currency_SavingAccount02_Popup').value = document.getElementById('slt_Currency_SavingAccount01_Popup').innerText;
+      
+      }}
+    >
       <Button 
             variant="outlined" 
             onClick={handleClickOpen}
@@ -154,7 +105,7 @@ const accountOfficerList = useFetchAccountOfficer();
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Individual Customer - Customer ID: {CustomerID}
+              Periodic Saving Account - Ref ID: {CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={async () => {
                 
@@ -166,25 +117,6 @@ const accountOfficerList = useFetchAccountOfficer();
               params.GBShortName = document.getElementById('txt_GBShortName_OpenIndividual_Popup').value;
               params.GBFullName = document.getElementById('txt_GBFullName_OpenIndividual_Popup').value;
               params.BirthDay = document.getElementById('dp_BirthDay_OpenIndividual_Popup').value;
-                                                
-              params.GBStreet = document.getElementById('txt_GBStreet_OpenIndividual_Popup').value;
-              params.GBTownDist = document.getElementById('txt_GBTownDist_OpenIndividual_Popup').value;
-              params.MobilePhone = document.getElementById('txt_MobilePhone_OpenIndividual_Popup').value;
-              params.CityProvince = resolveNameID(cityList, document.getElementById('slt_CityProvince_OpenIndividual_Popup').innerText);
-              params.GBCountry = resolveCodeID(countryList,document.getElementById('slt_GBCountry_OpenIndividual_Popup').innerText);
-              params.Nationality = resolveCodeID(countryList,document.getElementById('slt_Nationality_OpenIndividual_Popup').innerText);
-              params.Residence = resolveCodeID(countryList,document.getElementById('slt_Residence_OpenIndividual_Popup').innerText);
-              params.DocType = resolveNameID(docTypeList,document.getElementById('slt_DocType_OpenIndividual_Popup').innerText);
-              params.DocID = document.getElementById('txt_DocID_OpenIndividual_Popup').value;
-              params.DocIssuePlace = document.getElementById('dp_DocIssuePlace_OpenIndividual_Popup').value;
-              params.DocExpiryDate = document.getElementById('dp_DocExpiryDate_OpenIndividual_Popup').value;
-              params.EmailAddress = document.getElementById('txt_EmailAddress_OpenIndividual_Popup').value;
-
-              params.MainSector = resolveNameID(mainSectorList,document.getElementById('slt_MainSector_OpenIndividual_Popup').innerText);
-              params.MainIndustry = resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenIndividual_Popup').innerText);
-              params.Industry = resolveNameID(industryList,document.getElementById('slt_Industry_OpenIndividual_Popup').innerText);
-              params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_OpenIndividual_Popup').innerText);
-
               arrError = []
               if (document.getElementById('txt_GBShortName_OpenIndividual_Popup').value.length <= 2)
                       arrError.push('GB Short Name is Required')
@@ -195,18 +127,9 @@ const accountOfficerList = useFetchAccountOfficer();
               if (document.getElementById('txt_GBTownDist_OpenIndividual_Popup').value.length == 0)
                       arrError.push('GB Town/Dist is Required')
                       
-              if (resolveNameID(cityList,document.getElementById('slt_CityProvince_OpenIndividual_Popup').innerText) === null)
-                      arrError.push('City/Province is Required')
-              if (resolveNameID(docTypeList,document.getElementById('slt_DocType_OpenIndividual_Popup').innerText) === null)
-                      arrError.push('Doc Type is Required')
-              if (document.getElementById('txt_DocID_OpenIndividual_Popup').value.length == 0) 
-                      arrError.push('Doc ID is Required')
-              // if (resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenIndividual_Popup').innerText) === null)
-              //         arrError.push('Main Industry is Required')
-              // if (resolveNameID(industryList,document.getElementById('slt_Industry_OpenIndividual_Popup').innerText) === null)
-              //         arrError.push('Industry is Required')
               if(arrError.length == 0){
-                const res = await customerApi.updateIndividual(params, CustomerID);
+                // const res = await customerApi.updateIndividual(params, CustomerID);
+                const res = 0
                 if(res != 'fail') {
                   setIsNotification_Success_01(true); 
                   setTimeout(() => {setIsNotification_Success_01(false)}, 3000);
@@ -242,13 +165,30 @@ const accountOfficerList = useFetchAccountOfficer();
                 variant="contained"
                 endIcon={<PrintIcon />}
                 onClick={() => {
+                    console.log('object')
+                    console.log(object)
+                    console.log('object.Category')
+                    console.log(object.Category)
                 }}
             >
                 Print
             </Button>
         </Block_Button>
-        {(isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={isDisabledDialog} object={customerItem}/>}
-        {(!isDisabledDialog) && <IndividualCustomer_Components suffixID={'OpenIndividual_Popup'} forceDisable={false}  object={customerItem}/>}
+           
+          {(isDisabledDialog) &&  
+              <Block_Children>
+                  <SavingAccount_OpenPeriodic_Components01 suffixID={'SavingAccount01_Popup'} forceDisable={isDisabledDialog} object={object}/>
+                  <SavingAccount_OpenPeriodic_Components02 suffixID={'SavingAccount02_Popup'} forceDisable={isDisabledDialog} object={object}/>
+                  {/* <SavingAccount_OpennPeriodic_Components03 suffixID={'SavingAccount03_Popup'} forceDisable={isDisabledDialog} object={object}/> */}
+              </Block_Children>
+          }
+          {(!isDisabledDialog) &&  
+              <Block_Children>
+                  <SavingAccount_OpenPeriodic_Components01 suffixID={'SavingAccount01_Popup'} forceDisable={isDisabledDialog} object={object}/>
+                  <SavingAccount_OpenPeriodic_Components02 suffixID={'SavingAccount02_Popup'} forceDisable={isDisabledDialog} object={object}/>
+                  {/* <SavingAccount_OpennPeriodic_Components03 suffixID={'SavingAccount03_Popup'} forceDisable={isDisabledDialog} object={object}/> */}
+              </Block_Children>
+          }
         
 
         {isNotification_Success_01 && <Message_String type='success' text='Update Individual Customer Successfully'/>} 

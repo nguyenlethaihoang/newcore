@@ -194,10 +194,10 @@ const accountOfficerList = useFetchAccountOfficer();
                         arrError.push('Doc Type is Required')
                 if (document.getElementById('txt_DocID_OpenCorporate_Popup').value.length == 0) 
                         arrError.push('Doc ID is Required')
-                if (resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenCorporate_Popup').innerText) === null)
-                        arrError.push('Main Industry is Required')
-                if (resolveNameID(industryList,document.getElementById('slt_Industry_OpenCorporate_Popup').innerText) === null)
-                        arrError.push('Industry is Required')
+                // if (resolveNameID(mainIndustryList,document.getElementById('slt_MainIndustry_OpenCorporate_Popup').innerText) === null)
+                //         arrError.push('Main Industry is Required')
+                // if (resolveNameID(industryList,document.getElementById('slt_Industry_OpenCorporate_Popup').innerText) === null)
+                //         arrError.push('Industry is Required')
                         if (
                         arrError.length == 0
                 ) {

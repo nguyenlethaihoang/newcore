@@ -33,7 +33,7 @@
 }
 
 .email_logo {
-    padding-left: 320px;
+    padding-left: 250px;
     /* padding-top: 17px; */
 
 }
@@ -63,6 +63,7 @@
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    width: 120px;
 
 }
 .timeDate {
@@ -74,5 +75,7 @@
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+    width: 250px;
+
 
 }

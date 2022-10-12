@@ -9,6 +9,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Box from "@mui/material/Box";
 import { Avatar, IconButton, Menu, MenuItem, Tooltip, Typography} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function checkDay() {
     let tmp = ""
@@ -109,13 +110,16 @@ function Layout_Header() {
         >
             <div className='inner'>
                 <div className='logo'>
-                    <img 
-                        src = {process.env.PUBLIC_URL + `/images/logo.png`}
-                        // src = '../../assets/images/logo.png'
-                        alt = "VietVictory"
-                        width= "90"
-                        height = "60"
-                    />
+                    
+             <Link to="/" style={{textDecoration: 'none'}}>
+                <img 
+                            src = {process.env.PUBLIC_URL + `/images/logo.png`}
+                            // src = '../../assets/images/logo.png'
+                            alt = "VietVictory"
+                            width= "90"
+                            height = "60"
+                /> 
+            </Link>
                 </div>
                 <div className='university_logo'>
                     <img 

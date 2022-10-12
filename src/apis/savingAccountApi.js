@@ -68,6 +68,107 @@ const savingAccountApi = {
         //         return ('fail')
         //     })
         // ;
-    }
+    },
+
+    postCreatePeriodic: async (params) => { 
+        const url = '/account/saving_account/open_periodic';
+        return await axiosClient.post(url, {
+            customerID: params.CustomerID,
+            category: params.Category,
+            accountTitle: params.AccountTitle,
+            shortTitle: params.ShortTitle,
+            currency: params.Currency,
+            productLine: params.ProductLine,
+            joinHolder: params.JoinHolder,
+            relationShip : params.Relationship,
+            notes: params.Notes,
+            accountOfficer: params.AccountOfficer,
+            product: params.Product,
+            principalAmount: params.Principal,
+            // valueDate: '',
+            term: params.Term,
+            interestRate: params.InterestRate,
+            debitAccount: params.DebitAccount,
+            rolloverPR: params.RolloverPR,
+            paymentCurrency: params.PaymentCCY,
+            teller: params.Teller,
+            narrative: params.Narrative,
+            paymentNo: params.PaymentNumber
+        })
+            .then(res => {
+                console.log('res')
+                console.log(res)
+                return ('success')
+            })
+            .catch(err => {
+                console.log('params')
+                console.log(params)
+                console.log(err)
+                console.log('err')
+                return ('fail')
+            })
+        ;
+    },
+    postEnquiryPeriodic: async (params) => {
+        const url = '/account/saving_account/enquiry_periodic';
+        return await axiosClient.post(url, {
+            // refID: req.body.refID,
+            // status: req.body.status, 
+            // category: req.body.category, 
+            // customerID: req.body.customerID, 
+            // productLine: req.body.productLine,
+            // principalFrom: req.body.principalFrom,
+            // principalTo: req.body.principalTo,
+            // currency: req.body.currency
+        })
+        //     .then(res => {
+        //         return ('success')
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         console.log('err')
+        //         return ('fail')
+        //     })
+        // ;
+    },
+    postCreateDiscounted: async (params) => { 
+        const url = '/account/saving_account/open_discounted';
+        return await axiosClient.post(url, {
+            customerID: params.CustomerID,
+            category: params.Category,
+            accountTitle: params.AccountTitle,
+            shortTitle: params.ShortTitle,
+            currency: params.Currency,
+            productLine: params.ProductLine,
+            joinHolder: params.JoinHolder,
+            relationShip : params.Relationship,
+            notes: params.Notes,
+            accountOfficer: params.AccountOfficer,
+            product: params.Product,
+            principalAmount: params.Principal,
+            // valueDate: '',
+            term: params.Term,
+            interestRate: params.InterestRate,
+            debitAccount: params.DebitAccount,
+            rolloverPR: params.RolloverPR,
+            paymentCurrency: params.PaymentCCY,
+            teller: params.Teller,
+            narrative: params.Narrative,
+            paymentNo: params.PaymentNumber
+        })
+            .then(res => {
+                console.log('res')
+                console.log(res)
+                return ('success')
+            })
+            .catch(err => {
+                console.log('params')
+                console.log(params)
+                console.log(err)
+                console.log('err')
+                return ('fail')
+            })
+        ;
+    },
 }
     export default savingAccountApi;

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Dialog_Arrear from '../pages/TellerOperation/Account_Management/SavingAccount_Enquiry/Dialog_Arrear';
+import Dialog_Periodic from '../pages/TellerOperation/Account_Management/SavingAccount_Enquiry/Dialog_Periodic';
 
 
 const Table_Header_ArrearPeriodic = [
@@ -13,7 +14,7 @@ const Table_Header_ArrearPeriodic = [
     {field: 'Detail',headerName: 'Detail',width: 100, renderCell: (params) => 
         <div>
             {(params.value.type == 1) && <Dialog_Arrear CustomerID={params.value.id} object={params.value.object}/>}
-            {/* {(params.value.type == 2) && <Dialog_Corporate CustomerID={params.value.id}/>} */}
+            {(params.value.type == 2) && <Dialog_Periodic CustomerID={params.value.id}  object={params.value.object}/>}
         </div>
 },
 ]

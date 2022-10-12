@@ -27,6 +27,7 @@ import useFetchAccountOfficer from "../../../../customHooks/useFetchAccountOffic
 import Close_Online from "../../../../data/Close_Online";
 import ProductLine_SavingAccount from "../../../../data/ProductLine_SavingAccount";
 import savingAccountApi from '../../../../apis/savingAccountApi';
+import Product_Periodic_SavingAccount from "../../../../data/Product_Periodic_SavingAccount";
 
 
 // ----- MAIN -----
@@ -59,7 +60,7 @@ function SavingAccount_Open() {
 return ( 
 <div>
      {/* 1. Open Arrear  */}
-     <Accordian_Children title='Open Arrear' label='label1'>
+     <Accordian_Children title='1. Open Arrear' label='label1'>
             <Block_Button>
                     <Button
                         variant={isChangeComponent == '1' ? 'contained' : 'outlined'}
@@ -201,7 +202,7 @@ return (
             {isNotification_Message_01 && <Alert_String arrError={arrError}/>} 
     </Accordian_Children>
     {/* 2. Open Periodic  */}
-    <Accordian_Children title='Open Periodic' label='label1'>  
+    <Accordian_Children title='2. Open Periodic' label='label1'>  
                 <Block_Button>
                     <Button
                         variant={isChangeComponent01 == '1' ? 'contained' : 'outlined'}
@@ -214,13 +215,10 @@ return (
                     <Button
                         variant={isChangeComponent01 == '2' ? 'contained' : 'outlined'}
                         onClick={() => {
-                            document.getElementById('txt_Customer_Open_Periodic_SavingAccount02').value = document.getElementById('aut_CustomerID_Open_Periodic_SavingAccount01').value;
-                            document.getElementById('txt_Category_Open_Periodic_SavingAccount02').value = document.getElementById('slt_Category_Open_Periodic_SavingAccount01').innerText;
-                            document.getElementById('txt_Currency_Open_Periodic_SavingAccount02').value = document.getElementById('slt_Currency_Open_Periodic_SavingAccount01').innerText;
                             setIsChangeComponent01('2');
                         }}
                     >
-                        All In One Account
+                        All In One Account 
                     </Button>
                     <Button
                         variant={isChangeComponent01 == '3' ? 'contained' : 'outlined'}
@@ -248,13 +246,64 @@ return (
                         <Button
                             endIcon={<SaveIcon />}
                             variant='contained'
+                            onClick={async() => {
+                                // Temp object for checking
+                                let params = {}
+                                // Params force
+                                params.CustomerID =  resolveStrtoID(document.getElementById('aut_CustomerID_Open_Periodic_SavingAccount01').value)
+                                params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_Open_Periodic_SavingAccount01').innerText)
+                                params.AccountTitle = document.getElementById('txt_AccountTitle_Open_Periodic_SavingAccount01').value
+                                params.Currency = resolveNameID(Currency_ForeignExchange, document.getElementById('slt_Currency_Open_Periodic_SavingAccount01').innerText) % 5 + 1
+                                params.Product = resolveNameID(Product_Periodic_SavingAccount, document.getElementById('slt_Product_Open_Periodic_SavingAccount02').innerText )
+                                params.Principal = document.getElementById('txt_Principal_Open_Periodic_SavingAccount02').value
+                                params.Term = resolveNameID(termSavingList, document.getElementById('slt_Term_Open_Periodic_SavingAccount02').innerText)
+                                // Params normal
+                                params.ProductLine = resolveNameID(ProductLine_SavingAccount,document.getElementById('slt_ProductLine_Open_Periodic_SavingAccount01').innerText)
+                                params.ShortTitle = document.getElementById('txt_ShortTitle_Open_Periodic_SavingAccount01').value
+                                params.JoinHolder = resolveStrtoID(document.getElementById('aut_JointA/CHolder_Open_Periodic_SavingAccount01').value)
+                                params.Relationship = resolveNameID(relationCodeList,document.getElementById('slt_Relationship_Open_Periodic_SavingAccount01').innerText)
+                                params.Notes = document.getElementById('txt_Notes_Open_Periodic_SavingAccount01').value
+                                params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_Open_Periodic_SavingAccount01').innerText)
+                                params.InterestRate = document.getElementById('txt_InterestRate_Open_Periodic_SavingAccount02').value
+                                params.PaymentNumber = document.getElementById('txt_PaymentNumber_Open_Periodic_SavingAccount03').value != "" ? document.getElementById('txt_PaymentNumber_Open_Periodic_SavingAccount03').value : genPaymentNumber();
+                                params.Teller = document.getElementById('txt_ForTeller_Open_Periodic_SavingAccount03').value
+                                params.PaymentCCY = resolveNameID(Currency_ForeignExchange,document.getElementById('slt_PaymentCCY_Open_Periodic_SavingAccount03').innerText) % 5 + 1
+                                params.Narrative = document.getElementById('txt_Narative_Open_Periodic_SavingAccount03').value
+                                // Check error and store it by Array
+                                arrError = []
+                                if(!params.CustomerID) arrError.push('Customer ID is Required')
+                                if(!params.Category) arrError.push('Category is Required')
+                                if(!params.AccountTitle) arrError.push('Account Title is Required')
+                                if(!params.Currency) arrError.push('Currency is Required')
+                                if(!params.Product) arrError.push('Product is Required')
+                                if(!params.Principal) arrError.push('Principal is Required')
+                                if(!params.Term) arrError.push('Term is Required')
+                                if(arrError.length != 0) {
+                                    setIsNotification_Message_02(true)
+                                    setTimeout(() => {setIsNotification_Message_02(false)}, 4000);
+                                }
+                                else {
+                                    const res = await savingAccountApi.postCreatePeriodic(params);
+                                    if(res != 'fail') {
+                                        setIsNotification_Success_02(true); 
+                                        setTimeout(() => {setIsNotification_Success_02(false)}, 5000);
+                                        // clearTextFields()
+                                } else {
+                                        setIsNotification_Failed_01(true)
+                                        setTimeout(() => {setIsNotification_Failed_02(false)}, 5000); 
+                                }
+                                }
+                            }}
                         >
                                 Save
                         </Button>
             </Block_Button>
+            {isNotification_Success_02 && <Message_String type='success' text='Open Periodic Saving Account Successfully'/>} 
+            {isNotification_Failed_02 && <Message_String type='error' text='Open Periodic Saving Account Failed'/>}  
+            {isNotification_Message_02 && <Alert_String arrError={arrError}/>} 
     </Accordian_Children>
     {/* 3. Open Discounted  */}
-    <Accordian_Children title='Open Discounted' label='label1'>  
+    <Accordian_Children title='3. Open Discounted' label='label1'>  
             <Block_Button>
                     <Button
                         variant={isChangeComponent02 == '1' ? 'contained' : 'outlined'}
