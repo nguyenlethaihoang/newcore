@@ -162,6 +162,7 @@ export default function Dialog_OpenAccount({CustomerID}) {
               params.RelationCode = resolveStrtoID( document.getElementById('aut_RelationCode_OpenAccount_Popup').value)
               params.JoinNotes = document.getElementById('txt_Join Notes_OpenAccount_Popup').value
               arrError = []
+              
                 if(!params.CustomerID){
                     arrError.push('Customer ID is required')
                 }
