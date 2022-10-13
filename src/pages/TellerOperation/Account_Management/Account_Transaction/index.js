@@ -9,7 +9,12 @@ import { useState } from "react";
 import Message_String from "../../../../components/Message_String";
 import Alert_String from "../../../../components/Alert_String";
 import Block_Children from "../../../../components/Block_Children";
+import SaveIcon from '@mui/icons-material/Save';
 import EnquiryCustomerTranComponents from "./CustomerInterbranchTransaction/EnquiryCustomerTranComponents";
+import DeleteIcon from '@mui/icons-material/Delete';
+import SearchIcon from '@mui/icons-material/Search';
+import CashWithdrawalComponents from "./CustomerInterbranchTransaction/CashWithdrawalComponents";
+import currencyList_Basic from "../../../../data/currencyList_Basic";
 
 function Account_Transaction() {
     const currencyList = useFetchCurrency();
@@ -34,6 +39,7 @@ return (
                 <Block_Button>
                     <Button
                         variant="contained"
+                        endIcon={<SaveIcon />}
                         onClick={ async () => {
                             // Temp object for storing
                             let params = {}
@@ -52,9 +58,6 @@ return (
                             }
                             if(!params.TellerID){
                                 arrError.push('Teller ID is required')
-                            }
-                            if(!document.getElementById('txt_AmountDeposited_CashDeposits').value){
-                                arrError.push('Amount Deposited is required')
                             }
                             if(!params.DealRate){
                                 arrError.push('Deal Rate is required')
@@ -82,7 +85,23 @@ return (
                     >
                         Save
                     </Button>
-                    <Button>
+                    <Button
+                        variant="outlined"
+                        endIcon={<DeleteIcon />}
+                        onClick={() => {
+                            document.getElementById('txt_CustomerAccount_CashDeposits').value = ''
+                            document.getElementById('txt_CustomerID_CashDeposits').value = ''
+                            document.getElementById('txt_CustomerName_CashDeposits').value = ''
+                            document.getElementById('txt_Currency_CashDeposits').value = ''
+                            document.getElementById('txt_AmtPaidToCust_CashDeposits').value = ''
+                            document.getElementById('txt_CustBal_CashDeposits').value = ''
+                            document.getElementById('txt_NewCustBal_CashDeposits').value = ''
+                            document.getElementById('txt_AmountDeposited_CashDeposits').value = ''
+                            document.getElementById('txt_DealRate_CashDeposits').value = '1'
+                            document.getElementById('txt_Narrative_CashDeposits').value = ''
+                            document.getElementById('txt_PrintLnNoOfPS_CashDeposits').value = ''
+                        }}
+                    >
                         Reset
                     </Button>
                 </Block_Button> 
@@ -92,6 +111,58 @@ return (
         </Accordian_Children>
         {/*  Cash Withdrawal  */}
         <Accordian_Children title='1.2. Cash Withdrawal' label='label1' >  
+                <CashWithdrawalComponents suffixID={'CashWithdrawal'}/>
+                <Block_Button>
+                    <Button
+                        variant="contained"
+                        onClick={async() => {
+                            // Temp object for storing
+                            let params = {}
+                            // params.AccountType = document.getElementById('').value
+                            params.AccountType = 1;
+                            params.Account = document.getElementById('txt_CustomerAccount_CashWithdrawal').value
+                            params.Amount = document.getElementById('txt_Amount_CashWithdrawal').value
+                            params.Narrative = document.getElementById('txt_Narrative_CashWithdrawal').value
+                            params.TellerID = document.getElementById('txt_TellerID_CashWithdrawal').value
+                            params.CashAccount = resolveNameID(currencyList_Basic,document.getElementById('slt_CurrencyPaid_CashWithdrawal').innerText)
+                            params.DealRate = document.getElementById('txt_DealRate_CashWithdrawal').value
+                            params.WaiveCharges = resolveNameID(Close_Online,document.getElementById('slt_WaiveCharges_CashWithdrawal').innerText)
+                            
+                            arrError = []
+                            if(!params.Account){
+                                arrError.push('Customer Account is required')
+                            }
+                            if(!params.TellerID){
+                                arrError.push('Teller ID is required')
+                            }
+                            if(!params.CashAccount){
+                                arrError.push('Currency Paid is required')
+                            }
+                            if(parseFloat(document.getElementById('txt_NewCustBal_CashWithdrawal').value) < 0){
+                                arrError.push('New Cust Bal cannot be less than 0')
+                            }
+                            if (arrError.length == 0) {
+                                const res = await cashDepositsApi.postCreateWithdrawal(params);
+                                if(res != 'fail') {
+                                    setIsNotification_Success_02(true); 
+                                    setTimeout(() => {setIsNotification_Success_02(false)}, 5000);
+                                } else {
+                                        setIsNotification_Failed_02(true)
+                                        setTimeout(() => {setIsNotification_Failed_02(false)}, 5000); 
+                                }
+                            }
+                            else {
+                                setIsNotification_Message_02(true)
+                                setTimeout(() => {setIsNotification_Message_02(false)}, 5000);
+                            }
+                        }}
+                    >
+                        Save
+                    </Button>
+                </Block_Button>
+                {isNotification_Success_02 && <Message_String type='success' text='Add Cash Withdrawal Successfully'/>}                  
+                {isNotification_Failed_02 && <Message_String type='error' text='Add Cash Withdrawal Failed'/>}  
+                {isNotification_Message_02 && <Alert_String arrError={arrError}/>}  
         </Accordian_Children>
         {/*  Transfer Withdrawal  */}
         <Accordian_Children title='1.3. Transfer Withdrawal' label='label1' >  

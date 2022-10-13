@@ -9,7 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // 2022-10-18T21:11:54
-function DataPicker_Day({label, id, disabled, defaultValue}) {
+function DataPicker_Day({label, id, disabled, defaultValue,}) {
   const [value, setValue] = React.useState(dayjs(defaultValue));
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -26,13 +26,16 @@ function DataPicker_Day({label, id, disabled, defaultValue}) {
                 inputFormat="DD/MM/YYYY"
                 value={value}
                 onChange={handleChange}
-                renderInput={(params) => <TextField {...params} 
-                id={id}
-                sx={{ 
-                    width: `19ch`, 
-                    mr: `${process.env.REACT_APP_SPACE}px`,
-                    mt: `${process.env.REACT_APP_SPACE}px`,
-                }}/>}
+                renderInput={(params) => 
+                <TextField {...params} 
+                    id={id}
+                    sx={{ 
+                        width: `19ch`, 
+                        mr: `${process.env.REACT_APP_SPACE}px`,
+                        mt: `${process.env.REACT_APP_SPACE}px`,
+                    }}/>}   
+                    // {...(noDown ? { InputLabelProps:{shrink: true,}} : {})}
+
                 />
             </Stack>
         </LocalizationProvider>
