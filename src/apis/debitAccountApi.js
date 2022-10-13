@@ -1,6 +1,10 @@
 import axiosClient from "./axiosClient";
 
 const debitAccountApi = {
+    getAll: (params) => {
+        const url = '/account/debit_aacount/get_all';
+        return axiosClient.get(url, { params });
+    },
     open: async (params) => {
         const url = 'account/debit_account/open';
         return axiosClient.post(url, {
