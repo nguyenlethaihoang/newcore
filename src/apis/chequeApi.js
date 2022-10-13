@@ -110,5 +110,70 @@ const chequeApi = {
         })
 
     },
+    transfer: async (params) => {
+        const url = '/cheque/transfer';
+        return axiosClient.post(url, {
+            chequeID: params.ChequeID,
+            chequeNo: params.ChequeNo,
+            debitAmount: params.DebitAmount,
+            chequeType: params.ChequeType,
+            valueDate: params.ValueDate,
+            dealRate: params.DealRate,
+            creditAccount: params.CreditAccount,
+            waiveCharges: params.WaiveCharges,
+            exposureDate: params.ExposureDate,
+            narrative: params.Narrative,
+            beneficiaryName: params.BeneficiaryName,
+            beneficiaryAddress: params.BeneficiaryAddress,
+            beneficiaryLegalID: params.BeneficiaryLegalID,
+            issuedDate: params.IssuedDate,
+            placeOfIssue: params.PlaceOfIssue,
+            debitCurrency: params.DebitCurrency,
+            creditCurrency: params.CreditCurrency,
+            beneficiaryAccount: params.BeneficiaryAccount
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            console.log('err')
+            console.log(err.response.data.message)
+            return (err.response.data.message)
+        })
+    },
+    validateTransfer: async(params, id) => {
+        const url = `/cheque/transfer/validate/${id}`;
+        return axiosClient.put(url, {
+            status: params.Status    
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            console.log('err')
+            console.log(err.response.data.message)
+            return (err.response.data.message)
+        })
+    },
+    getTransfer: async(id) => {
+        const url = `/cheque/transfer/get/${id}`;
+        return axiosClient.get(url)
+    },
+    enquiryTransfer:  async(params) => {
+        const url = '/cheque/transfer/enquiry';
+        return axiosClient.post(url, {
+            transferID: params.TransferID,
+            customerID: params.CustomerID,
+            chequeType: params.ChequeType,
+            workingAccount: params.WorkingAccount,
+            customerName: params.CustomerName,
+            legalID: params.LegalID,
+            chequeNo: params.ChequeNo,
+            transferDate: params.WithdrawalDate,
+            amountfr: params.Amountfr,
+            amountto: params.Amountto
+        })
+
+    },
 }
     export default chequeApi;

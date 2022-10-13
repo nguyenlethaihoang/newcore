@@ -81,8 +81,8 @@ if(!object){
                     <Select_Object id={'slt_ChequeStatus_'+suffixID} label='Cheque Status'required={true} object={ChequeStatus_Data} length='25' disabled={isDisabled} dataID={object.ChequeStatus}/>
                     <Select_Object id={'slt_Currency_'+suffixID} label='Currency Account' object={currencyList} length='25' disabled={true} dataID='5'/>
                     <DataPicker_Day id={'dp_IssueDate_'+suffixID}label='Issue Date' defaultValue={object.IssueDate}/>
-                    <TextField_Value id={'txt_QuantityIssued_'+suffixID} label='Quantity of Issued' length='35' disabled={isDisabled} required={true} value={object.IssuedQuantity? object.IssuedQuantity : 5}/>
-                    <TextField_Value id={'txt_ChequeNoStart_'+suffixID} label='Cheque No Start' length='25' disabled={isDisabled} required={true} value={object.ChequeNoStart}/>
+                    <TextField_Value id={'txt_QuantityIssued_'+suffixID} label='Quantity of Issued' length='35' disabled={isDisabled} required={true} value={object.IssuedQuantity? object.IssuedQuantity : 5} number={true} noDown={true}/>
+                    <TextField_Value id={'txt_ChequeNoStart_'+suffixID} label='Cheque No Start' length='25' disabled={isDisabled} required={true} value={object.ChequeNoStart} number={true} noDown={true}/>
             </Block_Children>
             {/* Block 1 - 3.1.1 Issue Validation*/}
             <Box

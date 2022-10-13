@@ -55,7 +55,7 @@ function convertDatetime(date){
   }
 
 //--------------------------- MAIN -----------------------------
-export default function Dialog_WithdrawalCheque({ChequeID}) {
+export default function Dialog_TransferCheque({ChequeID}) {
     const [isNotification_Success_01, setIsNotification_Success_01] = useState(false)
     const [isNotification_Failed_01, setIsNotification_Failed_01] = useState(false)
     const [isNotification_Message_01, setIsNotification_Message_01] = useState(false)

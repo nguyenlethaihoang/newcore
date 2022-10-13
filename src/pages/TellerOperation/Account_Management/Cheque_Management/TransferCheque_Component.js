@@ -48,7 +48,7 @@ function resolveNameID(object, text) {
 
 
 // ----- MAIN -----
-function WithdrawalCheque_Component({suffixID, forceDisable, object}) {
+function TransferCheque_Component({suffixID, forceDisable, object}) {
     // Callback childs -> parent
     const [message, setMessage] = useState('panel1')
     const callbackFunction = (childData) => {setMessage(childData)}
@@ -192,4 +192,4 @@ function WithdrawalCheque_Component({suffixID, forceDisable, object}) {
      );
 }
 
-export default WithdrawalCheque_Component;
+export default TransferCheque_Component;

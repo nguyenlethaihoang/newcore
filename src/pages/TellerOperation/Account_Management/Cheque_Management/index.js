@@ -14,18 +14,17 @@ import WithdrawalCheque_Component from './WithdrawalCheque_Component'
 import WithdrawalEnquiry_Component from './WithdrawalEnquiry_Component'
 import Cheque_Type from "../../../../data/Cheque_Type";
 import Close_Online from "../../../../data/Close_Online"
+import TransferCheque_Component from "./TransferCheque_Component"
+import TransferEnquiry_Component from "./TransferEnquiry_Component"
 
 let arrError = []
 let apiErrorMessage = 'Issue Cheque Failed'
+let successMessage = ''
 // ------------------HANDLER FUNCTION -------------
 // ------------------- CONVERT DAY DATA ------------------------
 function convertDatetime(date){
         let dateArr = date.split('/')
-        console.log('Date Arr')
-        console.log(dateArr)
         let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
-        console.log('Date Str')
-        console.log(dateConverted)
         return dateConverted
       }
 // rersolve from text to id with Name
@@ -59,7 +58,11 @@ function resetDataWithdrawal(){
         document.getElementById('txt_BeneficiaryLegalID_WithdrawalCheque').value = ''
         document.getElementById('txt_PlaceIssue_WithdrawalCheque').value = ''
         document.getElementById('dp_IssueDated_WithdrawalCheque').value = ''
-
+        document.getElementById('txt_CustomerName_WithdrawalCheque').value = ''
+        document.getElementById('txt_OldAmount_WithdrawalCheque').value = ''
+        document.getElementById('txt_NewAmount_WithdrawalCheque').value = ''
+        document.getElementById('txt_AmountPaid_WithdrawalCheque').value = ''
+        document.getElementById('txt_ChequeNoTemp_WithdrawalCheque').value = ''
 }
 // get working account
 function getWorkingAccount(text){
@@ -140,6 +143,7 @@ return (
                                         
                                                 const res = await chequeApi.issue(params);
                                                 if(res == 'success') {
+                                                        successMessage = 'Issue Cheque Success'
                                                         setIsNotification_Success_01(true); 
                                                         setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
                                                         resetData()
@@ -162,7 +166,7 @@ return (
                         <Button onClick={resetData}>
                                 Cancel
                         </Button>
-                        {isNotification_Success_01 && <Message_String type='success' text='Issue Cheque Successfully'/>}                  
+                        {isNotification_Success_01 && <Message_String type='success' text={successMessage}/>}                  
                         {isNotification_Failed_01 && <Message_String type='error' text={apiErrorMessage}/>}  
                         {isNotification_Message_01 && <Alert_String arrError={arrError}/>}   
                         </Block_Button>
@@ -203,31 +207,31 @@ return (
                                         arrError = []
                                         console.log('params')
                                         console.log(params)
-                                        if(!checkChequeID(params.ChequeID)){
-                                                arrError.push('ChequeID invalid')
+                                        if(!params.ChequeID ){
+                                                arrError.push('ChequeID is required')
                                         }
-                                        if(!params.ChequeStatus){
-                                                arrError.push('Cheque Status is required')
+                                        if(!params.ChequeNo){
+                                                arrError.push('ChequeNo is required')
                                         }
-                                        if(!params.ChequeNoStart){
-                                                arrError.push('Cheque No Start is required')
+                                        if(!params.ChequeType){
+                                                arrError.push('Cheque Type is required')
                                         }
-                                        if(!params.IssueQuantity){
-                                                arrError.push('Issue Quantity is required')
+                                        if(!params.CurrencyPaid){
+                                                arrError.push('Currency Paid is required')
                                         }
+
                                         if (
                                                 arrError.length == 0
                                         ) {
                                         
-                                                const res = await chequeApi.issue(params);
+                                                const res = await chequeApi.withdrawal(params);
                                                 if(res == 'success') {
+                                                        successMessage = 'Withdrawal Cheque Success'
                                                         setIsNotification_Success_01(true); 
                                                         setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
                                                         resetDataWithdrawal()
                                                 } else {
                                                         apiErrorMessage = res
-                                                        console.log('message')
-                                                        console.log(apiErrorMessage)
                                                         setIsNotification_Failed_01(true)
                                                         setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
                                                 }
@@ -243,7 +247,7 @@ return (
                         <Button onClick={resetDataWithdrawal}>
                                 Cancel
                         </Button>
-                        {isNotification_Success_01 && <Message_String type='success' text='Withdrawal Cheque Successfully'/>}                  
+                        {isNotification_Success_01 && <Message_String type='success' text={successMessage} />}                  
                         {isNotification_Failed_01 && <Message_String type='error' text={apiErrorMessage}/>}  
                         {isNotification_Message_01 && <Alert_String arrError={arrError}/>}   
                         </Block_Button>
@@ -257,9 +261,11 @@ return (
     <Accordian_Children title='Cheque Transfer' label='label1' >  
             {/*  Transfer  */}
            <Accordian_Children title='Transfer' label='label1' > 
+                <TransferCheque_Component suffixID="TransferCheque" />
            </Accordian_Children>
            {/*  Enquiry  */}
            <Accordian_Children title='Enquiry' label='label1' > 
+                <TransferEnquiry_Component suffixID="TransferEnquiry" />
            </Accordian_Children>
     </Accordian_Children>
     {/*  Enquiry Cheque  */}

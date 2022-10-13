@@ -162,6 +162,7 @@ export default function Dialog_IssueCheque({ChequeID}) {
                         onClick={() => {
                             setIsDisabledDialog(false)
                         }}
+                        disabled={true}
                     >
                         Edit
                     </Button>

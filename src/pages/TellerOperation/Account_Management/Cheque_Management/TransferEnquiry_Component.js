@@ -46,7 +46,7 @@ function resolveDate(date){
 function createData(id, ChequeID, CustomerName, AmountPaid, Currency, ChequeNo, Status, WithdrawalDate, Detail) {
     return { id, ChequeID,CustomerName, AmountPaid, Currency, ChequeNo, Status, WithdrawalDate, Detail };}
 
-function WithdrawalEnquiry_Component({suffixID, forceDisable, object}){
+function TransferEnquiry_Component({suffixID, forceDisable, object}){
     console.log('object')
     console.log(object)
     if(!object){
@@ -144,4 +144,4 @@ function WithdrawalEnquiry_Component({suffixID, forceDisable, object}){
     )
 };
 
-export default WithdrawalEnquiry_Component;
+export default TransferEnquiry_Component;

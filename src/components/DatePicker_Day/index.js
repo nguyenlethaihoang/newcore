@@ -9,7 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // 2022-10-18T21:11:54
-function DataPicker_Day({label, id, disabled, defaultValue}) {
+function DataPicker_Day({label, id, disabled, defaultValue, length}) {
   const [value, setValue] = React.useState(dayjs(defaultValue));
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -23,13 +23,15 @@ function DataPicker_Day({label, id, disabled, defaultValue}) {
                 <DesktopDatePicker
                 disabled={disabled}
                 label={label}
-                inputFormat="DD/MM/YYYY"
+                // inputFormat="DD/MM/YYYY"
+                // value={noValue == true ? '':value }
                 value={value}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} 
                 id={id}
+                defaultValue='234'
                 sx={{ 
-                    width: `19ch`, 
+                    width: `${length | 20}ch`, 
                     mr: `${process.env.REACT_APP_SPACE}px`,
                     mt: `${process.env.REACT_APP_SPACE}px`,
                 }}/>}

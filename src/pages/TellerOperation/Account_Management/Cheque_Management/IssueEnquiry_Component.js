@@ -69,7 +69,7 @@ function IssueEnquiry_Component({suffixID, forceDisable, object}){
                 <TextField_Value id={'txt_WorkingAccount_'+suffixID} label='Working Account' length='35' disabled={isDisabled}/>
                 <Select_Object id={'slt_ChequeType_'+suffixID} label='Cheque Type'object={Cheque_Type}length='35' disabled={isDisabled}/>
                 <TextField_Value id={'txt_ChequeNo_'+suffixID} label='Cheque No' length='35'  disabled={isDisabled}/>
-                <DataPicker_Day id={'dp_IssuedDate_'+suffixID} label='Issued Date' length='50'disabled={isDisabled}/>
+                <DataPicker_Day id={'dp_IssuedDate_'+suffixID} label='Issued Date' length='22'disabled={isDisabled}/>
                 
             </Block_Children>
             <Block_Button>
@@ -83,7 +83,7 @@ function IssueEnquiry_Component({suffixID, forceDisable, object}){
                                 params.ChequeType = resolveNameID(Cheque_Type, document.getElementById('slt_ChequeType_IssueEnquiry').innerText)
                                 params.ChequeNo = document.getElementById('txt_ChequeNo_IssueEnquiry').value
                                 params.WorkingAccount = document.getElementById('txt_WorkingAccount_IssueEnquiry').value
-                                params.IssuedDate = convertDatetime(document.getElementById('dp_IssuedDate_IssueEnquiry').value)
+                                params.IssuedDate = document.getElementById('dp_IssuedDate_IssueEnquiry').value? convertDatetime(document.getElementById('dp_IssuedDate_IssueEnquiry').value) : null
                                 console.log('params')
                                 console.log(params)
                                 let data = []
