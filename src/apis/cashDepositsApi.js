@@ -52,5 +52,34 @@ const cashDepositsApi = {
         });
     },
 
+    postCreateWithdrawal: (params) => {
+        const url = 'transaction/create_withdrawal';
+        return axiosClient.post(url, { 
+            accountType: 1,
+            account: params.Account,
+            amount: params.Amount,
+            narrative: params.Narrative,
+            tellerID: params.TellerID,
+            cashAccount: params.CashAccount,
+            dealRate: params.DealRate,
+            waiveCharges: params.WaiveCharges,
+            // ccAmount: req.body.ccAmount,
+            // ccCategory: req.body.ccCategory,
+            // ccDealRate: req.body.ccDealRate,
+            // ccVatSerialNo: req.body.ccVatSerialNo
+         }).then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        });
+    },
+    postValidateWithdrawal: (id, params) => {
+        const url = `transaction/validate_withdrawal/${id}`;
+        return axiosClient.put(url, {
+            status: params.Status,
+        });        
+    },
+
 }
     export default cashDepositsApi;

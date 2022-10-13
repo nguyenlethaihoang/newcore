@@ -12,6 +12,9 @@ import useFetchCurrency from "../../../../../customHooks/useFetchCurrency";
 import AccountType_CashDeposits from "../../../../../data/AccountType_CashDeposits";
 import currencyList_Basic from "../../../../../data/currencyList_Basic";
 import Table_Header_CustomerTransaction from "../../../../../data/Table_Header_CustomerTransaction";
+import SearchIcon from '@mui/icons-material/Search';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 function EnquiryCustomerTranComponents({object, suffixID}) {
     const currencyList = useFetchCurrency();
@@ -36,11 +39,12 @@ return (
             <Select_Object id={'slt_Currency_'+suffixID}label='Currency'object={currencyList} length='17'/>
             <TextField_Value id={'txt_CustomerID_'+suffixID} label='Customer ID' length='20' />
             <TextField_Value id={'txt_CustomerAccount_'+suffixID} label='Customer Account' length='20' />
-            <DataPicker_Day id={'dp_Date_'+suffixID}label='Date'/>
+            <DataPicker_Day id={'dp_Date_'+suffixID}label='Date' defaultValue={'2022-10-15'}/>
         </Block_Children>
         <Block_Button>
             <Button
                 variant="contained"
+                endIcon={<SearchIcon />}
                 onClick={async() => {
                     let params = {}
                     let data = []
@@ -59,14 +63,32 @@ return (
                         setDepositsList(response.data) 
                     }
                     fetchDepositsList();
-                    depositsList.map((value, index) => {
-                        data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value}))
-                    })
+                    if (params.TransactionType == 1) {
+                        depositsList.map((value, index) => {
+                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 1}))
+                        })
+                    } else
+                    if (params.TransactionType == 2) {
+                        depositsList.map((value, index) => {
+                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 2}))
+                        })
+                    } else 
+                    if (params.TransactionType == 3) {
+                        depositsList.map((value, index) => {
+                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 3}))
+                        })
+                    }
                     setColumnsTable(Table_Header_CustomerTransaction)
                     setRowsTable(data)
                 }}
             >
                 Search
+            </Button>
+            <Button
+                endIcon={<DeleteIcon />}
+                variant="outlined"
+            >
+                Reset
             </Button>
         </Block_Button>
         <Table_Object rows={rowsTable} columns={columnsTable}/>
