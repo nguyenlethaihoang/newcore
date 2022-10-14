@@ -14,13 +14,14 @@ import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import InfoIcon from '@mui/icons-material/Info';
-
+ 
 // COMPONENT 
 import Block_Button from '../../../../components/Block_Button';
 import WithdrawalCheque_Component from './WithdrawalCheque_Component';
 import Status_Data from '../../../../data/Status_Data';
 import Alert_String from '../../../../components/Alert_String';
 import Message_String from '../../../../components/Message_String';
+import TransferCheque_Component from './TransferCheque_Component';
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -73,17 +74,17 @@ export default function Dialog_TransferCheque({ChequeID}) {
         setOpen(false);
     };
     // API GET ISSUANCE CHEQUE
-    const [withdrawal, setWithdrawal] = useState([]);
+    const [transfer, setTransfer] = useState([]);
     useEffect(() => 
     {
-        const fetchWithdrawal = async () => {
-          const response = await chequeApi.getWithdrawal(ChequeID);
-          setWithdrawal(response.data) 
+        const fetchTransfer = async () => {
+          const response = await chequeApi.getTransfer(ChequeID);
+          setTransfer(response.data) 
         }
-        fetchWithdrawal();
+        fetchTransfer();
     }, [])
-    console.log("withdrawal dialog")
-    console.log(withdrawal)
+    console.log("transfer dialog")
+    console.log(transfer)
     return (
         <div>
             {/* ICON */}
@@ -121,20 +122,20 @@ export default function Dialog_TransferCheque({ChequeID}) {
                         <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Cheque Withdrawal - Cheque_ID: {withdrawal.ChequeID} - {withdrawal.ChequeNo}
+                            Cheque Transfer - Cheque_ID: {transfer.ChequeID} - {transfer.ChequeNo}
                         </Typography>
                             <Button autoFocus color="inherit" 
                                     sx={{
                                         display: '',
-                                        ...(withdrawal.Status != 1 && {
+                                        ...(transfer.Status != 1 && {
                                             display: 'none'
                                         }),
                                         }
                                     } 
                                     onClick={async () => {
                                         let params = {}
-                                        params.Status = resolveNameID(Status_Data, document.getElementById('slt_Status_WithdrawalCheque_Popup').innerText)
-                                        const res = await chequeApi.validateWithdrawal(params, ChequeID)
+                                        params.Status = resolveNameID(Status_Data, document.getElementById('slt_Status_TransferCheque_Popup').innerText)
+                                        const res = await chequeApi.validateTransfer(params, ChequeID)
                                         if(res == 'success') {
                                             setIsNotification_Success_01(true); 
                                             setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
@@ -177,8 +178,8 @@ export default function Dialog_TransferCheque({ChequeID}) {
                         Print
                     </Button>
                 </Block_Button>
-                {isDisabledDialog && <WithdrawalCheque_Component suffixID='WithdrawalCheque_Popup' forceDisable={true} object={withdrawal}/>}
-                {!isDisabledDialog && <WithdrawalCheque_Component suffixID='WithdrawalCheque_Popup' object={withdrawal}/>}
+                {isDisabledDialog && <TransferCheque_Component suffixID='TransferCheque_Popup' forceDisable={true} object={transfer}/>}
+                {!isDisabledDialog && <TransferCheque_Component suffixID='TransferCheque_Popup' object={transfer}/>}
 
                 {isNotification_Success_01 && <Message_String type='success' text='Validate Successfully'/>}                  
                 {isNotification_Failed_01 && <Message_String type='error' text={apiErrorMessage}/>}  

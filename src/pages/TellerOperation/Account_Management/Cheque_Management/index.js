@@ -24,7 +24,7 @@ let successMessage = ''
 // ------------------- CONVERT DAY DATA ------------------------
 function convertDatetime(date){
         let dateArr = date.split('/')
-        let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+        let dateConverted = dateArr[0] + '-'+ dateArr[1] + '-' + dateArr[2]
         return dateConverted
       }
 // rersolve from text to id with Name
@@ -102,6 +102,12 @@ function Cheque_Management() {
   const [isNotification_Success_01, setIsNotification_Success_01] = useState(false)
   const [isNotification_Failed_01, setIsNotification_Failed_01] = useState(false)
   const [isNotification_Message_01, setIsNotification_Message_01] = useState(false)
+  const [isNotification_Success_02, setIsNotification_Success_02] = useState(false)
+  const [isNotification_Failed_02, setIsNotification_Failed_02] = useState(false)
+  const [isNotification_Message_02, setIsNotification_Message_02] = useState(false)
+  const [isNotification_Success_03, setIsNotification_Success_03] = useState(false)
+  const [isNotification_Failed_03, setIsNotification_Failed_03] = useState(false)
+  const [isNotification_Message_03, setIsNotification_Message_03] = useState(false)
 return ( 
 <div>
     {/*  Cheque Issuance  */}
@@ -227,18 +233,18 @@ return (
                                                 const res = await chequeApi.withdrawal(params);
                                                 if(res == 'success') {
                                                         successMessage = 'Withdrawal Cheque Success'
-                                                        setIsNotification_Success_01(true); 
-                                                        setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
+                                                        setIsNotification_Success_02(true); 
+                                                        setTimeout(() => {setIsNotification_Success_02(false)}, 5000);
                                                         resetDataWithdrawal()
                                                 } else {
                                                         apiErrorMessage = res
-                                                        setIsNotification_Failed_01(true)
-                                                        setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
+                                                        setIsNotification_Failed_02(true)
+                                                        setTimeout(() => {setIsNotification_Failed_02(false)}, 5000); 
                                                 }
 
                                         } else {
-                                                setIsNotification_Message_01(true)
-                                                setTimeout(() => {setIsNotification_Message_01(false)}, 5000);
+                                                setIsNotification_Message_02(true)
+                                                setTimeout(() => {setIsNotification_Message_02(false)}, 5000);
                                         }
                                 }}
                         >
@@ -247,9 +253,9 @@ return (
                         <Button onClick={resetDataWithdrawal}>
                                 Cancel
                         </Button>
-                        {isNotification_Success_01 && <Message_String type='success' text={successMessage} />}                  
-                        {isNotification_Failed_01 && <Message_String type='error' text={apiErrorMessage}/>}  
-                        {isNotification_Message_01 && <Alert_String arrError={arrError}/>}   
+                        {isNotification_Success_02 && <Message_String type='success' text={successMessage} />}                  
+                        {isNotification_Failed_02 && <Message_String type='error' text={apiErrorMessage}/>}  
+                        {isNotification_Message_02 && <Alert_String arrError={arrError}/>}   
                         </Block_Button>
            </Accordian_Children>
            {/*  Enquiry  */}
@@ -262,6 +268,79 @@ return (
             {/*  Transfer  */}
            <Accordian_Children title='Transfer' label='label1' > 
                 <TransferCheque_Component suffixID="TransferCheque" />
+                <Block_Button>
+                        <Button
+                                variant='contained'
+                                endIcon={<SaveIcon />}
+                                onClick={async () => {
+                                        let params = {}
+                                        params.ChequeID = document.getElementById('txt_ChequeID_TransferCheque').value
+                                        params.ChequeNo = document.getElementById('txt_ChequeNo_TransferCheque').value
+                                        params.DebitAmount = document.getElementById('txt_DebitAmount_TransferCheque').value
+                                        params.ChequeType = resolveNameID(Cheque_Type, document.getElementById('slt_ChequeType_TransferCheque').innerText) == 1? "CC" : "AB";
+                                        params.ValueDate = convertDatetime(document.getElementById('dp_ValueDateDebit_TransferCheque').value)
+                                        params.DealRate = document.getElementById('txt_DealRate_TransferCheque').value
+                                        params.CreditAccount = document.getElementById('txt_CreditAccount_TransferCheque').value
+                                        params.ExposureDate = convertDatetime(document.getElementById('dp_ExposureDate_TransferCheque').value)
+                                        params.WaiveCharges = resolveNameID(Close_Online, document.getElementById('slt_Waive_TransferCheque').innerText);
+                                        params.Narrative =  document.getElementById('txt_Narrative_TransferCheque').value
+                                        params.DebitCurrency = resolveNameID(currencyList, document.getElementById('txt_Currency_TransferCheque').value);
+                                        params.CreditCurrency =  resolveNameID(currencyList, document.getElementById('slt_CreditCurrency_TransferCheque').innerText);
+                                        params.BeneficiaryName = document.getElementById('txt_BeneficiaryName_TransferCheque').value
+                                        params.BeneficiaryAddress = document.getElementById('txt_BeneficiaryAddress_TransferCheque').value
+                                        params.BeneficiaryLegalID = document.getElementById('txt_BeneficiaryLegalID_TransferCheque').value
+                                        params.IssuedDate = convertDatetime(document.getElementById('dp_IssueDated_TransferCheque').value)
+                                        params.PlaceOfIssue = document.getElementById('txt_PlaceIssue_TransferCheque').value
+                                        params.BeneficiaryAccount =  document.getElementById('txt_BeneficiaryAccount_TransferCheque').value? document.getElementById('txt_BeneficiaryAccount_TransferCheque').value : null
+                                        params.PaidAmount = document.getElementById('txt_AmountPaid_TransferCheque').value
+
+                                        arrError = []
+                                        console.log('params')
+                                        console.log(params)
+                                        if(!params.ChequeID ){
+                                                arrError.push('ChequeID is required')
+                                        }
+                                        if(!params.ChequeNo){
+                                                arrError.push('ChequeNo is required')
+                                        }
+                                        if(!params.ChequeType){
+                                                arrError.push('Cheque Type is required')
+                                        }
+                                        if(!params.CreditCurrency){
+                                                arrError.push('Credit Currency is required')
+                                        }
+                                        if (
+                                                arrError.length == 0
+                                        ) {
+                                        
+                                                const res = await chequeApi.transfer(params);
+                                                if(res == 'success') {
+                                                        successMessage = 'Transfer Cheque Success'
+                                                        setIsNotification_Success_03(true); 
+                                                        setTimeout(() => {setIsNotification_Success_03(false)}, 5000);
+                                                } else {
+                                                        apiErrorMessage = res
+                                                        setIsNotification_Failed_03(true)
+                                                        setTimeout(() => {setIsNotification_Failed_03(false)}, 5000); 
+                                                }
+
+                                        } else {
+                                                setIsNotification_Message_03(true)
+                                                setTimeout(() => {setIsNotification_Message_03(false)}, 5000);
+                                        }
+                                }}
+                        >
+                                Save
+                        </Button>
+                        <Button onClick={()=>{
+
+                        }}>
+                                Cancel
+                        </Button>
+                        {isNotification_Success_03 && <Message_String type='success' text={successMessage} />}                  
+                        {isNotification_Failed_03 && <Message_String type='error' text={apiErrorMessage}/>}  
+                        {isNotification_Message_03 && <Alert_String arrError={arrError}/>}   
+                        </Block_Button>
            </Accordian_Children>
            {/*  Enquiry  */}
            <Accordian_Children title='Enquiry' label='label1' > 

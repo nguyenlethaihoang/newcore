@@ -130,7 +130,8 @@ const chequeApi = {
             placeOfIssue: params.PlaceOfIssue,
             debitCurrency: params.DebitCurrency,
             creditCurrency: params.CreditCurrency,
-            beneficiaryAccount: params.BeneficiaryAccount
+            beneficiaryAccount: params.BeneficiaryAccount,
+            paidAmount: params.PaidAmount
         })
         .then(res => {
             return ('success')
