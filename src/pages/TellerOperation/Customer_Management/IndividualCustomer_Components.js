@@ -52,18 +52,18 @@ return (
                 <Box m={2}>
             {/* Block 1 - 1.1 Open Individual Customer */}
             <Block_Children>
-                    <TextField_Value id={'txt_FirstName_'+suffixID} label='First Name' length='16' disabled={isDisabled} value={object.FirstName} />
-                    <TextField_Value id={'txt_LastName_'+suffixID} label='Last Name' length='16' disabled={isDisabled} value={object.LastName}/>
-                    <TextField_Value id={'txt_MiddleName_'+suffixID} label='Middle Name' length='16' disabled={isDisabled} value={object.MiddleName}/>
-                    <TextField_Value id={'txt_GBShortName_'+suffixID} label='GB Short Name' length='28'required={true} disabled={isDisabled} value={((subCustomer.GB_FullName)) ? subCustomer.GB_FullName : '_'}/>
-                    <TextField_Value id={'txt_GBFullName_'+suffixID} label='GB Full Name' length='28'required={true} disabled={isDisabled} value={((subCustomer.GB_ShortName)) ? subCustomer.GB_ShortName : '_'}/>
+                    <TextField_Value id={'txt_FirstName_'+suffixID} label='First Name' length='14' disabled={isDisabled} value={object.FirstName} />
+                    <TextField_Value id={'txt_LastName_'+suffixID} label='Last Name' length='14' disabled={isDisabled} value={object.LastName}/>
+                    <TextField_Value id={'txt_MiddleName_'+suffixID} label='Middle Name' length='14' disabled={isDisabled} value={object.MiddleName}/>
+                    <TextField_Value id={'txt_GBShortName_'+suffixID} label='GB Short Name' length='28'required={true} disabled={isDisabled} value={((subCustomer.GB_FullName)) ? subCustomer.GB_FullName : ''} noDown={true}/>
+                    <TextField_Value id={'txt_GBFullName_'+suffixID} label='GB Full Name' length='28'required={true} disabled={isDisabled} value={((subCustomer.GB_ShortName)) ? subCustomer.GB_ShortName : ''} noDown={true}/>
                     <DataPicker_Day id={'dp_BirthDay_'+suffixID}label='Birthday'disabled={isDisabled} value={object.Birthday || ''}/>
             </Block_Children>
             {/* Block 2 - 1.1 Open Individual Customer */}
             <Block_Children>
-                    <TextField_Value id={'txt_GBStreet_'+suffixID} label='GB Street' length='30' required={true} disabled={isDisabled} value={subCustomer.GB_Street}/>
-                    <TextField_Value id={'txt_GBTownDist_'+suffixID} label='GB Town/Dist' length='30' required={true} disabled={isDisabled} value={subCustomer.GB_Towndist}/>
-                    <TextField_Value id={'txt_MobilePhone_'+suffixID} label='Mobile Phone' length='15' disabled={isDisabled} value={subCustomer.PhoneNumber}/>
+                    <TextField_Value id={'txt_GBStreet_'+suffixID} label='GB Street' length='35' required={true} disabled={isDisabled} value={subCustomer.GB_Street}/>
+                    <TextField_Value id={'txt_GBTownDist_'+suffixID} label='GB Town/Dist' length='35' required={true} disabled={isDisabled} value={subCustomer.GB_Towndist}/>
+                    <TextField_Value id={'txt_MobilePhone_'+suffixID} label='Mobile Phone' length='20' disabled={isDisabled} value={subCustomer.PhoneNumber} number={true}/>
                     <Select_Object id={'slt_CityProvince_'+suffixID}label='City/Province'required={true}object={cityList}length='25' disabled={isDisabled} dataID={subCustomer.CityProvince}/>
                     <Select_Object id={'slt_GBCountry_'+suffixID}label='GB Country'object={countryList}length='25'keyObj='Code' disabled={isDisabled} dataID={subCustomer.GB_Country}/>
                     <Select_Object id={'slt_Nationality_'+suffixID}label='Nationality'object={countryList}length='25'keyObj='Code' disabled={isDisabled} dataID={subCustomer.Nationality}/>

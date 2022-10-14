@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CashWithdrawalComponents from "./CustomerInterbranchTransaction/CashWithdrawalComponents";
 import currencyList_Basic from "../../../../data/currencyList_Basic";
 import TransferWithdrawalComponents from "./CustomerInterbranchTransaction/TransferWithdrawalComponents";
+import CollectionPayment from "./CreditCardPayment/CollectionPayment";
 
 function Account_Transaction() {
     const currencyList = useFetchCurrency();
@@ -233,6 +234,7 @@ return (
     <Accordian_Children title='2. Credit Card Payment' label='label1'> 
         {/*  Collection For Credit Card Payment  */}
         <Accordian_Children title='2.1. Collection For Credit Card Payment' label='label1' >  
+            <CollectionPayment />
         </Accordian_Children>
         {/*  Transfer For Credit Card Payment  */}
         <Accordian_Children title='2.2. Transfer For Credit Card Payment' label='label1' >  
