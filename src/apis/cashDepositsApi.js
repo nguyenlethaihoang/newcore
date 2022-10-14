@@ -87,6 +87,7 @@ const cashDepositsApi = {
             debitAccount: params.DebitAccount, //text
             transferAmount: params.TransferAmount, //(debitAmount) int
             creditAccount: params.CreditAccount,
+            paidAmount: params.TransferAmount * params.DealRate,
             dealRate: params.DealRate, //float
             valueDate: params.ValueDate, //ex: "2022/05/09"
             waiveCharges: params.WaiveCharges, //bool
