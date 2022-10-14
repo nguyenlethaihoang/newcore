@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import CashWithdrawalComponents from "./CustomerInterbranchTransaction/CashWithdrawalComponents";
 import currencyList_Basic from "../../../../data/currencyList_Basic";
+import TransferWithdrawalComponents from "./CustomerInterbranchTransaction/TransferWithdrawalComponents";
 
 function Account_Transaction() {
     const currencyList = useFetchCurrency();
@@ -28,6 +29,10 @@ function Account_Transaction() {
   const [isNotification_Success_02, setIsNotification_Success_02] = useState(false)
   const [isNotification_Failed_02, setIsNotification_Failed_02] = useState(false)
   const [isNotification_Message_02, setIsNotification_Message_02] = useState(false)
+// Notification of Accordian 3
+const [isNotification_Success_03, setIsNotification_Success_03] = useState(false)
+const [isNotification_Failed_03, setIsNotification_Failed_03] = useState(false)
+const [isNotification_Message_03, setIsNotification_Message_03] = useState(false)
 
 return ( 
 <div>
@@ -166,6 +171,58 @@ return (
         </Accordian_Children>
         {/*  Transfer Withdrawal  */}
         <Accordian_Children title='1.3. Transfer Withdrawal' label='label1' >  
+                <TransferWithdrawalComponents suffixID={'Transfer'}/>
+                <Block_Button>
+                    <Button
+                        variant='contained'
+                        onClick={async () => {
+
+                            // Temp object for storing
+                            let params = {}
+                            // params.AccountType = document.getElementById('').value
+                            params.AccountType = 1;
+                            params.DebitAccount = document.getElementById('txt_DebitAccount_Transfer').value
+                            params.TransferAmount = document.getElementById('txt_DebitAmt_Transfer').value
+                            params.CreditAccount = document.getElementById('txt_CreditAccount_Transfer').value
+                            params.DealRate = document.getElementById('txt_DealRate_Transfer').value
+                            params.ValueDate = document.getElementById('dp_ValueDate_01_Transfer').value
+                            params.WaiveCharges = document.getElementById('slt_WaiveCharges_Transfer').innerText == 'YES' ? true : false;
+                            params.Narrative = document.getElementById('txt_Narrative_Transfer').value
+                            arrError = []
+                            if(!params.DebitAccount){
+                                arrError.push('Debit Account is required')
+                            }
+                            if(!params.CreditAccount){
+                                arrError.push('Credit Account is required')
+                            }
+                            if(!params.TransferAmount){
+                                arrError.push('Debit Amt is required')
+                            }
+                            if(!params.DealRate){
+                                arrError.push('Deal Rate is required')
+                            }
+                            if (arrError.length == 0) {
+                                const res = await cashDepositsApi.postCreateTransfer(params);
+                                if(res != 'fail') {
+                                    setIsNotification_Success_03(true); 
+                                    setTimeout(() => {setIsNotification_Success_03(false)}, 5000);
+                                } else {
+                                        setIsNotification_Failed_03(true)
+                                        setTimeout(() => {setIsNotification_Failed_03(false)}, 5000); 
+                                }
+                            }
+                            else {
+                                setIsNotification_Message_03(true)
+                                setTimeout(() => {setIsNotification_Message_03(false)}, 5000);
+                            }
+                        }}  
+                    >
+                        Save
+                    </Button>
+                </Block_Button>
+                {isNotification_Success_03 && <Message_String type='success' text='Add Transfer Withdrawal Successfully'/>}                  
+                {isNotification_Failed_03 && <Message_String type='error' text='Add Transfer Withdrawal Failed'/>}  
+                {isNotification_Message_03 && <Alert_String arrError={arrError}/>}  
         </Accordian_Children>
         {/*  Enquiry  */}
         <Accordian_Children title='1.4. Enquiry' label='label1' >  

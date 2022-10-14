@@ -56,7 +56,7 @@ return (
                     params.AmountTo = document.getElementById('txt_AmountTo_EnquiryCustomerTranComponents').value
                     params.Currency = resolveNameID(currencyList_Basic, document.getElementById('slt_Currency_EnquiryCustomerTranComponents').innerText)
                     params.CustomerID = document.getElementById('txt_CustomerID_EnquiryCustomerTranComponents').value
-                    params.Date = convertDatetime(document.getElementById('dp_Date_EnquiryCustomerTranComponents').value)
+                    // params.Date = convertDatetime(document.getElementById('dp_Date_EnquiryCustomerTranComponents').value)
                     params.CustomerAccount = document.getElementById('txt_CustomerAccount_EnquiryCustomerTranComponents').value
                     const fetchDepositsList = async () => {
                         const response = await cashDepositsApi.postEnquiry(params);
@@ -70,12 +70,14 @@ return (
                     } else
                     if (params.TransactionType == 2) {
                         depositsList.map((value, index) => {
-                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 2}))
+                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.WithdrawalAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 2}))
                         })
                     } else 
                     if (params.TransactionType == 3) {
+                        console.log('3 ne')
+                        console.log(depositsList)
                         depositsList.map((value, index) => {
-                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 3}))
+                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.TransferAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 3}))
                         })
                     }
                     setColumnsTable(Table_Header_CustomerTransaction)

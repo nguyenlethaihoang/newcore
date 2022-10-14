@@ -11,7 +11,7 @@ const cashDepositsApi = {
             GB_FullName: params.GB_FullName,
             amountFr: params.AmountFr,
             amountTo: params.AmountTo ,
-            accountType: 1,
+            // accountType: 1,
             currency: params.Currency,
             customerID: params.CustomerID,
             customerAccount: params.CustomerAccount, //debit account
@@ -76,6 +76,35 @@ const cashDepositsApi = {
     },
     postValidateWithdrawal: (id, params) => {
         const url = `transaction/validate_withdrawal/${id}`;
+        return axiosClient.put(url, {
+            status: params.Status,
+        });        
+    },
+    postCreateTransfer: (params) => {
+        const url = 'transaction/create_transfer';
+        return axiosClient.post(url, { 
+            accountType: params.AccountType, //int
+            debitAccount: params.DebitAccount, //text
+            transferAmount: params.TransferAmount, //(debitAmount) int
+            creditAccount: params.CreditAccount,
+            dealRate: params.DealRate, //float
+            valueDate: params.ValueDate, //ex: "2022/05/09"
+            waiveCharges: params.WaiveCharges, //bool
+            narrative: params.Narrative, //text
+
+            // ccAmount: req.body.ccAmount,
+            // ccCategory: req.body.ccCategory,
+            // ccDealRate: req.body.ccDealRate,
+            // ccVatSerialNo: req.body.ccVatSerialNo
+         }).then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            return ('fail')
+        });
+    },
+    postValidateTransfer: (id, params) => {
+        const url = `transaction/validate_transfer/${id}`;
         return axiosClient.put(url, {
             status: params.Status,
         });        
