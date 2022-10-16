@@ -160,9 +160,7 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                                 let data = []
                                 let temp 
                                 // Fetch again
-                                
-                                console.log('customer List')
-                                console.log(customerList)
+                            
                                 customerList.map((value, index) => {
                                     if (value.customer.id == document.getElementById('txt_CustomerID_'+suffixID).value){
                                         temp = value;     
@@ -220,12 +218,12 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                                     document.getElementById('txt_Account_'+suffixID).value = value.Name
                                     if(currencyID == 5){
                                         document.getElementById('txt_ChargeAmtFCY_'+ suffixID).disabled = true
-                                        document.getElementById('txt_ChargeAmtFCY_'+ suffixID).value = ''
+                                        document.getElementById('txt_ChargeAmtFCY_').value = ''
                                         document.getElementById('txt_ChargeAmtLCY_'+ suffixID).disabled  = false
                                         
                                     }else{
                                         document.getElementById('txt_ChargeAmtFCY_'+ suffixID).disabled = false
-                                        document.getElementById('txt_ChargeAmtLCY_'+ suffixID).value = ''
+                                        
                                         document.getElementById('txt_ChargeAmtLCY_'+ suffixID).disabled  = true
                                     }
                                     
@@ -241,32 +239,41 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                         <Select_Object id={'slt_Currency_'+suffixID} label='Currency' object={currencyList} length='25' required={true} disabled={isDisabled}/>
                         <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='25' disabled={isDisabled} required={true} noDown={true}/>
                         
+                        
                         <div
                         onChange={() => {
                             if(!isPopup){
                                 if(document.getElementById('slt_Currency_'+suffixID).innerText == 'VND'){
-                                    const amount = parseInt(document.getElementById('txt_ChargeAmtLCY_'+suffixID).value)
-                                    console.log('amount')
-                                    console.log(amount)
+                                    const amount = parseFloat(document.getElementById('txt_ChargeAmtLCY_'+suffixID).value)
                                     if(amount){
-                                        const vatAmount = amount * 0.1
+                                        let vatAmount = amount * 0.1
                                         document.getElementById('txt_VatAmtLCY_'+suffixID).value = vatAmount
                                         document.getElementById('txt_TotalAmtLCY_' + suffixID).value= amount + vatAmount
                                         
                                     }
                                 }else{
-                                    console.log('FCY')
+                                    let amount = parseFloat(document.getElementById('txt_ChargeAmtFCY_'+suffixID).value)
+                                    let dealRate = document.getElementById('txt_DealRate_'+ suffixID).value ? parseFloat(document.getElementById('txt_DealRate_'+ suffixID).value) : 1
+                                    if(amount){
+                                        let vatAmount = amount * 0.1
+                                        document.getElementById('txt_VatAmtFCY_' + suffixID).value = vatAmount
+                                        document.getElementById('txt_TotalAmtFCY_' + suffixID).value = amount + vatAmount
+                                        document.getElementById('txt_VatAmtLCY_'+suffixID).value = vatAmount * dealRate
+                                        document.getElementById('txt_TotalAmtLCY_' + suffixID).value= (amount + vatAmount) * dealRate
+                                        document.getElementById('txt_ChargeAmtLCY_'+suffixID).value= amount * dealRate
+                                    }
                                 }
                                 
                             }
                         }}>
                             <TextField_Value id={'txt_ChargeAmtLCY_'+suffixID} label='Charge Amount LCY' length='25' disabled={isDisabled} number={true}/>
                             <TextField_Value id={'txt_ChargeAmtFCY_'+suffixID} label='Charge Amount FCY' length='25' disabled={isDisabled} number={true}/>
+                            <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled} required={true} />
                         </div>
                         
                         <DataPicker_Day id={'dp_ValueDate_'+suffixID}label='Value Date'  disabled={isDisabled}/>
                         <Select_Object id={'slt_Category_'+suffixID} label='Category PL' object={categoryPLList} length='50' required={true} disabled={isDisabled}/>
-                        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled} required={true} />
+                        
                     </Block_Children>
                 </div>
                 

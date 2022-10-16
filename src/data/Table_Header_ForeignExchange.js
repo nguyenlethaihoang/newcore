@@ -1,18 +1,4 @@
 import * as React from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import { Button, IconButton } from "@mui/material"
-import Dialog from '@mui/material/Dialog';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
-import Dialog_Individual from '../pages/TellerOperation/Customer_Management/Dialog_Individual';
-import Dialog_Corporate from '../pages/TellerOperation/Customer_Management/Dialog_Corporate';
 import Dialog_ForeignExchange from '../pages/TellerOperation/Foreign_Exchange/Dialog_ForeignExchange';
 
 

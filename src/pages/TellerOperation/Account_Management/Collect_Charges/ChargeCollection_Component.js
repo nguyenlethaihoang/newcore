@@ -9,17 +9,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import Block_Children from '../../../../components/Block_Children'; 
 import TextField_Value from '../../../../components/TextField_Value'; 
 import Select_Object from '../../../../components/Select_Object'; 
-import AutoComplete_Object from '../../../../components/AutoComplete_Object'; 
-import Category_OpenAccount from '../../../../data/Category_OpenAccount';
-import Block_Button from '../../../../components/Block_Button';
 import DataPicker_Day from '../../../../components/DatePicker_Day';
 import Block_Info from '../../../../components/Block_Info';
 // Fetch API by Custom Hook
 import useFetchCurrency from '../../../../customHooks/useFetchCurrency';
 import Status_Data from '../../../../data/Status_Data';
-import Cheque_Type from '../../../../data/Cheque_Type';
-import Close_Online from '../../../../data/Close_Online';
-import chequeApi from '../../../../apis/chequeApi';
 import AccountType_CashDeposits from '../../../../data/AccountType_CashDeposits'
 import debitAccountApi from '../../../../apis/debitAccountApi'
 import useFetchCategoryPL from '../../../../customHooks/useFetchCategoryPL'
@@ -115,11 +109,24 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                 {/* Block 2  MAIN INFORMATION*/}
                 {/* Block 2.1 */}
                 <Block_Children>
-                <Select_Object id={'slt_AccountType_'+suffixID}label='Account Type'object={AccountType_CashDeposits}length='25'  disabled={true} dataID={1}/>
+                    <Select_Object id={'slt_AccountType_'+suffixID}label='Account Type'object={AccountType_CashDeposits}length='25'  disabled={true} dataID={1}/>
                 </Block_Children>
                 
                 <Block_Children>
-                    <TextField_Value id={'txt_DebitAccount_'+suffixID} label='Debit Account' length='25' disabled={isDisabled}  required={true} value={object?.Transaction?.Account}/>
+                    <div
+                        onChange={() => {
+                            if(!isPopup){
+                                const fetchDebitAccountList = async () => {
+                                    const response = await debitAccountApi.getAll();
+                                    setDebitAccountList(response.data) 
+                                }
+                                fetchDebitAccountList();
+                            }
+                        }}
+                    >
+                        <TextField_Value id={'txt_DebitAccount_'+suffixID} label='Debit Account' length='25' disabled={isDisabled}  required={true} value={object?.Transaction?.Account}/>
+                    </div>
+                    
                     <div
                         style={{display: 'flex',
                         alignItems: 'center',
@@ -135,35 +142,29 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                             let data = []
                             let temp 
                             // Fetch again
-                            const fetchDebitAccountList = async () => {
-                                const response = await debitAccountApi.getAll();
-                                setDebitAccountList(response.data) 
-                            }
-                            fetchDebitAccountList();
                             debitAccountList.map((value, index) => {
                                 if (value.id == document.getElementById('txt_DebitAccount_'+suffixID).value){
                                     temp = value;     
                                 }
                             })
+                            console.log('temp')
+                            console.log(temp)
                             // Thanh cong
                             if (temp != null) {
                                 setColorState(1)
                                 setIsFound(true)
-                                // document.getElementById('txt_CustomerID_' + suffixID).value = temp.id
-                                // document.getElementById('txt_CustomerName_' + suffixID).value = temp.Customer.GB_FullName
-                                // document.getElementById('txt_Currency_' + suffixID).value = temp.CURRENCY.Name
-                                // document.getElementById('txt_CustBal_' + suffixID).value = temp.WorkingAmount
-                                // document.getElementById('txt_NewCustBal_' + suffixID).value = ''
+                                document.getElementById('txt_CustomerID_' + suffixID).value = temp.CustomerID
+                                document.getElementById('txt_CustomerName_' + suffixID).value = temp.Customer.GB_FullName
+                                document.getElementById('txt_Currency_' + suffixID).value = temp.CURRENCY.Name
+                                document.getElementById('txt_DebitActInfo_' + suffixID).value = `TKTT - ${temp.CURRENCY.Name} - ${temp.Customer.GB_FullName}`
                                 
                             }
                             // That bai
                             else {
-                                // document.getElementById('txt_CustomerID_' + suffixID).value = ''
-                                // document.getElementById('txt_CustomerName_' + suffixID).value = ''
-                                // document.getElementById('txt_Currency_' + suffixID).value = ''
-                                // document.getElementById('txt_AmtPaidToCust_' + suffixID).value = ''
-                                // document.getElementById('txt_CustBal_' + suffixID).value = ''
-                                // document.getElementById('txt_NewCustBal_' + suffixID).value = ''
+                                document.getElementById('txt_CustomerID_' + suffixID).value = ''
+                                document.getElementById('txt_CustomerName_' + suffixID).value = ''
+                                document.getElementById('txt_Currency_' + suffixID).value = ''
+                                document.getElementById('txt_DebitActInfo_' + suffixID).value = ''
                                 setColorState(2)
                                 setIsFound(false)
                             }
@@ -187,26 +188,62 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                 </Block_Info>
             
                 <Block_Children header2='CHARGE INFORMATION'>
+                    <div
+                        onChange={() => {
+                            if(!isPopup){
+                                if(document.getElementById('txt_Currency_'+suffixID).value == 'VND'){
+                                    document.getElementById('txt_ChargeAmtFCY_'+ suffixID).disabled = true
+                                    document.getElementById('txt_ChargeAmtFCY_'+ suffixID).value = ''
+                                    document.getElementById('txt_ChargeAmtLCY_'+ suffixID).disabled  = false
+                                    const amount = parseFloat(document.getElementById('txt_ChargeAmtLCY_'+suffixID).value)
+                                    if(amount){
+                                        let vatAmount = amount * 0.1
+                                        document.getElementById('txt_VatAmtLCY_'+suffixID).value = vatAmount
+                                        document.getElementById('txt_TotalAmtLCY_' + suffixID).value= amount + vatAmount
+                                        document.getElementById('txt_VatAmtFCY_'+suffixID).value = 0
+                                        document.getElementById('txt_TotalAmtFCY_' + suffixID).value= 0
+                                    }
+                                }else{
+                                    document.getElementById('txt_ChargeAmtFCY_'+ suffixID).disabled = false
+                                        
+                                    document.getElementById('txt_ChargeAmtLCY_'+ suffixID).disabled  = true
+                                    let amount = parseFloat(document.getElementById('txt_ChargeAmtFCY_'+suffixID).value)
+                                    let dealRate = document.getElementById('txt_DealRate_'+ suffixID).value ? parseFloat(document.getElementById('txt_DealRate_'+ suffixID).value) : 1
+                                    if(amount){
+                                        let vatAmount = amount * 0.1
+                                        document.getElementById('txt_VatAmtFCY_' + suffixID).value = vatAmount
+                                        document.getElementById('txt_TotalAmtFCY_' + suffixID).value = amount + vatAmount
+                                        document.getElementById('txt_VatAmtLCY_'+suffixID).value = vatAmount * dealRate
+                                        document.getElementById('txt_TotalAmtLCY_' + suffixID).value= (amount + vatAmount) * dealRate
+                                        document.getElementById('txt_ChargeAmtLCY_'+suffixID).value= amount * dealRate
+                                    }
+                                }
+                                
+                            }
+                        }}
+                    >
+                        <TextField_Value id={'txt_ChargeAmtLCY_'+suffixID} label='Charge Amount LCY' length='25' disabled={isDisabled} number={true}/>
+                        <TextField_Value id={'txt_ChargeAmtFCY_'+suffixID} label='Charge Amount FCY' length='25' disabled={isDisabled}  number={true}/>
+                        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled}  />
+                    </div>
                     
-                    <TextField_Value id={'txt_ChargeAmtLCY_'+suffixID} label='Charge Amount LCY' length='25' disabled={isDisabled} required={true}/>
-                    <TextField_Value id={'txt_ChargeAmtFCY_'+suffixID} label='Charge Amount FCY' length='25' disabled={isDisabled} required={true}/>
                     <DataPicker_Day id={'dp_ValueDate_'+suffixID}label='Value Date'  disabled={isDisabled}/>
-                    <Select_Object id={'slt_Category_'+suffixID} label='Category PL' object={categoryPLList} length='25' required={true} disabled={isDisabled}/>
-                    <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled} required={true} />
+                    <Select_Object id={'slt_Category_'+suffixID} label='Category PL' object={categoryPLList} length='25'disabled={isDisabled}/>
+                    
                 </Block_Children>
             </div>
 
             
             <Block_Info>
-                <TextField_Value id={'txt_VatAmtLCY'+suffixID} label='Vat Amount LCY' length='25' disabled={true} noDown={true} />
+                <TextField_Value id={'txt_VatAmtLCY_'+suffixID} label='Vat Amount LCY' length='25' disabled={true} noDown={true} />
                 <TextField_Value id={'txt_VatAmtFCY_'+suffixID} label='Vat Amount FCY' length='25' disabled={true}  noDown={true}/>
                 <TextField_Value id={'txt_TotalAmtLCY_'+suffixID} label='Total Amount LCY' length='25' disabled={true}  noDown={true}/>
                 <TextField_Value id={'txt_TotalAmtFCY_'+suffixID} label='Total Amount FCY' length='25' disabled={true} noDown={true} />
             </Block_Info>
 
             <Block_Children>
-                <TextField_Value id={'txt_VatSerialNo_'+suffixID} label='vat Serial No' length='25' disabled={true} noDown={true}/>
-                <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='25' disabled={true} noDown={true}/>
+                <TextField_Value id={'txt_VatSerialNo_'+suffixID} label='Vat Serial No' length='25' disabled={isDisabled} />
+                <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='25' disabled={isDisabled}/>
             </Block_Children>
 
         </Box>
