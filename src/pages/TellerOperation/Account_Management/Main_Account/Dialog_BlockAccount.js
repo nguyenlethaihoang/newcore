@@ -146,10 +146,10 @@ export default function Dialog_BlockAccount({CustomerID}) {
                 setTimeout(() => {setIsNotification_Message_01(false)}, 5000);
               }else{
                 let params = {}
-                params.StartDate = convertDatetime(document.getElementById('dp_FromDate_BlockAccount_Popup').value)
-                params.EndDate = convertDatetime(document.getElementById('dp_ToDate_BlockAccount_Popup').value)
-                params.Amount = document.getElementById('txt_Amount_BlockAccount_Popup').value
-                params.Notes = document.getElementById('txt_Description_BlockAccount_Popup').value
+                params.StartDate = document.getElementById('dp_FromDate_BlockAccount_Popup').value;
+                params.EndDate = document.getElementById('dp_ToDate_BlockAccount_Popup').value;
+                params.Amount = document.getElementById('txt_Amount_BlockAccount_Popup').value;
+                params.Notes = document.getElementById('txt_Description_BlockAccount_Popup').value;
                 console.log('params')
                 console.log(params)
                 arrError = []
@@ -204,7 +204,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
                 onClick={async() => {
               
                   let params = {}
-                  params.RelievedDate = convertDatetime(document.getElementById('dp_RelievedDate_BlockAccount_Popup').value)
+                  params.RelievedDate = document.getElementById('dp_RelievedDate_BlockAccount_Popup').value
                   params.Notes = document.getElementById('txt_Notes_BlockAccount_Popup').value
                   console.log('param')
                   console.log(params)

@@ -136,7 +136,7 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Close Account - Account Code: {account.id} - {accountStatus}
+              Close Account - Account Code: {account.id} 
             </Typography>
             <Button autoFocus color="inherit" onClick={async ()=> {
               if(accountStatus != 'Active'){
@@ -230,8 +230,8 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
         {isChangeComponent01 && <CloseAccount_Components01 suffixID='CloseAccount_Popup01'  object={account} closure={closure}/>}
         {!isChangeComponent01 && <CloseAccount_Components02 suffixID='CloseAccount_Popup02' object={account} closure={closure}/>}
 
-        {isNotification_Success_01 && <Message_String type='success' text='Add Individual Customer Successfully'/>}                  
-        {isNotification_Failed_01 && <Message_String type='error' text='Add Individual Customer Failed'/>}  
+        {isNotification_Success_01 && <Message_String type='success' text='Close Account Successfully'/>}                  
+        {isNotification_Failed_01 && <Message_String type='error' text='Close Account Failed'/>}  
         {isNotification_Message_01 && <Alert_String arrError={arrError}/>}  
       </Dialog>
     </div>
