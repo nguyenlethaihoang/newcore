@@ -25,7 +25,7 @@ import BlockAccount_Components from './BlockAccount_Components';
 
 // ------------------- CONVERT DAY DATA ------------------------
 function convertDatetime(date){
-  let dateArr = date.split('/')
+  let dateArr = date.split('-')
   console.log('Date Arr')
   console.log(dateArr)
   let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
