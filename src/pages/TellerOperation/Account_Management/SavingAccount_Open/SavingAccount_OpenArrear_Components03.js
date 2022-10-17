@@ -1,11 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { Box } from "@mui/system";
 import { useState } from "react";
-import AutoComplete_Object from "../../../../components/AutoComplete_Object";
 import Block_Children from "../../../../components/Block_Children";
 import Block_Info from "../../../../components/Block_Info";
 import Block_Spacing from "../../../../components/Block_Spacing";
-import Select_Object from "../../../../components/Select_Object";
 import TextField_Value from "../../../../components/TextField_Value";
 import useFetchCustomer from "../../../../customHooks/useFetchCustomer";
 import Account_ForeignExchange from "../../../../data/Account_ForeignExchange";
@@ -21,12 +18,12 @@ function SavingAccount_OpenArrear_Components03({suffixID, object, forceDisable})
 
     const [isSelected01, setIsSelected01] = useState(1);
     const handleChange01 = (event) => {setIsSelected01(event.target.value); }
-    if (object == undefined) object = ""
+    if (object === undefined) object = ""
 return ( 
 <div>
 <Block_Spacing>
     <Block_Children>
-        <TextField_Value id={'txt_AcccountNumber_'+suffixID} label='Acccount Number' length='40' disabled={true} value={object.AccountNo != "" ? object.AccountNo:'Generated'}/> 
+        <TextField_Value id={'txt_AcccountNumber_'+suffixID} label='Acccount Number' length='40' disabled={true} value={object.AccountNo == "" ? 'Generated' : object.AccountNo }/> 
         <TextField_Value id={'txt_PaymentNumber_'+suffixID} label='Payment Number' length='25' value={genPaymentNumber()} disabled={isDisabled}/> 
         {/* <Select_Object id={'slt_PaymentCCY_'+suffixID} label='Payment CCY' object={Currency_ForeignExchange} length='20' disabled={isDisabled} /> */}
         {/* Automation Select  */}

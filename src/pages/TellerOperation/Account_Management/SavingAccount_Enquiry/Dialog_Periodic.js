@@ -111,21 +111,24 @@ export default function Dialog_Periodic({CustomerID, object}) {
                 
 
               let params = {}
-              params.FirstName = document.getElementById('txt_FirstName_OpenIndividual_Popup').value;
-              params.LastName = document.getElementById('txt_LastName_OpenIndividual_Popup').value;
-              params.MiddleName = document.getElementById('txt_MiddleName_OpenIndividual_Popup').value;
-              params.GBShortName = document.getElementById('txt_GBShortName_OpenIndividual_Popup').value;
-              params.GBFullName = document.getElementById('txt_GBFullName_OpenIndividual_Popup').value;
-              params.BirthDay = document.getElementById('dp_BirthDay_OpenIndividual_Popup').value;
+              // params.CustomerID = 
+              // params.Category = 
+              // params.AccountTitle = 
+              // params.ShortTitle = 
+              // params.Currency = 
+              // params.AccountOfficer = 
+              // params.ProductLine = 
+              // params.JointHolder =
+              // params.Relationship =
+              // params.Notes = 
+              // params.Product = 
+              // params.Principal = 
+              // params.Term = 
+              // params.InterestRate =
+
+              
               arrError = []
-              if (document.getElementById('txt_GBShortName_OpenIndividual_Popup').value.length <= 2)
-                      arrError.push('GB Short Name is Required')
-              if (document.getElementById('txt_GBFullName_OpenIndividual_Popup').value.length <= 2)
-                      arrError.push('GB Full Name is Required')
-              if (document.getElementById('txt_GBStreet_OpenIndividual_Popup').value.length == 0)
-                      arrError.push('GB Street is Required')
-              if (document.getElementById('txt_GBTownDist_OpenIndividual_Popup').value.length == 0)
-                      arrError.push('GB Town/Dist is Required')
+              
                       
               if(arrError.length == 0){
                 // const res = await customerApi.updateIndividual(params, CustomerID);

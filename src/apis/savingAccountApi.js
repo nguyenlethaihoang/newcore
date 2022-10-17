@@ -170,5 +170,46 @@ const savingAccountApi = {
             })
         ;
     },
-}
+    postUpdate: async (id, params) => {
+        const url = `/account/saving_account/update/${id}`;
+        return await axiosClient.put(url, {
+            customerID: params.CustomerID,
+            valueDate: params.ValueDate,
+            workingAccount: params.WorkingAccount,
+            amountLCY: params.AmountLCY,
+            amountFCY: params.AmountFCY,
+            narrativeInterest: params.NarrativeInterest,
+            narrative: params.Narrative,
+            teller: params.Teller,
+            ecxhRate: params.EcxhRate,
+            paymentCurrency: params.PaymentCurrency,
+            currency: params.Currency,
+            account: params.Account,
+            debitAccount: params.DebitAccount,
+            creditAccount: params.CreditAccount,
+            joinHolder: params.JoinHolder,
+            productLine: params.ProductLine,
+            term: params.Term,
+            accountOfficer: params.AccountOfficer,
+            dealRate: params.DealRate,
+            amountLCYInterest: params.AmountLCYInterest,
+            amountFCYInterest: params.AmountFCYInterest,
+            category: params.Category,
+            accountTitle: params.AccountTitle,
+            shortTitle: params.ShortTitle,
+            notes: params.Notes,
+            product: params.Product,
+            principalAmount: params.PrincipalAmount,
+            interestRate: params.InterestRate,
+            maturityDate: params.MaturityDate,
+            accountNo: params.AccountNo,
+            paymentNo: params.PaymentNo,
+            schedules: params.Schedules,
+            schedulesType: params.SchedulesType,
+            frequency: params.Frequency,
+            rolloverPR: params.FolloverPR,
+            status: params.Status,
+            relationShip: params.RelationShip
+    })},
+} 
     export default savingAccountApi;

@@ -151,10 +151,10 @@ return (
                                 params.CustomerID =  resolveStrtoID(document.getElementById('aut_CustomerID_Open_Arrear_SavingAccount01').value)
                                 params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_Open_Arrear_SavingAccount01').innerText)
                                 params.AccountTitle = document.getElementById('txt_AccountTitle_Open_Arrear_SavingAccount01').value
-                                params.Currency = resolveNameID(Currency_ForeignExchange, document.getElementById('slt_Currency_Open_Arrear_SavingAccount01').innerText) % 5 + 1
+                                params.Currency = resolveNameID(Currency_ForeignExchange, document.getElementById('slt_Currency_Open_Arrear_SavingAccount01').innerText) 
                                 params.Product = resolveNameID(Product_SavingAccount, document.getElementById('slt_Product_Open_Arrear_SavingAccount02').innerText )
                                 params.Principal = document.getElementById('txt_Principal_Open_Arrear_SavingAccount02').value
-                                params.Term = resolveNameID(termSavingList, document.getElementById('slt_Term_Open_Arrear_SavingAccount02').innerText)
+                                params.Term = resolveNameID(termOnly, document.getElementById('slt_Term_Open_Arrear_SavingAccount02').innerText)
                                 // Params normal
                                 params.ProductLine = resolveNameID(ProductLine_SavingAccount,document.getElementById('slt_ProductLine_Open_Arrear_SavingAccount01').innerText)
                                 params.ShortTitle = document.getElementById('txt_ShortTitle_Open_Arrear_SavingAccount01').value
@@ -387,3 +387,15 @@ function resolveNameID(object, text) {
 
 
 export default SavingAccount_Open;
+
+
+const termOnly = [
+    {id: 1, Name: '1 month'},
+    {id: 2, Name: '2 month'},
+    {id: 3, Name: '3 month'},
+    {id: 4, Name: '6 month'},
+    {id: 5, Name: '9 month'},
+    {id: 6, Name: '12 month'},
+    {id: 7, Name: '24 month'},
+    {id: 8  , Name: '36 month'},
+]

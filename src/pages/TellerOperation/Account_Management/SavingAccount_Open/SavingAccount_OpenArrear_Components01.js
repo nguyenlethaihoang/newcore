@@ -30,10 +30,11 @@ return (
         <Block_Children> 
                 <AutoComplete_Object id={'aut_CustomerID_'+suffixID} label='Customer ID' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={isDisabled} defaultValue={object?.SAVINGACCOUNT?.CustomerID?`${object?.SAVINGACCOUNT?.CustomerID} - ${object.SAVINGACCOUNT?.CUSTOMER?.GB_FullName}`:''}/>
                 <Select_Object id={'slt_Category_'+suffixID} label='Category'required={true}object={Category_SavingAccount}length='30' disabled={isDisabled} dataID={object.Category}/>
-                <TextField_Value id={'txt_AccountTitle_'+suffixID} label='Account Title' length='35' disabled={isDisabled} value={object.AccountTitle} required={true}/>
-                <TextField_Value id={'txt_ShortTitle_'+suffixID} label='Short Title' length='20' disabled={isDisabled} value={object.AccountTitle}/>
-                <Select_Object id={'slt_Currency_'+suffixID} label='Currency'required={true}object={Currency_ForeignExchange}length='15' disabled={isDisabled} value={object.Currency}/>
-                <Select_Object id={'slt_ProductLine_'+suffixID} label='Product Line' object={ProductLine_SavingAccount}length='40' disabled={isDisabled} value={object.ProductLine}/>
+                <TextField_Value id={'txt_AccountTitle_'+suffixID} label='Account Title' length='35' disabled={isDisabled} value={object != "" ? object.AccountTitle : ""} required={true}/>
+                <TextField_Value id={'txt_ShortTitle_'+suffixID} lab    el='Short Title' length='20' disabled={isDisabled} value={object.AccountTitle}/>
+                <Select_Object id={'slt_Currency_'+suffixID} label='Currency'required={true}object={Currency_ForeignExchange}length='15' disabled={isDisabled} dataID={object != "" ? object.Currency : ""}/>
+                <Select_Object id={'slt_ProductLine_'+suffixID} label='Product Line' object={ProductLine_SavingAccount}length='40' disabled={isDisabled} dataID={object != "" ? object.ProductLine : "none"}/>
+
         </Block_Children>
         <Block_Children header2='JOIN ACCOUNT INFOMATION'>
                 <AutoComplete_Object id={'aut_JointA/CHolder_'+suffixID} label='Joint A/C Holder' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' disabled={isDisabled} defaultValue={object?.SAVINGACCOUNT?.CustomerID?`${object?.SAVINGACCOUNT?.CustomerID} - ${object.SAVINGACCOUNT?.CUSTOMER?.GB_FullName}`:''}/>
@@ -46,5 +47,19 @@ return (
 </div>
 );
 }
-
+ 
 export default SavingAccount_OpenArrear_Components01;
+
+
+  // CONVERT TO ID
+  function resolveNameID(object, text) {
+    let temp = null
+    object.map((data, index) => {
+            if (data.Name == text)
+            {
+            temp = data.id.toString()
+            
+            }
+    })
+    return temp 
+  }

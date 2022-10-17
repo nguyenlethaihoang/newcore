@@ -49,14 +49,14 @@ return (
                 <TextField_Value id={'txt_Category_'+suffixID} label='Category' length='35' disabled={true} value='_'/> 
                 <TextField_Value id={'txt_Currency_'+suffixID} label='Currency' length='35' disabled={true} value='_'/> 
             </Block_Children>
-        </Block_Info> */}
+        </Block_Info> */} 
         <Block_Children header2='PRODUCT INFOMATION'>
-                <Select_Object id={'slt_Product_'+suffixID} label='Product'object={Product_Periodic_SavingAccount}length='30' disabled={isDisabled} required={true}/>
-                <TextField_Value id={'txt_Principal_'+suffixID} label='Principal' length='35' required={true}/> 
+                <Select_Object id={'slt_Product_'+suffixID} label='Product'object={Product_Periodic_SavingAccount}length='30' disabled={isDisabled} required={true} dataID={object != "" ? object.Product : ""}/>
+                <TextField_Value id={'txt_Principal_'+suffixID} label='Principal' length='35' required={true} disabled={isDisabled} value={object.PrincipalAmount}/> 
                 <DataPicker_Day id={'dp_Value Date_'+suffixID}label='Value Date'disabled={isDisabled}/>
-                <Select_Object id={'slt_Term_'+suffixID} label='Term'object={isMonth}length='20' disabled={isDisabled} required={true}/>
+                <Select_Object id={'slt_Term_'+suffixID} label='Term'object={isMonth}length='20' disabled={isDisabled} required={true} dataID={object.Term}/>
                 <DataPicker_Day id={'dp_Maturity Date_'+suffixID}label='Maturity Date'disabled={isDisabled}/>
-                <TextField_Value id={'txt_InterestRate_'+suffixID} label='Interest Rate' length='35'/> 
+                <TextField_Value id={'txt_InterestRate_'+suffixID} label='Interest Rate' length='35' disabled={isDisabled} value={object.InterestRate}/> 
         </Block_Children>
         <Block_Children header2='PAYMENT INFOMATION'>
                 <AutoComplete_Object id={'aut_WorkingAccount_'+suffixID} label='Working Account' object={customerList} length='35' params1='customer' params2='id' params3='customer' params4='GB_FullName' required={true} disabled={isDisabled} defaultValue={object.CustomerID?`${object.CustomerID} - ${object.Customer?.GB_FullName}`:''}/>

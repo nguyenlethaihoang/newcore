@@ -12,12 +12,23 @@ import Slide from '@mui/material/Slide';
 import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import Block_Button from '../../../../components/Block_Button';
-import IndividualCustomer_Components from '../../Customer_Management/IndividualCustomer_Components';
 import Message_String from '../../../../components/Message_String';
 import Alert_String from '../../../../components/Alert_String';
 import SavingAccount_OpenArrear_Components01 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components01';
 import SavingAccount_OpenArrear_Components02 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components02';
 import SavingAccount_OpenArrear_Components03 from '../SavingAccount_Open/SavingAccount_OpenArrear_Components03';
+import Category_SavingAccount from '../../../../data/Category_SavingAccount'
+import Currency_ForeignExchange from '../../../../data/Currency_ForeignExchange'
+import ProductLine_SavingAccount from '../../../../data/ProductLine_SavingAccount'
+import useFetchRelationCode from "../../../../customHooks/useFetchRelationCode";
+import useFetchAccountOfficer from "../../../../customHooks/useFetchAccountOfficer";
+import Product_SavingAccount from "../../../../data/Product_SavingAccount";
+
+import savingAccountApi from '../../../../apis/savingAccountApi';
+
+
+
+
 import Block_Children from '../../../../components/Block_Children';
 
 // import Block_Button from '../../../components/Block_Button';
@@ -32,6 +43,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function Dialog_Arrear({CustomerID, object}) {
+  // Fetch Data
+  const relationCodeList = useFetchRelationCode();
+  const accountOfficerList = useFetchAccountOfficer();
+  
   // Manage Disable
   const [isDisabledDialog, setIsDisabledDialog] = useState(true)
   const handleClick = () => {
@@ -109,37 +124,49 @@ export default function Dialog_Arrear({CustomerID, object}) {
                 
 
               let params = {}
-              params.FirstName = document.getElementById('txt_FirstName_OpenIndividual_Popup').value;
-              params.LastName = document.getElementById('txt_LastName_OpenIndividual_Popup').value;
-              params.MiddleName = document.getElementById('txt_MiddleName_OpenIndividual_Popup').value;
-              params.GBShortName = document.getElementById('txt_GBShortName_OpenIndividual_Popup').value;
-              params.GBFullName = document.getElementById('txt_GBFullName_OpenIndividual_Popup').value;
-              params.BirthDay = document.getElementById('dp_BirthDay_OpenIndividual_Popup').value;
+              params.CustomerID = document.getElementById('aut_CustomerID_SavingAccount01_Popup').value;
+              params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_SavingAccount01_Popup').innerText);
+              params.AccountTitle = document.getElementById('txt_AccountTitle_SavingAccount01_Popup').value;
+              params.Currency = resolveNameID(Currency_ForeignExchange ,document.getElementById('slt_Currency_SavingAccount01_Popup').innerText);
+              params.ProductLine = resolveNameID(ProductLine_SavingAccount,document.getElementById('slt_ProductLine_SavingAccount01_Popup').innerText)
+              params.JoinHolder  =  resolveStrtoID(document.getElementById('aut_JointA/CHolder_SavingAccount01_Popup').value);
+              params.RelationShip = resolveNameID(relationCodeList, document.getElementById('slt_Relationship_SavingAccount01_Popup').innerText)
+              params.Notes = document.getElementById('txt_Notes_SavingAccount01_Popup').value
+              params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_SavingAccount01_Popup').innerText)
+              params.Product = resolveNameID(Product_SavingAccount, document.getElementById('slt_Product_SavingAccount02_Popup').innerText)
+              params.PrincipalAmount = document.getElementById('txt_Principal_SavingAccount02_Popup').value;
+              params.Term =resolveNameID( termOnly, document.getElementById('slt_Term_SavingAccount02_Popup').innerText)
+              
+
               arrError = []
-              if (document.getElementById('txt_GBShortName_OpenIndividual_Popup').value.length <= 2)
-                      arrError.push('GB Short Name is Required')
-              if (document.getElementById('txt_GBFullName_OpenIndividual_Popup').value.length <= 2)
-                      arrError.push('GB Full Name is Required')
-              if (document.getElementById('txt_GBStreet_OpenIndividual_Popup').value.length == 0)
-                      arrError.push('GB Street is Required')
-              if (document.getElementById('txt_GBTownDist_OpenIndividual_Popup').value.length == 0)
-                      arrError.push('GB Town/Dist is Required')
-                      
+              if (!params.CustomerID)
+                  arrError.push('Customer ID is Required')
+              if (!params.Category)
+                  arrError.push('Category is Required')
+              if (!params.AccountTitle)
+                  arrError.push('Account Title is Required')
+              if (!params.Currency)
+                  arrError.push('Currency ID is Required')
+              if (!params.Product)
+                  arrError.push('Product ID is Required')
+              if (!params.PrincipalAmount)
+                  arrError.push('Principal ID is Required')
+              if (!params.Term)
+                  arrError.push('Term is Required')
               if(arrError.length == 0){
-                // const res = await customerApi.updateIndividual(params, CustomerID);
-                const res = 0
+                const res = await savingAccountApi.postUpdate(CustomerID, params);
                 if(res != 'fail') {
                   setIsNotification_Success_01(true); 
-                  setTimeout(() => {setIsNotification_Success_01(false)}, 3000);
-                  setTimeout(() => {handleClose();}, 3000);
+                  setTimeout(() => {setIsNotification_Success_01(false)}, 2500);
+                  setTimeout(() => {handleClose();}, 2500);
                 } else {
                   setIsNotification_Failed_01(true)
-                  setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
+                  setTimeout(() => {setIsNotification_Failed_01(false)}, 2500); 
                   
                 }
               }else{
                 setIsNotification_Message_01(true)
-                setTimeout(() => {setIsNotification_Message_01(false)}, 5000);
+                setTimeout(() => {setIsNotification_Message_01(false)}, 2500);
               }
 
                 
@@ -196,3 +223,37 @@ export default function Dialog_Arrear({CustomerID, object}) {
     </div>
   );
 }
+
+// --------- CONVERT -------------------
+// rersolve from text to id with Name
+function resolveNameID(object, text) {
+  let temp = null
+  object.map((data, index) => {
+          if (data.Name == text)
+          {
+          temp = data.id.toString()
+          
+          }
+  })
+  return temp
+}
+  // rersolve from text to id with Name Customer
+  function resolveStrtoID(text) {
+    let subArr = text.toString().split(" - ");
+    let subStr = subArr[0]
+    if(subStr){
+        return subStr
+    }
+    return null
+  }
+
+  const termOnly = [
+    {id: 1, Name: '1 month'},
+    {id: 2, Name: '2 month'},
+    {id: 3, Name: '3 month'},
+    {id: 4, Name: '6 month'},
+    {id: 5, Name: '9 month'},
+    {id: 6, Name: '12 month'},
+    {id: 7, Name: '24 month'},
+    {id: 8  , Name: '36 month'},
+]

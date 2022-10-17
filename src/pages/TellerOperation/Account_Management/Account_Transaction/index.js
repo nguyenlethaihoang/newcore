@@ -18,6 +18,7 @@ import currencyList_Basic from "../../../../data/currencyList_Basic";
 import TransferWithdrawalComponents from "./CustomerInterbranchTransaction/TransferWithdrawalComponents";
 import CollectionPayment from "./CreditCardPayment/CollectionPayment";
 import TransferPayment from "./CreditCardPayment/TransferPayment";
+import EnquiryPayment from "./CreditCardPayment/EnquiryPayment";
 
 function Account_Transaction() {
     const currencyList = useFetchCurrency();
@@ -243,7 +244,7 @@ return (
         </Accordian_Children>
         {/*  Enquiry  */}
         <Accordian_Children title='2.3. Enquiry' label='label1' >  
-                
+            <EnquiryPayment />
         </Accordian_Children> 
     </Accordian_Children>
 </div>
