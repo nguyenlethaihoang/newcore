@@ -7,7 +7,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // 2022-10-18T21:11:54
 function DataPicker_Day({label, id, disabled, defaultValue, length}) {
   const [value, setValue] = React.useState(dayjs(defaultValue));
@@ -23,8 +22,7 @@ function DataPicker_Day({label, id, disabled, defaultValue, length}) {
                 <DesktopDatePicker
                 disabled={disabled}
                 label={label}
-                // inputFormat="DD/MM/YYYY"
-                // value={noValue == true ? '':value }
+                 inputFormat="DD/MM/YYYY"
                 value={value}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} 

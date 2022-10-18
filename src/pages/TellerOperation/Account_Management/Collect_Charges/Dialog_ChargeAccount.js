@@ -1,6 +1,5 @@
 import * as React from 'react';
 // API
-import chequeApi from "../../../../apis/chequeApi";
 // COMPONENT MATERIAL
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -22,8 +21,9 @@ import ChargeCollectionCash_Component from './ChargeCollection_Cash_Component';
 import Status_Data from '../../../../data/Status_Data';
 import Alert_String from '../../../../components/Alert_String';
 import Message_String from '../../../../components/Message_String';
+import debitAccountApi from '../../../../apis/debitAccountApi'
+import chargeCodeApi from '../../../../apis/chargeCodeApi';
 import ChargeCollectionApi from '../../../../apis/chargeCollectionApi';
-import chargeCollectionType from '../../../../data/chargeCollectionType';
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -48,7 +48,7 @@ function resolveNameID(object, text) {
 }
 
 //--------------------------- MAIN -----------------------------
-export default function Dialog_ChargeAccount({charge}) {
+export default function Dialog_ChargeAccount({object}) {
     const [isNotification_Success_01, setIsNotification_Success_01] = useState(false)
     const [isNotification_Failed_01, setIsNotification_Failed_01] = useState(false)
     const [isNotification_Message_01, setIsNotification_Message_01] = useState(false)
@@ -65,13 +65,22 @@ export default function Dialog_ChargeAccount({charge}) {
     const handleClose = () => {
         setOpen(false);
     };
+    const [account, setAccount] = useState([]);
+    useEffect(() => 
+    {
+        const fetchAccount = async () => {
+        const response = await debitAccountApi.getID(object.Account);
+        setAccount(response.data) 
+        }
+        fetchAccount();
+    }, [])
 
-    console.log('charge')
-    console.log(charge)
+    console.log('object')
+    console.log(object)
 
     return (
         <div>
-            {/* ICON */}
+            {/* ICON */} 
             <IconButton 
                 color="primary"
                 aria-label="detail"
@@ -106,40 +115,38 @@ export default function Dialog_ChargeAccount({charge}) {
                         <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Charge Collection - ID: 
+                            Charge Collection - ID: {object.Account}
                         </Typography>
                             <Button autoFocus color="inherit" 
-                                // sx={{
-                                //     display: '',
-                                //     ...(issuance.Status != 1 && {
-                                //         display: 'none'
-                                //     }),
-                                //     }
-                                // } 
-                                // onClick={async () => {
-                                //     let params = {}
-                                //     params.Status = resolveNameID(Status_Data, document.getElementById('slt_Status_IssueCheque_Popup').innerText)
-                                //     const res = await chequeApi.validateIssue(params, ChequeID)
-                                //     if(res == 'success') {
-                                //         setIsNotification_Success_01(true); 
-                                //         setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
-                                //         setTimeout(() => {handleClose();}, 3000);
-                                //     } else {
-                                //         apiErrorMessage = res
-                                //         setIsNotification_Failed_01(true)
-                                //         setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
-                                //     }
-                                // }
-                            //}
-                            >
+                                sx={{
+                                    display: '',
+                                    ...(object.Status != 1 && {
+                                        display: 'none'
+                                    }),
+                                    }
+                                } 
+                                onClick={async() => {
+                            
+                                    let params = {}
+                                    params.Status = resolveNameID(Status_Data, document.getElementById('slt_Status_ChargeCollection_Popup').innerText)
+                                    const res = await ChargeCollectionApi.validate(params, object.id)
+                                        if(res == 'success') {
+                                            setIsNotification_Success_01(true); 
+                                            setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
+                                            setTimeout(() => {handleClose();}, 3000);
+                                        } else {
+                                            apiErrorMessage = res
+                                            setIsNotification_Failed_01(true)
+                                            setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
+                                        }
+                                }}>
+                            
+                            
                                 Validate
                             </Button>
-                        <Button autoFocus color="inherit"
-                            onClick={async() => {
+                        <Button autoFocus color="inherit">
                             
-
-                            }}>
-                            save
+                            Save
                         </Button>
                     </Toolbar>
                 </AppBar>
@@ -163,13 +170,13 @@ export default function Dialog_ChargeAccount({charge}) {
                         Print
                     </Button>
                 </Block_Button>
-                {isDisabledDialog && <ChargeCollection_Component suffixID='ChargeCollection_Popup' forceDisable={true} object={charge}/>}
-                {!isDisabledDialog && <ChargeCollection_Component suffixID='ChargeCollection_Popup' object={charge}/>}
+                {isDisabledDialog && <ChargeCollection_Component suffixID='ChargeCollection_Popup' forceDisable={true} object={object} account={account}/>}
+                {!isDisabledDialog && <ChargeCollection_Component suffixID='ChargeCollection_Popup' object={object}  account={account}/>}
 
                 {isNotification_Success_01 && <Message_String type='success' text='Validate Successfully'/>}                  
                 {isNotification_Failed_01 && <Message_String type='error' text={apiErrorMessage}/>}  
                 {isNotification_Message_01 && <Alert_String arrError={arrError}/>} 
             </Dialog>
         </div>
-    )
+    );
 }

@@ -70,8 +70,8 @@ return (
                             setAccountList01(response.data) 
                         }
                         fetchArrearList01();
-                        accountList01.map((value, index) => {                                                                                     
-                            data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 2, object: value}))
+                        accountList01.map((value, index) => {                                                                                  
+                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 2, object: value}))
                         })
                         setColumnsTable(Table_Header_ArrearPeriodic)
                         setRowsTable(data)
@@ -85,8 +85,8 @@ return (
                             setAccountList(response.data) 
                         }
                         fetchArrearList();
-                        accountList.map((value, index) => {                                                                                     
-                            data.push(createData(value.id, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.id, type: 1, object: value}))
+                        accountList.map((value, index) => {                                                                                   
+                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 1, object: value}))
                         })
                         setColumnsTable(Table_Header_ArrearPeriodic)
                         setRowsTable(data)

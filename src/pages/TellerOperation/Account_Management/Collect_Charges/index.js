@@ -30,7 +30,11 @@ function resolveNameID(object, text) {
     })
     return temp
 }
-
+function convertDatetime(date){
+    let dateArr = date.split('/')
+    let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+    return dateConverted
+  }
 function resetDataAccount(){
     document.getElementById('txt_ChargeAmtLCY_ChargeAccount').value = '' 
     document.getElementById('txt_DealRate_ChargeAccount').value = ''
@@ -150,14 +154,14 @@ return (
                             params.TellerID = document.getElementById('txt_TellerID_ChargeCash').value
                             params.Currency = resolveNameID(currencyList, document.getElementById('slt_Currency_ChargeCash').innerText)
                             params.LegalID = document.getElementById('txt_LegalID_ChargeCash').value
-                            
+                            params.CustomerName = document.getElementById('txt_CustomerName_ChargeCash').value
+                            params.IssuedDate = convertDatetime(document.getElementById('dp_IssuedDate_ChargeCash').value)
+                            params.IssuePlace = document.getElementById('txt_PlaceIssue_ChargeCash').value
+                            params.Address = document.getElementById('txt_Address_ChargeCash').value
 
                             arrError = []
                             console.log('params')
                             console.log(params)
-                            if(!params.CustomerID){
-                                arrError.push('Customer ID is required')
-                            }
                             if(!params.CCCategory){
                                 arrError.push('Category PL is required')
                             }
@@ -195,7 +199,7 @@ return (
                     Cancel
             </Button>
                 {isNotification_Success_02 && <Message_String type='success' text={successMessage} />}                  
-                {isNotification_Failed_02 && <Message_String type='error' text={apiErrorMessage}/>}  
+                {isNotification_Failed_02 && <Message_String type='error' text={apiErrorMessage? apiErrorMessage : 'Error'}/>}  
                 {isNotification_Message_02 && <Alert_String arrError={arrError}/>}   
         </Block_Button>
     </Accordian_Children>

@@ -28,7 +28,7 @@ function convertDatetime(date){
   let dateArr = date.split('-')
   console.log('Date Arr')
   console.log(dateArr)
-  let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+  let dateConverted = dateArr[2] + '-'+ dateArr[0] + '-' + dateArr[1]
   console.log('Date Str')
   console.log(dateConverted)
   return dateConverted

@@ -124,7 +124,7 @@ export default function Dialog_Arrear({CustomerID, object}) {
                 
 
               let params = {}
-              params.CustomerID = document.getElementById('aut_CustomerID_SavingAccount01_Popup').value;
+              params.CustomerID = resolveStrtoID(document.getElementById('aut_CustomerID_SavingAccount01_Popup').value);
               params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_SavingAccount01_Popup').innerText);
               params.AccountTitle = document.getElementById('txt_AccountTitle_SavingAccount01_Popup').value;
               params.Currency = resolveNameID(Currency_ForeignExchange ,document.getElementById('slt_Currency_SavingAccount01_Popup').innerText);
@@ -136,8 +136,8 @@ export default function Dialog_Arrear({CustomerID, object}) {
               params.Product = resolveNameID(Product_SavingAccount, document.getElementById('slt_Product_SavingAccount02_Popup').innerText)
               params.PrincipalAmount = document.getElementById('txt_Principal_SavingAccount02_Popup').value;
               params.Term =resolveNameID( termOnly, document.getElementById('slt_Term_SavingAccount02_Popup').innerText)
-              
-
+              params.ValueDate = convertDatetime(document.getElementById('dp_Value Date_SavingAccount02_Popup').value)
+              console.log(params)
               arrError = []
               if (!params.CustomerID)
                   arrError.push('Customer ID is Required')
@@ -225,6 +225,11 @@ export default function Dialog_Arrear({CustomerID, object}) {
 }
 
 // --------- CONVERT -------------------
+function convertDatetime(date){
+  let dateArr = date.split('/')
+  let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+  return dateConverted
+}
 // rersolve from text to id with Name
 function resolveNameID(object, text) {
   let temp = null

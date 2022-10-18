@@ -94,7 +94,6 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
     if(!object){
     object = ""
     }else{
-        subCustomer = object.DEBITACCOUNT
         isValidate = true
         isPopup = true
     }
@@ -123,7 +122,7 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                 >
                 <Block_Children header2='----------------Validation----------------' 
                 >
-                    <Select_Object id={'slt_Status_'+suffixID} label='Status'required={true} object={Status_Data} length='35' disabled={object.Status != 1? true:false} dataID={object.Status}/>
+                    <Select_Object id={'slt_Status_'+suffixID} label='Status'required={true} object={Status_Data} length='35' disabled={object.CC?.Status != 1? true:false} dataID={object.CC?.Status}/>
                 </Block_Children>
                 </Box>
 
@@ -142,7 +141,7 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                             }
                         }}>
                         <TextField_Value 
-                            id={'txt_CustomerID_'+suffixID} label='Customer ID' length='25' disabled={isDisabled}  required={true}/>
+                            id={'txt_CustomerID_'+suffixID} label='Customer ID' length='25' disabled={isDisabled}  required={true} value={object.CASH?.CustomerID}/>
                     </div>
                     <div
                         style={{display: 'flex',
@@ -200,12 +199,12 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                 </Block_Children>
 
                 <Block_Info> 
-                    <TextField_Value id={'txt_CustomerName_'+suffixID} label='Customer Name' length='25' disabled={true} noDown={true} />
+                    <TextField_Value id={'txt_CustomerName_'+suffixID} label='Customer Name' length='25' disabled={isDisabled} noDown={true} value={object.CASH?.CustomerName}/>
                     
-                    <TextField_Value id={'txt_LegalID_'+suffixID} label='Legal ID' length='25' disabled={true}  noDown={true}/>
-                    <DataPicker_Day id={'dp_IssuedDate_'+suffixID}label='Issued Date'  disabled={true}/>
-                    <TextField_Value id={'txt_PlaceIssue_'+suffixID} label='Place of Issue' length='60' disabled={true} noDown={true} />
-                    <TextField_Value id={'txt_Address_'+suffixID} label='Address' length='60' disabled={true} noDown={true}/> 
+                    <TextField_Value id={'txt_LegalID_'+suffixID} label='Legal ID' length='25' disabled={isDisabled}  noDown={true} value={object.CASH?.LegalID}/>
+                    <DataPicker_Day id={'dp_IssuedDate_'+suffixID}label='Issued Date'  disabled={isDisabled} value={object.CASH?.IssuedDate}/>
+                    <TextField_Value id={'txt_PlaceIssue_'+suffixID} label='Place of Issue' length='60' disabled={isDisabled} noDown={true} value={object.CASH?.PlaceOfIssue}/>
+                    <TextField_Value id={'txt_Address_'+suffixID} label='Address' length='60' disabled={isDisabled} noDown={true} value={object.CASH?.Address}/> 
                 </Block_Info>
                 
                 <div
@@ -234,10 +233,10 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                     
                 }}>
                     <Block_Children >
-                        <TextField_Value id={'txt_TellerID_'+suffixID} label='Teller ID' length='25' disabled={isDisabled} required={true} value={'VietVictory'}/>
-                        <Select_Object id={'slt_AccountType_'+suffixID}label='Account Type'object={AccountType_CashDeposits}length='25'  disabled={true} dataID={1}/>
-                        <Select_Object id={'slt_Currency_'+suffixID} label='Currency' object={currencyList} length='25' required={true} disabled={isDisabled}/>
-                        <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='25' disabled={isDisabled} required={true} noDown={true}/>
+                        <TextField_Value id={'txt_TellerID_'+suffixID} label='Teller ID' length='25' disabled={isDisabled} required={true} value={object.CASH?.Teller}/>
+                        <Select_Object id={'slt_AccountType_'+suffixID}label='Account Type'object={AccountType_CashDeposits}length='25'  disabled={true} dataID={object.CC?.AccountType ? object.CC?.AccountType : 1} />
+                        <Select_Object id={'slt_Currency_'+suffixID} label='Currency' object={currencyList} length='25' required={true} disabled={isDisabled} dataID={object.CASH?.Currency}/>
+                        <TextField_Value id={'txt_Account_'+suffixID} label='Account' length='25' disabled={isDisabled} required={true} noDown={true} value={''}/>
                         
                         
                         <div
@@ -266,13 +265,13 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
                                 
                             }
                         }}>
-                            <TextField_Value id={'txt_ChargeAmtLCY_'+suffixID} label='Charge Amount LCY' length='25' disabled={isDisabled} number={true}/>
-                            <TextField_Value id={'txt_ChargeAmtFCY_'+suffixID} label='Charge Amount FCY' length='25' disabled={isDisabled} number={true}/>
-                            <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled} required={true} />
+                            <TextField_Value id={'txt_ChargeAmtLCY_'+suffixID} label='Charge Amount LCY' length='25' disabled={isDisabled} number={true} value={object.CC?.ChargeAmountLCY}/>
+                            <TextField_Value id={'txt_ChargeAmtFCY_'+suffixID} label='Charge Amount FCY' length='25' disabled={isDisabled} number={true} value={object.CC?.ChargeAmountFCY}/>
+                            <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' disabled={isDisabled} required={true} value={object.CC?.DealRate}/>
                         </div>
                         
-                        <DataPicker_Day id={'dp_ValueDate_'+suffixID}label='Value Date'  disabled={isDisabled}/>
-                        <Select_Object id={'slt_Category_'+suffixID} label='Category PL' object={categoryPLList} length='50' required={true} disabled={isDisabled}/>
+                        <DataPicker_Day id={'dp_ValueDate_'+suffixID}label='Value Date'  disabled={isDisabled} value={object.CC?.ValueDate? object.CC?.ValueDate : ''}/>
+                        <Select_Object id={'slt_Category_'+suffixID} label='Category PL' object={categoryPLList} length='50' required={true} disabled={isDisabled} dataID={object.CC?.Category}/>
                         
                     </Block_Children>
                 </div>
@@ -281,15 +280,15 @@ function ChargeCollection_Component({suffixID, forceDisable, object}) {
 
             
             <Block_Info>
-                <TextField_Value id={'txt_VatAmtLCY_'+suffixID} label='Vat Amount LCY' length='25' disabled={true} noDown={true} />
-                <TextField_Value id={'txt_VatAmtFCY_'+suffixID} label='Vat Amount FCY' length='25' disabled={true}  noDown={true}/>
-                <TextField_Value id={'txt_TotalAmtLCY_'+suffixID} label='Total Amount LCY' length='25' disabled={true}  noDown={true}/>
-                <TextField_Value id={'txt_TotalAmtFCY_'+suffixID} label='Total Amount FCY' length='25' disabled={true} noDown={true} />
+                <TextField_Value id={'txt_VatAmtLCY_'+suffixID} label='Vat Amount LCY' length='25' disabled={true} noDown={true} value={object.CC?.VatAmountLCY}/>
+                <TextField_Value id={'txt_VatAmtFCY_'+suffixID} label='Vat Amount FCY' length='25' disabled={true}  noDown={true}  value={object.CC?.VatAmountFCY}/>
+                <TextField_Value id={'txt_TotalAmtLCY_'+suffixID} label='Total Amount LCY' length='25' disabled={true}  noDown={true}  value={object.CC?.TotalAmountFCY}/>
+                <TextField_Value id={'txt_TotalAmtFCY_'+suffixID} label='Total Amount FCY' length='25' disabled={true} noDown={true} value={object.CC?.TotalAmountLCY}/>
             </Block_Info>
 
             <Block_Children>
-                <TextField_Value id={'txt_VatSerialNo_'+suffixID} label='vat Serial No' length='25' disabled={isDisabled} />
-                <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='25' disabled={isDisabled} />
+                <TextField_Value id={'txt_VatSerialNo_'+suffixID} label='vat Serial No' length='25' disabled={isDisabled} value={object.CC?.VatSerialNo}/>
+                <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='50' disabled={isDisabled} value={object.CC?.Narrative}/>
             </Block_Children>
 
         </Box>

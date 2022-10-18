@@ -39,10 +39,15 @@ const ChargeCollectionApi = {
             currency: params.Currency,
             legalID: params.LegalID,
             ccAmountFCY: params.ccAmountFCY,
-            vatAmountLCY: params.vatAmountLCY,
-            vatAmountFCY: params.vatAmountFCY,
-            totalAmountLCY: params.totalAmountLCY,
-            totalAmountFCY: params.totalAmountFCY,
+            vatAmountLCY: params.VatAmountLCY,
+            vatAmountFCY: params.VatAmountFCY,
+            totalAmountLCY: params.TotalAmountLCY,
+            totalAmountFCY: params.TotalAmountFCY,
+            customerName: params.CustomerName,
+            address: params.Address,
+            issuedDate: params.IssuedDate,
+            issuePlace: params.IssuePlace
+
         })
         .then(res => {
             return ('success')
@@ -66,6 +71,20 @@ const ChargeCollectionApi = {
             chargesAmountfr: params.chargesAmountfr,
             chargesAmountto: params.chargesAmountto
         })
-    }
+    }, 
+    validate:  async (params, id) => {
+        const url = `/charge/validate/${id}`;
+        return axiosClient.put(url, {
+            status: params.Status
+        })
+        .then(res => {
+            return ('success')
+        })
+        .catch(err => {
+            console.log('err')
+            console.log(err.response.data.message)
+            return (err.response.data.message)
+        })
+    }, 
 }
     export default ChargeCollectionApi;
