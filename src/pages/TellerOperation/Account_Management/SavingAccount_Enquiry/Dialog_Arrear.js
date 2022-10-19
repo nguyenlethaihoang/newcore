@@ -137,7 +137,7 @@ export default function Dialog_Arrear({CustomerID, object}) {
               params.PrincipalAmount = document.getElementById('txt_Principal_SavingAccount02_Popup').value;
               params.Term =resolveNameID( termOnly, document.getElementById('slt_Term_SavingAccount02_Popup').innerText)
               params.ValueDate = convertDatetime(document.getElementById('dp_Value Date_SavingAccount02_Popup').value)
-              console.log(params)
+              // console.log(params)
               arrError = []
               if (!params.CustomerID)
                   arrError.push('Customer ID is Required')

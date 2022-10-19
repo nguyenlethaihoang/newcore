@@ -51,10 +51,10 @@ return (
             </Block_Children>
         </Block_Info> */} 
         <Block_Children header2='PRODUCT INFOMATION'>
-                <Select_Object id={'slt_Product_'+suffixID} label='Product'object={Product_Periodic_SavingAccount}length='30' disabled={isDisabled} required={true} dataID={object != "" ? object.Product : ""}/>
+                <Select_Object id={'slt_Product_'+suffixID} label='Product'object={Product_Periodic_SavingAccount}length='30' disabled={isDisabled} required={true} dataID={object != "" ? object.Product : 1}/>
                 <TextField_Value id={'txt_Principal_'+suffixID} label='Principal' length='35' required={true} disabled={isDisabled} value={object.PrincipalAmount}/> 
                 <DataPicker_Day id={'dp_Value Date_'+suffixID}label='Value Date'disabled={isDisabled}/>
-                <Select_Object id={'slt_Term_'+suffixID} label='Term'object={isMonth}length='20' disabled={isDisabled} required={true} dataID={object.Term}/>
+                <Select_Object id={'slt_Term_'+suffixID} label='Term'object={termOnly}length='20' disabled={isDisabled} required={true} dataID={object.Term}/>
                 <DataPicker_Day id={'dp_Maturity Date_'+suffixID}label='Maturity Date'disabled={isDisabled}/>
                 <TextField_Value id={'txt_InterestRate_'+suffixID} label='Interest Rate' length='35' disabled={isDisabled} value={object.InterestRate}/> 
         </Block_Children>
@@ -66,7 +66,7 @@ return (
                 <Select_Object id={'slt_SchedulesYN_'+suffixID} label='Schedules(Y/N)'object={Close_Online}length='30' disabled={true} dataID='1' />
                 <TextField_Value id={'txt_SchedulesType_'+suffixID} label='Schedules Type' length='25' value='I' disabled={true}/> 
                 <TextField_Value id={'txt_Frequency_'+suffixID} label='Frequency' length='25'  disabled={true}/> 
-
+ 
         </Block_Children>
     </Box>
 </div>
@@ -74,3 +74,15 @@ return (
 }
 
 export default SavingAccount_OpenPeriodic_Components02;
+
+
+const termOnly = [
+    {id: 1, Name: '1 month'},
+    {id: 2, Name: '2 month'},
+    {id: 3, Name: '3 month'},
+    {id: 4, Name: '6 month'},
+    {id: 5, Name: '9 month'},
+    {id: 6, Name: '12 month'},
+    {id: 7, Name: '24 month'},
+    {id: 8  , Name: '36 month'},
+]

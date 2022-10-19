@@ -21,6 +21,14 @@ import SavingAccount_OpenArrear_Components03 from '../SavingAccount_Open/SavingA
 import Block_Children from '../../../../components/Block_Children';
 import SavingAccount_OpenPeriodic_Components01 from '../SavingAccount_Open/SavingAccount_OpenPeriodic_Components01';
 import SavingAccount_OpenPeriodic_Components02 from '../SavingAccount_Open/SavingAccount_OpenPeriodic_Components02';
+import Category_SavingAccount from '../../../../data/Category_SavingAccount';
+import Currency_ForeignExchange from '../../../../data/Currency_ForeignExchange';
+import useFetchAccountOfficer from '../../../../customHooks/useFetchAccountOfficer';
+import ProductLine_SavingAccount from '../../../../data/ProductLine_SavingAccount';
+import useFetchRelationCode from '../../../../customHooks/useFetchRelationCode';
+import Product_SavingAccount from '../../../../data/Product_SavingAccount';
+import savingAccountApi from '../../../../apis/savingAccountApi';
+import Product_Periodic_SavingAccount from '../../../../data/Product_Periodic_SavingAccount';
 
 // import Block_Button from '../../../components/Block_Button';
 
@@ -64,7 +72,9 @@ export default function Dialog_Periodic({CustomerID, object}) {
     const [isNotification_Success_02, setIsNotification_Success_02] = useState(false)
     const [isNotification_Failed_02, setIsNotification_Failed_02] = useState(false)
     const [isNotification_Message_02, setIsNotification_Message_02] = useState(false)
-
+// Fetch Data
+const relationCodeList = useFetchRelationCode();
+const accountOfficerList = useFetchAccountOfficer();
 
     return (
     <div
@@ -111,40 +121,54 @@ export default function Dialog_Periodic({CustomerID, object}) {
                 
 
               let params = {}
-              // params.CustomerID = 
-              // params.Category = 
-              // params.AccountTitle = 
-              // params.ShortTitle = 
-              // params.Currency = 
-              // params.AccountOfficer = 
-              // params.ProductLine = 
-              // params.JointHolder =
-              // params.Relationship =
-              // params.Notes = 
-              // params.Product = 
-              // params.Principal = 
-              // params.Term = 
-              // params.InterestRate =
-
+              params.CustomerID = resolveStrtoID(document.getElementById('aut_CustomerID_SavingAccount01_Popup').value);
+              params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_SavingAccount01_Popup').innerText);
+              params.AccountTitle = document.getElementById('txt_AccountTitle_SavingAccount01_Popup').value
+              params.ShortTitle = document.getElementById('txt_ShortTitle_SavingAccount01_Popup').value
+              params.Currency = resolveNameID(Currency_ForeignExchange ,document.getElementById('slt_Currency_SavingAccount01_Popup').innerText); 
+              params.AccountOfficer = resolveNameID(accountOfficerList,document.getElementById('slt_AccountOfficer_SavingAccount01_Popup').innerText)
+              params.ProductLine = resolveNameID(ProductLine_SavingAccount,document.getElementById('slt_ProductLine_SavingAccount01_Popup').innerText)
+              params.JointHolder = resolveStrtoID(document.getElementById('aut_JointA/CHolder_SavingAccount01_Popup').value);
+              params.Relationship = resolveNameID(relationCodeList, document.getElementById('slt_Relationship_SavingAccount01_Popup').innerText)
+              params.Notes = document.getElementById('txt_Notes_SavingAccount01_Popup').value
               
+              params.Product = resolveNameID(Product_Periodic_SavingAccount, document.getElementById('slt_Product_SavingAccount02_Popup').innerText)
+              params.PrincipalAmount = document.getElementById('txt_Principal_SavingAccount02_Popup').value;
+              params.Term =resolveNameID( termOnly, document.getElementById('slt_Term_SavingAccount02_Popup').innerText)
+              params.ValueDate = convertDatetime(document.getElementById('dp_Value Date_SavingAccount02_Popup').value)
+              params.InterestRate = document.getElementById('txt_InterestRate_SavingAccount02_Popup').value
+ 
               arrError = []
-              
-                      
+              if (!params.CustomerID)
+                  arrError.push('Customer ID is Required')
+              if (!params.Category)
+                  arrError.push('Category is Required')
+              if (!params.AccountTitle)
+                  arrError.push('Account Title is Required')
+              if (!params.Currency)
+                  arrError.push('Currency ID is Required')
+              if (!params.Product)
+                  arrError.push('Product ID is Required')
+              if (!params.PrincipalAmount)
+                  arrError.push('Principal ID is Required')
+              if (!params.Term)
+                  arrError.push('Term is Required')
               if(arrError.length == 0){
-                // const res = await customerApi.updateIndividual(params, CustomerID);
-                const res = 0
+                console.log('console params thu')
+                console.log(params)
+                const res = await savingAccountApi.postUpdate(CustomerID, params);
                 if(res != 'fail') {
                   setIsNotification_Success_01(true); 
-                  setTimeout(() => {setIsNotification_Success_01(false)}, 3000);
-                  setTimeout(() => {handleClose();}, 3000);
+                  setTimeout(() => {setIsNotification_Success_01(false)}, 2500);
+                  setTimeout(() => {handleClose();}, 2500);
                 } else {
                   setIsNotification_Failed_01(true)
-                  setTimeout(() => {setIsNotification_Failed_01(false)}, 5000); 
+                  setTimeout(() => {setIsNotification_Failed_01(false)}, 2500); 
                   
                 }
               }else{
                 setIsNotification_Message_01(true)
-                setTimeout(() => {setIsNotification_Message_01(false)}, 5000);
+                setTimeout(() => {setIsNotification_Message_01(false)}, 2500);
               }
 
                 
@@ -168,10 +192,6 @@ export default function Dialog_Periodic({CustomerID, object}) {
                 variant="contained"
                 endIcon={<PrintIcon />}
                 onClick={() => {
-                    console.log('object')
-                    console.log(object)
-                    console.log('object.Category')
-                    console.log(object.Category)
                 }}
             >
                 Print
@@ -200,4 +220,45 @@ export default function Dialog_Periodic({CustomerID, object}) {
       </Dialog>
     </div>
   );
+}
+
+
+// rersolve from text to id with Name
+function resolveNameID(object, text) {
+  let temp = null
+  object.map((data, index) => {
+          if (data.Name == text)
+          {
+          temp = data.id.toString()
+          
+          }
+  })
+  return temp
+}
+  // rersolve from text to id with Name Customer
+  function resolveStrtoID(text) {
+    let subArr = text.toString().split(" - ");
+    let subStr = subArr[0]
+    if(subStr){
+        return subStr
+    }
+    return null
+  }
+
+  const termOnly = [
+    {id: 1, Name: '1 month'},
+    {id: 2, Name: '2 month'},
+    {id: 3, Name: '3 month'},
+    {id: 4, Name: '6 month'},
+    {id: 5, Name: '9 month'},
+    {id: 6, Name: '12 month'},
+    {id: 7, Name: '24 month'},
+    {id: 8  , Name: '36 month'},
+]
+
+// --------- CONVERT -------------------
+function convertDatetime(date){
+  let dateArr = date.split('/')
+  let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+  return dateConverted
 }

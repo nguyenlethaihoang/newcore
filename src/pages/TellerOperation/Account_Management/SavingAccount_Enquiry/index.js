@@ -71,7 +71,7 @@ return (
                         }
                         fetchArrearList01();
                         accountList01.map((value, index) => {                                                                                  
-                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 2, object: value}))
+                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 2, object: value}, value.Account))
                         })
                         setColumnsTable(Table_Header_ArrearPeriodic)
                         setRowsTable(data)
