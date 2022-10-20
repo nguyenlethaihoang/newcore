@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 // Components
 import customerApi from '../../../apis/customerApi';
+import printApi from '../../../apis/printApi';
 import CorporateCustomer_Components from './CorporateCustomer_Components';
 import Block_Button from '../../../components/Block_Button';
 import Message_String from '../../../components/Message_String';
@@ -236,8 +237,22 @@ const accountOfficerList = useFetchAccountOfficer();
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
-                onClick={() => {
-                }}
+                onClick={
+                  async () => {
+                      console.log(CustomerID)
+                      const res = await printApi.corporateCustomer(CustomerID)
+                      console.log('res.data.data')
+                      console.log(res)
+                      console.log(res.data)
+                      const link = res.data
+                      const customerName = document.getElementById('txt_GBFullName_OpenCorporate_Popup').value
+                      let a = document.createElement('a');
+                      a.href = link;
+                      a.download = `${customerName}.docx`;
+                      a.click();                
+                      return res.data.blobName                                    
+                  }
+              }
             >
                 Print
             </Button>

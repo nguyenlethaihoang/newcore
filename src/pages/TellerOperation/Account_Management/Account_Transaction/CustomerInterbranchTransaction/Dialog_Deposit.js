@@ -19,7 +19,7 @@ import Alert_String from '../../../../../components/Alert_String';
 import CashDepositsComponents from './CashDepositsComponents';
 import cashDepositsApi from '../../../../../apis/cashDepositsApi';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
+import printApi from '../../../../../apis/printApi'
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -158,8 +158,21 @@ export default function Dialog_Deposit({CustomerID , object}) {
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
-                onClick={() => {
-                }}
+                onClick={
+                  async () => {
+                      console.log(CustomerID)
+                      const res = await printApi.deposit(CustomerID)
+                      console.log('res.data.data')
+                      console.log(res)
+                      console.log(res.data)
+                      const link = res.data
+                      let a = document.createElement('a');
+                      a.href = link;
+                      a.download = `CashDeposit-${CustomerID}.docx`;
+                      a.click();                
+                      return res.data.blobName                                    
+                  }
+              }
             >
                 Print
             </Button>

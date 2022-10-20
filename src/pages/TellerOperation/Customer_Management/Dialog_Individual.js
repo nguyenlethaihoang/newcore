@@ -28,6 +28,7 @@ import useFetchMainSector from '../../../customHooks/useFetchMainSector';
 import useFetchIndustry from '../../../customHooks/useFetchIndustry';
 import useFetchSubSector from '../../../customHooks/useFetchSubSector';
 import useFetchAccountOfficer from '../../../customHooks/useFetchAccountOfficer';
+import printApi from '../../../apis/printApi'
 
 // import Block_Button from '../../../components/Block_Button';
 
@@ -241,8 +242,22 @@ const accountOfficerList = useFetchAccountOfficer();
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
-                onClick={() => {
-                }}
+                onClick={
+                  async () => {
+                      console.log(CustomerID)
+                      const res = await printApi.individualCustomer(CustomerID)
+                      console.log('res.data.data')
+                      console.log(res)
+                      console.log(res.data)
+                      const link = res.data
+                      const customerName = document.getElementById('txt_GBFullName_OpenIndividual_Popup').value
+                      let a = document.createElement('a');
+                      a.href = link;
+                      a.download = `${customerName}.docx`;
+                      a.click();                
+                      return res.data.blobName                                    
+                  }
+              }
             >
                 Print
             </Button>
