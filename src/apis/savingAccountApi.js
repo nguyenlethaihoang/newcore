@@ -211,5 +211,40 @@ const savingAccountApi = {
             status: params.Status,
             relationShip: params.RelationShip
     })},
+    postCloseArrear: async (id, params) => { 
+        const url = `/account/saving_account/close/${id}`;
+        return await axiosClient.post(url, {
+            customerID: params.CustomerID,
+            customerName: params.CustomerName,
+            valueDate: params.ValueDate,
+            endDate: params.EndDate,
+            // số tiền khi tạo saving
+            originPrincipal: params.OriginPrincipal,
+            // số tiền khi tạo + lãi
+            principal: params.Principal,
+            // tỉ suất
+            interestRate: params.InterestRate,
+            // tiền lãi vn
+            totalAmountLCY: params.TotalAmountLCY,
+            // tiền lãi ngoại tệ
+            totalAmountFCY: params.TotalAmountFCY,
+            narrative: params.Narrative,
+            dealRate: params.DealRate,
+            tellerID: params.TellerID,
+            // chả biết nữa
+            creditCCY: params.CreditCCY,
+            WorkingAccount: params.WorkingAccount,
+            customerBalance: params.CustomerBalance,
+        })
+            .then(res => {
+                return ('success')
+            })
+            .catch(err => {
+                console.log('err')
+                console.log(err)
+                return ('fail')
+            })
+        ;
+    },
 } 
     export default savingAccountApi;

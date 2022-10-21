@@ -73,6 +73,9 @@ return (
                             if(!params.AmountDeposited){
                                 arrError.push('Amount Deposited is required')
                             }
+                            if (document.getElementById('txt_NewCustBal_CashDeposits').value <= 0)
+                                arrError.push('New Cust Bal must be greater than 0')
+
                             if (
                                 arrError.length == 0
                             ) {
@@ -204,6 +207,8 @@ return (
                             if(!params.DealRate){
                                 arrError.push('Deal Rate is required')
                             }
+                            if (document.getElementById('txt_NewCustBal_Transfer').value < 0)
+                                arrError.push('New Cust Bal must be greater than or equal to 0')
                             if (arrError.length == 0) {
                                 const res = await cashDepositsApi.postCreateTransfer(params);
                                 if(res != 'fail') {

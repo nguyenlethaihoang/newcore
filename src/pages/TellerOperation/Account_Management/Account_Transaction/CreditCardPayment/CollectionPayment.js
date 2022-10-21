@@ -10,8 +10,13 @@ import CreditAccount_Full_List from "../../../../../data/CreditAccount_Full_List
 import Currency_ForeignExchange from "../../../../../data/Currency_ForeignExchange";
 import Select_Object from "../../../../../components/Select_Object";
 import Close_Online from "../../../../../data/Close_Online";
+import Alert_String from "../../../../../components/Alert_String";
 
 function CollectionPayment({suffixID, object, forceDisable}) {
+    // Notification of Accordian 1
+  const [isNotification_Success_01, setIsNotification_Success_01] = useState(false)
+  const [isNotification_Failed_01, setIsNotification_Failed_01] = useState(false)
+  const [isNotification_Message_01, setIsNotification_Message_01] = useState(false)
     // Manage Disable
     if (forceDisable === undefined) forceDisable = false;
     const [isDisabled, setIsDisabled] = useState(forceDisable);
@@ -144,13 +149,22 @@ return (
     <Block_Button>
         <Button
             variant="contained"
+            onClick={() => {
+                console.log('1233123')
+                arrError = []
+                arrError.push('This feature is being rolled out')
+                setIsNotification_Failed_01(true)
+                setTimeout(() => {setIsNotification_Failed_01(false)}, 3000); 
+            }}
         >
             Save
         </Button>
     </Block_Button>
+    {isNotification_Message_01 && <Alert_String arrError={arrError}/>}  
 </div>
 </Block_Spacing>
 );
 }
+let arrError = []
 
 export default CollectionPayment;

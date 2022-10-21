@@ -71,7 +71,7 @@ return (
                         }
                         fetchArrearList01();
                         accountList01.map((value, index) => {                                                                                  
-                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 2, object: value}, value.Account))
+                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 2, object: value}, {id: value.Account, object: value}))
                         })
                         setColumnsTable(Table_Header_ArrearPeriodic)
                         setRowsTable(data)
@@ -86,7 +86,7 @@ return (
                         }
                         fetchArrearList();
                         accountList.map((value, index) => {                                                                                   
-                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 1, object: value}))
+                            data.push(createData(value.Account, 'AUT', value.SAVINGACCOUNT.CustomerID, Category_SavingAccount[value.Category-1]?.Name, Currency_ForeignExchange[value.Currency-1]?.Name, ProductLine_SavingAccount[value.ProductLine]?.Name, value.PrincipalAmount, {id: value.Account, type: 1, object: value},  {id: value.Account, object: value}))
                         })
                         setColumnsTable(Table_Header_ArrearPeriodic)
                         setRowsTable(data)
@@ -109,9 +109,8 @@ return (
         </Block_Button>
         <Table_Object rows={rowsTable} columns={columnsTable}/>
     </Accordian_Children>
-    {/* 2. Enquiry Discounted  */}
+    {/* 2. Enquiry Discounted  
     <Accordian_Children title='2. Enquiry Discounted' label='label1'>  
-        {/* Padding 20px */}
         <Block_Spacing>
             <Block_Children>
                 <Select_Object id={'slt_Status_Enquiry_Discounted'} label='Status' object={Status_Enquiry_Arrear_Periodic}length='15'/>
@@ -151,7 +150,8 @@ return (
             </Button>
         </Block_Button>
         <Table_Object rows={rowsTable_Discounted} columns={columnsTable_Discounted}/>
-    </Accordian_Children>
+    </Accordian_Children> */}
+
 </div>
 
 );
@@ -159,8 +159,8 @@ return (
 export default SavingAccount_Enquiry;
 
 // Create Data Arrear and Periodic
-function createData(id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail) {
-    return { id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail };
+function createData(id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail, Close) {
+    return { id, Status, CustomerID, Category, CCY, ProductLine, Principal, Detail , Close};
 }
 // Create Data Discounted
 function createData_Discounted(id, LDID, Status, WorkingAccID, WorkingAccName, Currency, Principal, Detail) {

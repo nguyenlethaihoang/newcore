@@ -105,6 +105,9 @@ const handleClick = () => {
                     Reset
                </Button>
            </Block_Button>
+           <Block_Children>
+                  *Note: Click twice "Search" to update the table
+                  </Block_Children>
            <Table_Object rows={rowsTable} columns={columnsTable}/>
            
         </Box>

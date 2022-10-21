@@ -16,6 +16,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 function CashWithdrawalComponents({suffixID, forceDisable, object}) {
+    const [currencyState, setCurrencyState] = useState(object === undefined ? 1 : object?.Account?.Currency) 
+
     // Borrow Data
     const currencyList = useFetchCurrency();
     //
@@ -109,6 +111,7 @@ return (
                     //
                     document.getElementById('txt_NewCustBal_CashDeposits').value = ''
                     //
+                    setCurrencyState(temp.Currency)
                     document.getElementById('txt_CustomerID_CashWithdrawal').value = temp.CustomerID
                     document.getElementById('txt_CustomerName_CashWithdrawal').value = temp.Customer.GB_FullName
                     document.getElementById('txt_Currency_CashWithdrawal').value = temp.CURRENCY.Name
@@ -153,8 +156,8 @@ return (
           labelId="idlblCurrencyPaid"
           label='Currency Paid'
           id={"slt_CurrencyPaid_"+suffixID}
-          value={object != "" ? object.Transaction.CashAccount :isSelected01}
-          disabled={isDisabled}
+          value={object != "" ? object.Transaction.CashAccount : currencyState}
+          disabled={true}
           onChange={handleChange01}
           >
           <MenuItem value="">
@@ -173,8 +176,8 @@ return (
             labelId="idlblCashAccount"
             label='Cash Account'
             id={"slt_CashAccount_"+suffixID}
-            value={object != "" ? object.Transaction.CashAccount :isSelected01}
-            disabled={isDisabled}
+            value={object != "" ? object.Transaction.CashAccount :currencyState}
+            disabled={true}
             onChange={handleChange01}
             >
             <MenuItem value="">
@@ -190,7 +193,7 @@ return (
     </Block_Children>
     {/* Block 6 */}
     <Block_Children>
-        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' value={object != "" ? object?.Transaction?.DealRate : 1} noDown={true} disabled={isDisabled} number={true}/>
+        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' value={object != "" ? object?.Transaction?.DealRate : 1} noDown={true} disabled={true} number={true}/>
         <TextField_Value id={'txt_AmountPaid_'+suffixID} label='Amount Paid' length='25' disabled={true} noDown={true} value={object?.Transaction?.PaidAmount}/>
         <TextField_Value id={'txt_CustBal_'+suffixID} label='Cust Bal' length='25' disabled={true} noDown={true} value={object?.Transaction?.InitialAmount}/>
         <TextField_Value id={'txt_NewCustBal_'+suffixID} label='New Cust Bal' length='25' disabled={true} noDown={true} value={object?.Transaction?.NewAmount}/>

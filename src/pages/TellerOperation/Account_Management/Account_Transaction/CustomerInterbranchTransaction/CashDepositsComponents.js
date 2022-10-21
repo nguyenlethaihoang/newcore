@@ -16,6 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 function CashDepositsComponents({suffixID, forceDisable, object}) {
+    const [currencyState, setCurrencyState] = useState(object === undefined ? 1 : object?.Account?.Currency) 
     // Borrow Data
     const currencyList = useFetchCurrency();
     //
@@ -107,6 +108,7 @@ return (
                     document.getElementById('txt_CustomerID_CashDeposits').value = temp.id
                     document.getElementById('txt_CustomerName_CashDeposits').value = temp.Customer.GB_FullName
                     document.getElementById('txt_Currency_CashDeposits').value = temp.CURRENCY.Name
+                    setCurrencyState(temp.Currency)
                     document.getElementById('txt_CustBal_CashDeposits').value = temp.WorkingAmount
                     document.getElementById('txt_NewCustBal_CashDeposits').value = ''
                     
@@ -155,8 +157,8 @@ return (
           labelId="idlblCurrencyDeposited"
           label='Currency Deposited'
           id={"slt_CurrencyDeposited_"+suffixID}
-          value={isSelected01}
-          disabled={isDisabled}
+          value={currencyState}
+          disabled={true}
           onChange={handleChange01}
           >
           <MenuItem value="">
@@ -175,8 +177,8 @@ return (
             labelId="idlblCashAccount"
             label='Cash Account'
             id={"slt_CashAccount_"+suffixID}
-            value={isSelected01}
-            disabled={isDisabled}
+            value={currencyState}
+            disabled={true}
             onChange={handleChange01}
             >
             <MenuItem value="">
@@ -190,7 +192,7 @@ return (
             </Select>
         </FormControl>
         <TextField_Value id={'txt_AmountDeposited_'+suffixID} label='Amount Deposited' length='25' required={true} number={true}  disabled={isDisabled}/>
-        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' required={true} number={true}  disabled={isDisabled} value={checkShow ? object?.Transaction?.DealRate : 1}/>
+        <TextField_Value id={'txt_DealRate_'+suffixID} label='Deal Rate' length='25' required={true} number={true}  disabled={true} value={checkShow ? object?.Transaction?.DealRate : 1}/>
     </Block_Children>
     {/* Block 6 */}
     <Block_Children>
@@ -198,7 +200,6 @@ return (
         <TextField_Value id={'txt_Narrative_'+suffixID} label='Narrative' length='25'  disabled={isDisabled} value={object?.Transaction?.Narrative}/>
         <TextField_Value id={'txt_PrintLnNoOfPS_'+suffixID} label='Print LnNo Of PS' length='25'  disabled={isDisabled}/>
     </Block_Children>
-
 </Block_Spacing>
 </div>
 );

@@ -302,7 +302,7 @@ return (
             {isNotification_Failed_02 && <Message_String type='error' text='Open Periodic Saving Account Failed'/>}  
             {isNotification_Message_02 && <Alert_String arrError={arrError}/>} 
     </Accordian_Children>
-    {/* 3. Open Discounted  */}
+    {/* 3. Open Discounted  
     <Accordian_Children title='3. Open Discounted' label='label1'>  
             <Block_Button>
                     <Button
@@ -347,6 +347,7 @@ return (
                         </Button>
             </Block_Button>
     </Accordian_Children>
+    */}
 </div>
 
 );

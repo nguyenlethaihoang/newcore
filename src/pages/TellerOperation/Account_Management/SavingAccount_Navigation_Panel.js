@@ -21,13 +21,13 @@ function SavingAccount_Navigation_Panel() {
                 </Button>
              </Link>
              
-             <Link to='/close_saving_account' style={{textDecoration: 'none'}}>
+             {/* <Link to='/close_saving_account' style={{textDecoration: 'none'}}>
                     <Button
                         variant='contained'
                     >
                         3. CLOSE
                     </Button>
-             </Link>
+             </Link> */}
              
              
         </Block_Button>
