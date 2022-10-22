@@ -191,7 +191,7 @@ return (
                             params.TransferAmount = document.getElementById('txt_DebitAmt_Transfer').value
                             params.CreditAccount = document.getElementById('txt_CreditAccount_Transfer').value
                             params.DealRate = document.getElementById('txt_DealRate_Transfer').value
-                            params.ValueDate = document.getElementById('dp_ValueDate_01_Transfer').value
+                            params.ValueDate = convertDatetime(document.getElementById('dp_ValueDate_01_Transfer').value)
                             params.WaiveCharges = document.getElementById('slt_WaiveCharges_Transfer').innerText == 'YES' ? true : false;
                             params.Narrative = document.getElementById('txt_Narrative_Transfer').value
                             arrError = []
@@ -274,3 +274,9 @@ function resolveNameID(object, text) {
     })
     return temp
 }
+
+function convertDatetime(date){
+    let dateArr = date.split('/')
+    let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
+    return dateConverted
+  }
