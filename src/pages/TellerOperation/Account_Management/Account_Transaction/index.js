@@ -237,21 +237,21 @@ return (
             <EnquiryCustomerTranComponents suffixID={'EnquiryCustomerTranComponents'}/>
         </Accordian_Children>
     </Accordian_Children>
-    {/*  Credit Card Payment  */}
+    {/*  Credit Card Payment  
     <Accordian_Children title='2. Credit Card Payment' label='label1'> 
-        {/*  Collection For Credit Card Payment  */}
+
         <Accordian_Children title='2.1. Collection For Credit Card Payment' label='label1' >  
             <CollectionPayment />
         </Accordian_Children>
-        {/*  Transfer For Credit Card Payment  */}
+
         <Accordian_Children title='2.2. Transfer For Credit Card Payment' label='label1' > 
             <TransferPayment />
         </Accordian_Children>
-        {/*  Enquiry  */}
+
         <Accordian_Children title='2.3. Enquiry' label='label1' >  
             <EnquiryPayment />
         </Accordian_Children> 
-    </Accordian_Children>
+    </Accordian_Children> */}
 </div>
 );
 }
