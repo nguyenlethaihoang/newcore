@@ -249,14 +249,14 @@ return (
                             onClick={async() => {
                                 // Temp object for checking
                                 let params = {}
-                                // Params force
+                                // Params force 
                                 params.CustomerID =  resolveStrtoID(document.getElementById('aut_CustomerID_Open_Periodic_SavingAccount01').value)
                                 params.Category = resolveNameID(Category_SavingAccount,document.getElementById('slt_Category_Open_Periodic_SavingAccount01').innerText)
                                 params.AccountTitle = document.getElementById('txt_AccountTitle_Open_Periodic_SavingAccount01').value
                                 params.Currency = resolveNameID(Currency_ForeignExchange, document.getElementById('slt_Currency_Open_Periodic_SavingAccount01').innerText) % 5 + 1
                                 params.Product = resolveNameID(Product_Periodic_SavingAccount, document.getElementById('slt_Product_Open_Periodic_SavingAccount02').innerText )
                                 params.Principal = document.getElementById('txt_Principal_Open_Periodic_SavingAccount02').value
-                                params.Term = resolveNameID(termSavingList, document.getElementById('slt_Term_Open_Periodic_SavingAccount02').innerText)
+                                params.Term = resolveNameID(termOnly, document.getElementById('slt_Term_Open_Periodic_SavingAccount02').innerText)
                                 // Params normal
                                 params.ProductLine = resolveNameID(ProductLine_SavingAccount,document.getElementById('slt_ProductLine_Open_Periodic_SavingAccount01').innerText)
                                 params.ShortTitle = document.getElementById('txt_ShortTitle_Open_Periodic_SavingAccount01').value
