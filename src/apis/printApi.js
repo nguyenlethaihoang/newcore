@@ -12,6 +12,14 @@ const printApi = {
     deposit: async (id) => {
         const url = `export/deposit/${id}`;
         return axiosClient.get(url);
+    },
+    withdrawal: async (id) => {
+        const url = `export/withdrawal/${id}`;
+        return axiosClient.get(url);
+    },
+    transfer: async (id) => {
+        const url = `export/transfer/${id}`;
+        return axiosClient.get(url);
     }
 }
 export default printApi;

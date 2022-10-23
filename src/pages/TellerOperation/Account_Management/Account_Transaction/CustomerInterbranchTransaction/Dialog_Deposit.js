@@ -160,11 +160,7 @@ export default function Dialog_Deposit({CustomerID , object}) {
                 endIcon={<PrintIcon />}
                 onClick={
                   async () => {
-                      console.log(CustomerID)
                       const res = await printApi.deposit(CustomerID)
-                      console.log('res.data.data')
-                      console.log(res)
-                      console.log(res.data)
                       const link = res.data
                       let a = document.createElement('a');
                       a.href = link;

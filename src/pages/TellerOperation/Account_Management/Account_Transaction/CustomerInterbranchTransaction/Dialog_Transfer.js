@@ -22,7 +22,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import TransferWithdrawalComponents from './TransferWithdrawalComponents';
 import Block_Children from '../../../../../components/Block_Children';
 import Block_Spacing from '../../../../../components/Block_Spacing';
-
+import printApi from '../../../../../apis/printApi'
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -161,7 +161,14 @@ export default function Dialog_Transfer({CustomerID , object}) {
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
-                onClick={() => {
+                onClick={async () => {
+                  const res = await printApi.transfer(CustomerID)
+                  const link = res.data
+                  let a = document.createElement('a');
+                  a.href = link;
+                  a.download = `CashTransfer-${CustomerID}.docx`;
+                  a.click();                
+                  return res.data.blobName   
                 }}
             >
                 Print

@@ -123,7 +123,7 @@ function clearTextFields() {
                                                 params.GBFullName = document.getElementById('txt_GBFullName_OpenIndividual').value;
                                                 params.BirthDay = document.getElementById('dp_BirthDay_OpenIndividual').value;
                                                 
-                                                params.GBStreet = document.getElementById('txt_GBStreet_OpenIndividual').value;
+                                                params.GBStreet = document.getElementById('txt_GBStreet_OpenIndividual').value ?? '';
                                                 params.GBTownDist = document.getElementById('txt_GBTownDist_OpenIndividual').value;
                                                 params.MobilePhone = document.getElementById('txt_MobilePhone_OpenIndividual').value;
                                                 params.CityProvince = resolveNameID(cityList, document.getElementById('slt_CityProvince_OpenIndividual').innerText);
@@ -198,7 +198,7 @@ function clearTextFields() {
                                 endIcon={<SaveIcon />}
                                 onClick={async () => 
                                         {
-                                                
+
                                                 let params = {}
                                                 params.GBShortName = document.getElementById('txt_GBShortName_OpenCorporate').value;
                                                 params.GBFullName = document.getElementById('txt_GBFullName_OpenCorporate').value;

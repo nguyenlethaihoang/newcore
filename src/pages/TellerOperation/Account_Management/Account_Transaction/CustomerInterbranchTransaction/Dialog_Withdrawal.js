@@ -20,7 +20,7 @@ import CashDepositsComponents from './CashDepositsComponents';
 import cashDepositsApi from '../../../../../apis/cashDepositsApi';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CashWithdrawalComponents from './CashWithdrawalComponents';
-
+import printApi from '../../../../../apis/printApi'
 
 // -------------------TEMP DATA ----------------------------
 let arrError = []
@@ -159,7 +159,14 @@ export default function Dialog_Withdrawal({CustomerID , object}) {
             <Button
                 variant="contained"
                 endIcon={<PrintIcon />}
-                onClick={() => {
+                onClick={async () => {
+                  const res = await printApi.withdrawal(CustomerID)
+                  const link = res.data
+                  let a = document.createElement('a');
+                  a.href = link;
+                  a.download = `CashWIthdrawals-${CustomerID}.docx`;
+                  a.click();                
+                  return res.data.blobName    
                 }}
             >
                 Print
