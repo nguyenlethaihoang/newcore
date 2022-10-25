@@ -1,10 +1,11 @@
 
 function Inward_Transaction() {
-    return (
-        <div>
+return (
+<div>
+    
 
-        </div>
-    )
+</div>
+)
 }
 
 export default Inward_Transaction;
