@@ -128,7 +128,7 @@ export default function Dialog_BlockAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Block Account - Account Code: {CustomerID} - {accountStatus}
+              Block Account - Account Code: {account.Account ?? CustomerID}
             </Typography> 
             <Button autoFocus color="inherit" display={'none'} startIcon={<LockIcon />}
             sx={{

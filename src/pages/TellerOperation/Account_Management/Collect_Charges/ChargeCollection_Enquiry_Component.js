@@ -121,7 +121,7 @@ function ChargeCollection_Enquiry({suffixID, forceDisable, object}){
                                             itemStatus = 'REV'
                                         }
                                         
-                                        data.push(createData(idTemp, `TT.${idTemp}`, 'Current & Non_term Saving Account',type == 1? value.Account : '', type == 1? value.CHARGECATEGORY?.Name: value.CC.CHARGECATEGORY?.Name, type == 1? value.ChargeAmountLCY: value.CC.ChargeAmountLCY, itemStatus, {object: value, type: type}))
+                                        data.push(createData(idTemp, type == 1 ? (value.RefID ?? `TT.${idTemp}`) : (value.CC.RefID ?? `TT.${idTemp}`), 'Current & Non_term Saving Account',type == 1? value.Account : '', type == 1? value.CHARGECATEGORY?.Name: value.CC.CHARGECATEGORY?.Name, type == 1? value.ChargeAmountLCY: value.CC.ChargeAmountLCY, itemStatus, {object: value, type: type}))
                                     })
 
                                     setRowsTable(data)

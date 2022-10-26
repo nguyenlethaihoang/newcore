@@ -4,7 +4,7 @@ import Dialog_ChargeCash from '../pages/TellerOperation/Account_Management/Colle
 import Dialog_OpenAccount from '../pages/TellerOperation/Account_Management/Main_Account/Dialog_OpenAccount';
 const Table_Header_ChargeCollection = [
     {field: 'id',headerName: 'id',width: 30,},
-    {field: 'Code',headerName: 'Code',width: 120,},
+    {field: 'Code',headerName: 'Code',width: 150,},
     {field: 'AccountType',headerName: 'Account Type',width: 300,},
     {field: 'Account',headerName: 'Account',width: 100,},
     {field: 'Category',headerName: 'Category',width: 400,},

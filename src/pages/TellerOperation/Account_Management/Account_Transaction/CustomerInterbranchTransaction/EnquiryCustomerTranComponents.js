@@ -62,22 +62,23 @@ return (
                         const response = await cashDepositsApi.postEnquiry(params);
                         setDepositsList(response.data) 
                     }
+                    
                     fetchDepositsList();
                     if (params.TransactionType == 1) {
                         depositsList.map((value, index) => {
-                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 1}))
+                            data.push(createData(value.Transaction.RefID ?? value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.DepositAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 1}))
                         })
                     } else
                     if (params.TransactionType == 2) {
                         depositsList.map((value, index) => {
-                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.WithdrawalAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 2}))
+                            data.push(createData(value.Transaction.RefID ?? value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.WithdrawalAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 2}))
                         })
                     } else 
                     if (params.TransactionType == 3) {
                         console.log('3 ne')
                         console.log(depositsList)
                         depositsList.map((value, index) => {
-                            data.push(createData(value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.TransferAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 3}))
+                            data.push(createData(value.Transaction.RefID ?? value.Transaction.id, value.Transaction.ACCOUNTTYPE.Name, value.Transaction.Account, value.Account.Customer.GB_FullName,currencyList[value?.Account.Currency-1]?.Name,value.Transaction.TransferAmount, StatusArray[value.Transaction.Status-1].Name ,  {id: value.Transaction.id, object: value, type: 3}))
                         })
                     }
                     setColumnsTable(Table_Header_CustomerTransaction)

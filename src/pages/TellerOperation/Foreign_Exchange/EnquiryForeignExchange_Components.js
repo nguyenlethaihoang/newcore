@@ -78,13 +78,13 @@ const handleClick = () => {
                           }
                           fetchForeignExchangeList();
                          foreignExchangeList.map((value, index) => {
-                              let param1 = genTT(value.CustomerName)
+                              let param1 = value.RefID ?? value.id
                               let param2 = '1001-1126-2002'
                               let param3 = value.AmountPaidToCust + Currency_ForeignExchange[value?.DebitCurrencyID]?.Name ? value.AmountPaidToCust + ' ' + Currency_ForeignExchange[value.DebitCurrencyID-1]?.Name : '0'
                               let param4 = 'AUT'
                               let param5 = value.CustomerName
                               let param6 = value.PhoneNo
-                              let param7 = {id: genTT(value.CustomerName), object: value}
+                              let param7 = {id:  value.RefID ?? value.id, object: value}
                               data.push(createData(param1, param2, param3, param4, param5, param6, param7))
                           })
                          setColumnsTable(Table_Header_ForeignExchange)  

@@ -115,7 +115,7 @@ export default function Dialog_ChargeAccount({object}) {
                         <CloseIcon />
                         </IconButton>
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                            Charge Collection - ID: {object.Account}
+                            Charge Collection - RefID: {object.RefID ?? object.id}
                         </Typography>
                             <Button autoFocus color="inherit" 
                                 sx={{

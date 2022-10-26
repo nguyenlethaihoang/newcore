@@ -172,7 +172,7 @@ const [relationCodeList, setRelationCodeList] = useState([]);useEffect(() => {co
                                 fetchAccountList();
                                 data = []
                                 accountList.map((value, index) => {
-                                        data.push(createData(value.id, value.CustomerID, value.Customer.GB_FullName, value.Customer.DocID, value.CATEGORY.Name, value.PRODUCTLINE.Name, value.CURRENCY.Name, value.ActualBalance, value.WorkingAmount, {id: value.id}, {id: value.id}, {id: value.id}))
+                                        data.push(createData(value.Account ?? value.id, value.CustomerID, value.Customer.GB_FullName, value.Customer.DocID, value.CATEGORY.Name, value.PRODUCTLINE.Name, value.CURRENCY.Name, value.ActualBalance, value.WorkingAmount, {id: value.id}, {id: value.id}, {id: value.id}))
                                 })
                                 setRowsTable(data)
                                 setColumnsTable(Table_Header_NonTermSaving)

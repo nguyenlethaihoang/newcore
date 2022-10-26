@@ -147,7 +147,7 @@ const accountOfficerList = useFetchAccountOfficer();
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Corporate Customer - Customer ID: {CustomerID}
+              Corporate Customer - Customer ID: {customerItem.CUSTOMER.RefID ?? CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={async () => {
 
@@ -239,11 +239,7 @@ const accountOfficerList = useFetchAccountOfficer();
                 endIcon={<PrintIcon />}
                 onClick={
                   async () => {
-                      console.log(CustomerID)
                       const res = await printApi.corporateCustomer(CustomerID)
-                      console.log('res.data.data')
-                      console.log(res)
-                      console.log(res.data)
                       const link = res.data
                       const customerName = document.getElementById('txt_GBFullName_OpenCorporate_Popup').value
                       let a = document.createElement('a');

@@ -118,7 +118,7 @@ export default function Dialog_Arrear({CustomerID, object}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Arrear Saving Account - Ref ID: {CustomerID}
+              Arrear Saving Account - Ref ID: {object.SAVINGACCOUNT.Account ?? CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={async () => {
                 

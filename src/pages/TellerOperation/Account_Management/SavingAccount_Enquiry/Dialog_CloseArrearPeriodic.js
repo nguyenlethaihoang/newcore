@@ -89,7 +89,7 @@ export default function Dialog_CloseArrearPeriodic({CustomerID, suffixID, forceD
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            Close Arrear/Periodic - Ref ID: {CustomerID}
+            Close Arrear/Periodic - Ref ID: {object.SAVINGACCOUNT.Account ?? CustomerID}
             </Typography>
             <Button startIcon={<CloseIcon />} autoFocus color="inherit" onClick={async ()=> {
               let params = {}

@@ -77,7 +77,7 @@ export default function Dialog_ForeignExchange({CustomerID, object}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Foreign Exchange - TT Number: {CustomerID}
+                Foreign Exchange - RefID: {CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               save

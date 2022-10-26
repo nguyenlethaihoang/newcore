@@ -6,7 +6,7 @@ import Dialog_Periodic from '../pages/TellerOperation/Account_Management/SavingA
 
 
 const Table_Header_ArrearPeriodic = [
-    {field: 'id',headerName: 'Ref ID',width: 100,},
+    {field: 'id',headerName: 'Ref ID',width: 120,},
     {field: 'Status',headerName: 'Status',width: 80,},
     {field: 'CustomerID',headerName: 'Customer ID',width: 110,},
     {field: 'Category',headerName: 'Category',width: 210,},

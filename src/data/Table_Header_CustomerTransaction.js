@@ -6,7 +6,7 @@ import Dialog_OpenAccount from '../pages/TellerOperation/Account_Management/Main
 
 
 const Table_Header_CustomerTransaction = [
-    {field: 'id',headerName: 'Ref ID',width: 80,},
+    {field: 'id',headerName: 'Ref ID',width: 140,},
     {field: 'AccountType',headerName: 'Account Type',width: 300,},
     {field: 'AccountCode',headerName: 'Account Code',width: 120,},
     {field: 'CustomerName',headerName: 'Customer Name',width: 180,},

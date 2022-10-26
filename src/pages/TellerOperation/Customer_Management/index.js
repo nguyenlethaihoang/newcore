@@ -298,10 +298,10 @@ function clearTextFields() {
                         <Button
                                 variant="contained"
                                 endIcon={<SearchIcon />}
-                                onClick={() => {
+                                onClick={async () => {
                                         let data = []
                                         let params = {}
-                                        
+
                                         params.CustomerType = resolveNameID(CustomerType, document.getElementById('slt_CustomerType_EnquiryCustomer').innerText);
                                         params.CustomerID = document.getElementById('txt_CustomerID_EnquiryCustomer').value;
                                         params.GB_FullName = document.getElementById('txt_GBFullName_EnquiryCustomer').value;
@@ -320,7 +320,7 @@ function clearTextFields() {
                                         fetchspecificCustomerList();
                                         specificCustomerList.map((value, index) => {
                                                 // data.push(createData(value.id, value.CustomerType, value.GB_FullName, value.DocID, value.PhoneNumber, {id: value.id, type: value.CustomerType}))
-                                                let param1 = value.id
+                                                let param1 = value.RefID ?? value.id
                                                 let param2 = value.CustomerType
                                                 let param3 = value.GB_FullName
                                                 let param4 = value.DocID

@@ -115,7 +115,7 @@ const accountOfficerList = useFetchAccountOfficer();
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Periodic Saving Account - Ref ID: {CustomerID}
+              Periodic Saving Account - Ref ID:  {object.SAVINGACCOUNT.Account ?? CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={async () => {
                 

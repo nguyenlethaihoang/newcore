@@ -145,7 +145,7 @@ export default function Dialog_OpenAccount({CustomerID}) {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Account Information - Accout Code: {CustomerID}
+                Account Information - Account Code: {account.Account ?? CustomerID}
             </Typography>
             <Button autoFocus color="inherit" onClick={ async () =>{
 

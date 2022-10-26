@@ -136,7 +136,7 @@ const [isChangeComponent01, setIsChangeComponent01] = useState(true)
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Close Account - Account Code: {account.id} 
+              Close Account - Account Code: {account.Account ?? account.id} 
             </Typography>
             <Button autoFocus color="inherit" onClick={async ()=> {
               if(accountStatus != 'Active'){
