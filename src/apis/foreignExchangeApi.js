@@ -11,7 +11,7 @@ const foreignExchangeApi = {
         return axiosClient.get(url);
     },
     post: async (params) => {
-        const url = '/account/saving_account/open_arrear';
+        const url = '/exchange/create';
         return await axiosClient.post(url, {
             // Params force
             customerName: params.CustomerName,
