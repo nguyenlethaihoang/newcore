@@ -24,7 +24,7 @@ let successMessage = ''
 // ------------------- CONVERT DAY DATA ------------------------
 function convertDatetime(date){
         let dateArr = date.split('/')
-        let dateConverted = dateArr[0] + '-'+ dateArr[1] + '-' + dateArr[2]
+        let dateConverted = dateArr[2] + '-'+ dateArr[1] + '-' + dateArr[0]
         return dateConverted
       }
 // rersolve from text to id with Name
