@@ -78,7 +78,9 @@ return (
         <Select_Object id={'slt_BankCode_'+suffixID}label='Bank Code' length='40' disabled={isDisabledLevel2} object={isValueBankCode}/>
         <TextField_Value id={'txt_IdentityCard_'+suffixID} label='Identity Card' length='20' disabled={isDisabled}/>
         <DataPicker_Day id={'dp_IsssueDate_'+suffixID}label='Isssue Date' disabled={isDisabled}/>
-        <DataPicker_Day id={'dp_DocExpiryDate_'+suffixID}label='Doc Expiry Date' disabled={isDisabled} />
+        {/* <DataPicker_Day id={'dp_DocExpiryDate_'+suffixID}label='Doc Expiry Date' disabled={isDisabled} /> */}
+        <TextField_Value id={'txt_IsssuePlace_'+suffixID} label='Isssue Place' length='20' disabled={isDisabled}/>
+
     </Block_Children>
     {/* Block 4 */}
     <Block_Children header2=''>
