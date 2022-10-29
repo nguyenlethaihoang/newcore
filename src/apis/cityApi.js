@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 // api/cityApi.js
 const cityApi = {
     getAll: (params) => {
-        const url = '/storage/get_city_province';
+        const url = `/storage/get_city_province`;
         return axiosClient.get(url, { params });
     },
     get: (id) => {
