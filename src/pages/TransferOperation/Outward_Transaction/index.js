@@ -29,6 +29,11 @@ function Outward_Transaction() {
     const [isNotification_Success_01, setIsNotification_Success_01] = useState(false)
     const [isNotification_Failed_01, setIsNotification_Failed_01] = useState(false)
     const [isNotification_Message_01, setIsNotification_Message_01] = useState(false)
+
+    const [isNotification_Success_02, setIsNotification_Success_02] = useState(false)
+    const [isNotification_Failed_02, setIsNotification_Failed_02] = useState(false)
+    const [isNotification_Message_02, setIsNotification_Message_02] = useState(false)
+
     const cityList = useFetchCity();
     // Config Table
   const [columnsTable, setColumnsTable] = useState([])
@@ -98,9 +103,52 @@ return (
         <Block_Spacing>
             <TransferByAccountComponents suffixID={'TransferByAccount'}/>
             <Block_Button>
-                <Button variant='contained'endIcon={<SaveIcon />}>Save</Button>
+                <Button variant='contained'endIcon={<SaveIcon />} onClick={() => {
+                    let params = {}
+                    params.ProductID = resolveNameID(ProductID,document.getElementById('slt_ProductID_TransferByAccount').innerText);;
+                    params.Currency = resolveNameID(Currency_ForeignExchange,document.getElementById('slt_Currency_TransferByAccount').innerText);;
+                    params.Bencom = resolveNameID(BenCom_Outward,document.getElementById('slt_BenCom_TransferByAccount').innerText);
+                    params.CreditAccount = document.getElementById('txt_CreditAccount_TransferByAccount').value;
+                    params.DebitAccount = document.getElementById('txt_DebitAccount_TransferByAccount').value;
+                    params.Amount = document.getElementById('txt_Amount_TransferByAccount').value;
+                    params.SendingName = document.getElementById('txt_SendingName_TransferByAccount').value;
+                    params.SendingAddress = document.getElementById('txt_SendingAddress_TransferByAccount').value;;
+                    params.TaxCode = document.getElementById('txt_IDTaxCode_TransferByAccount').value;;
+                    params.ReceiveName = document.getElementById('txt_ReceivingName_TransferByAccount').value;
+                    params.BenAccount = document.getElementById('txt_BenAccount_TransferByAccount').value;
+                    params.IDCard = document.getElementById('txt_IDCard_TransferByAccount').value;
+                    params.ReceiveIssueDate = '';
+                    params.ReceiveIssuePlace = '';
+                    params.ReceivePhone = '';
+                    params.BankCode = '';
+                    params.BankName = '';
+                    params.TellerID = '';
+                    params.Narrative = '';
+                    params.WaiveCharge = '';
+                    params.Province = '';
+
+                    // Check error and store it by Array
+                    arrError = []
+                    if(!params.ProductID) arrError.push('Product ID is Required');
+                    if(!params.Currency) arrError.push('Currency is Required');
+                    if(!params.Bencom) arrError.push('Ben Com is Required');
+                    if(!params.DebitAccount) arrError.push('Debit Account is Required');
+                    if(!params.SendingName) arrError.push('Sending Name is Required');
+                    if(!params.ReceivingName) arrError.push('Receiving Name is Required');
+                    if(!params.TellerID) arrError.push('Teller ID is Required');
+                    if(!params.Narrative) arrError.push('Narrative is Required');
+                    if(arrError.length == 0) {
+                        
+                    } else {
+                        setIsNotification_Message_02(true)
+                        setTimeout(() => {setIsNotification_Message_02(false)}, 4000);
+                    }
+                }}>Save</Button>
                 <Button variant='outlined'endIcon={<RestartAltIcon />}>Reset</Button>
             </Block_Button>
+            {isNotification_Success_02 && <Message_String type='success' text='Add Transfer By Account Successfully'/>} 
+            {isNotification_Failed_02 && <Message_String type='error' text='Add Transfer By Account Failed'/>}  
+            {isNotification_Message_02 && <Alert_String arrError={arrError}/>}
         </Block_Spacing>
     </Accordian_Children>  
     {/* ---------------------------------------- */}
