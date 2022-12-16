@@ -9,7 +9,7 @@ const transferByAccountApi = {
     get: (id) => {
         const url = `/storage/get_city_province/${id}`;
         return axiosClient.get(url);
-    },
+    },  
     postCreateTransfer: (params) => {
         const url = 'transfer/account_create';
         return axiosClient.post(url, { 
@@ -38,6 +38,8 @@ const transferByAccountApi = {
             return ('success')
         })
         .catch(err => {
+            console.log('err')
+            console.log(err)
             return ('fail')
         });
     },

@@ -19,6 +19,7 @@ import DebitAccount_Full_List from "../../../data/DebitAccount_Full_List";
 import Close_Online from "../../../data/Close_Online";
 import Currency_ForeignExchange from "../../../data/Currency_ForeignExchange";
 import transferByCashApi from "../../../apis/transferByCashApi";
+import transferByAccountApi from "../../../apis/transferByAccountApi";
 import useFetchCity from "../../../customHooks/useFetchCity";
 import BankCode from "../../../data/BankCode";
 import Message_String from "../../../components/Message_String";
@@ -103,10 +104,12 @@ return (
         <Block_Spacing>
             <TransferByAccountComponents suffixID={'TransferByAccount'}/>
             <Block_Button>
-                <Button variant='contained'endIcon={<SaveIcon />} onClick={() => {
+                <Button variant='contained'endIcon={<SaveIcon />} onClick={async () => {
                     let params = {}
                     params.ProductID = resolveNameID(ProductID,document.getElementById('slt_ProductID_TransferByAccount').innerText);
                     params.Currency = resolveNameID(Currency_ForeignExchange,document.getElementById('slt_Currency_TransferByAccount').innerText);
+                    params.ProductID = resolveNameID(ProductID,document.getElementById('slt_ProductID_TransferByAccount').innerText);;
+                    params.Currency = resolveNameID(Currency_ForeignExchange,document.getElementById('txt_Currency_TransferByAccount').value);
                     params.Bencom = resolveNameID(BenCom_Outward,document.getElementById('slt_BenCom_TransferByAccount').innerText);
                     params.CreditAccount = document.getElementById('txt_CreditAccount_TransferByAccount').value;
                     params.DebitAccount = document.getElementById('txt_DebitAccount_TransferByAccount').value;
@@ -135,10 +138,23 @@ return (
                     if(!params.DebitAccount) arrError.push('Debit Account is Required');
                     if(!params.SendingName) arrError.push('Sending Name is Required');
                     if(!params.ReceiveName) arrError.push('Receiving Name is Required');
+                    if(!params.ReceiveName) arrError.push('Receiving Name is Required');
                     if(!params.TellerID) arrError.push('Teller ID is Required');
                     if(!params.Narrative) arrError.push('Narrative is Required');
+                    if(parseFloat(params.Amount) > parseFloat(document.getElementById('txt_CustomerBalance_TransferByAccount').value))
+                        arrError.push('Amount cannot be greater than Balance')
+                    if(parseFloat(params.Amount) < 0)
+                        arrError.push('Amount cannot be less than 0')
+
                     if(arrError.length == 0) {
-                        
+                        const res = await transferByAccountApi.postCreateTransfer(params);
+                        if(res != 'fail') {
+                            setIsNotification_Success_01(true); 
+                            setTimeout(() => {setIsNotification_Success_01(false)}, 5000);
+                        } else {
+                            setIsNotification_Failed_01(true)
+                            setTimeout(() => {setIsNotification_Failed_01(false)}, 5000);
+                        }
                     } else {
                         setIsNotification_Message_02(true)
                         setTimeout(() => {setIsNotification_Message_02(false)}, 4000);
