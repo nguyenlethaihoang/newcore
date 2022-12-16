@@ -134,6 +134,7 @@ function clearTextFields() {
                                                 params.DocID = document.getElementById('txt_DocID_OpenIndividual').value;
                                                 params.DocIssuePlace = document.getElementById('dp_DocIssuePlace_OpenIndividual').value;
                                                 params.DocExpiryDate = document.getElementById('dp_DocExpiryDate_OpenIndividual').value;
+                                                params.DocIssueDate = document.getElementById('dp_DocIssuePlace_OpenIndividual').value;
                                                 params.EmailAddress = document.getElementById('txt_EmailAddress_OpenIndividual').value;
 
                                                 params.MainSector = resolveNameID(mainSectorList,document.getElementById('slt_MainSector_OpenIndividual').innerText);

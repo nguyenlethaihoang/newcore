@@ -152,8 +152,8 @@ return (
             >
                 Save
             </Button>
-            {isNotification_Success_01 && <Message_String type='success' text='Add Individual Customer Successfully'/>}                  
-            {isNotification_Failed_01 && <Message_String type='error' text='Add Individual Customer Failed'/>}  
+            {isNotification_Success_01 && <Message_String type='success' text='Add Main Account Successfully'/>}                  
+            {isNotification_Failed_01 && <Message_String type='error' text='Add Main Account Failed'/>}  
             {isNotification_Message_01 && <Alert_String arrError={arrError}/>}   
         </Block_Button>
     </Accordian_Children>

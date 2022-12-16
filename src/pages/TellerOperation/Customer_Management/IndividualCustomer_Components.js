@@ -73,8 +73,9 @@ return (
                     <Select_Object id={'slt_DocType_'+suffixID}label='Doc Type'object={docTypeList}length='40' required={true} disabled={isDisabled} dataID={subCustomer.Doctype}/>
                     <TextField_Value id={'txt_DocID_'+suffixID} label='Doc ID' length='20' required={true} disabled={isDisabled} value={subCustomer.DocID}/>
                     <DataPicker_Day id={'dp_DocIssuePlace_'+suffixID}label='Doc Issue Place' disabled={isDisabled} value={subCustomer.DocIssuePlace}/>
+                    <DataPicker_Day id={'dp_DocIssueDate_'+suffixID}label='Doc Issue Date' disabled={isDisabled} value={subCustomer.DocIssueDate}/>
                     <DataPicker_Day id={'dp_DocExpiryDate_'+suffixID}label='Doc Expiry Date' disabled={isDisabled} value={subCustomer.DocExpiryDate}/>
-                    <TextField_Value id={'txt_EmailAddress_'+suffixID} label='Email Address' length='20' disabled={isDisabled} value={object.EmailAddress}/>
+                    <TextField_Value id={'txt_EmailAddress_'+suffixID} label='Email Address' length='40' disabled={isDisabled} value={object.EmailAddress}/>
             </Block_Children>
             {/* Block 3 - 1.1 Open Individual Customer */}
             <Block_Children>

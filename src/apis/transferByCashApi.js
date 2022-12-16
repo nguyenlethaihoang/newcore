@@ -10,7 +10,7 @@ const transferByCashApi = {
         const url = `/storage/get_city_province/${id}`;
         return axiosClient.get(url);
     },
-    postCreateTransfer: (params) => {
+    postCreateTransfer: async (params) => {
         const url = 'transfer/cash_create';
         return axiosClient.post(url, { 
             productID: params.ProductID,
@@ -33,6 +33,7 @@ const transferByCashApi = {
             waiveCharges: params.WaiveCharges ?? true,
             province: params.Province
          }).then(res => {
+            console.log(res)
             return ('success')
         })
         .catch(err => {

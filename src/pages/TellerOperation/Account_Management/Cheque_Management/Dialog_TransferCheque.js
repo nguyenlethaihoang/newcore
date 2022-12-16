@@ -83,8 +83,6 @@ export default function Dialog_TransferCheque({ChequeID}) {
         }
         fetchTransfer();
     }, [])
-    console.log("transfer dialog")
-    console.log(transfer)
     return (
         <div>
             {/* ICON */}

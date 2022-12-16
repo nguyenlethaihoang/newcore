@@ -105,15 +105,15 @@ return (
             <Block_Button>
                 <Button variant='contained'endIcon={<SaveIcon />} onClick={() => {
                     let params = {}
-                    params.ProductID = resolveNameID(ProductID,document.getElementById('slt_ProductID_TransferByAccount').innerText);;
-                    params.Currency = resolveNameID(Currency_ForeignExchange,document.getElementById('slt_Currency_TransferByAccount').innerText);;
+                    params.ProductID = resolveNameID(ProductID,document.getElementById('slt_ProductID_TransferByAccount').innerText);
+                    params.Currency = resolveNameID(Currency_ForeignExchange,document.getElementById('slt_Currency_TransferByAccount').innerText);
                     params.Bencom = resolveNameID(BenCom_Outward,document.getElementById('slt_BenCom_TransferByAccount').innerText);
                     params.CreditAccount = document.getElementById('txt_CreditAccount_TransferByAccount').value;
                     params.DebitAccount = document.getElementById('txt_DebitAccount_TransferByAccount').value;
                     params.Amount = document.getElementById('txt_Amount_TransferByAccount').value;
                     params.SendingName = document.getElementById('txt_SendingName_TransferByAccount').value;
-                    params.SendingAddress = document.getElementById('txt_SendingAddress_TransferByAccount').value;;
-                    params.TaxCode = document.getElementById('txt_IDTaxCode_TransferByAccount').value;;
+                    params.SendingAddress = document.getElementById('txt_SendingAddress_TransferByAccount').value;
+                    params.TaxCode = document.getElementById('txt_IDTaxCode_TransferByAccount').value;
                     params.ReceiveName = document.getElementById('txt_ReceivingName_TransferByAccount').value;
                     params.BenAccount = document.getElementById('txt_BenAccount_TransferByAccount').value;
                     params.IDCard = document.getElementById('txt_IDCard_TransferByAccount').value;
@@ -122,8 +122,8 @@ return (
                     params.ReceivePhone = '';
                     params.BankCode = '';
                     params.BankName = '';
-                    params.TellerID = '';
-                    params.Narrative = '';
+                    params.TellerID = document.getElementById('txt_Teller_TransferByAccount').value;
+                    params.Narrative = document.getElementById('txt_Narrative_TransferByAccount').value;
                     params.WaiveCharge = '';
                     params.Province = '';
 
@@ -134,7 +134,7 @@ return (
                     if(!params.Bencom) arrError.push('Ben Com is Required');
                     if(!params.DebitAccount) arrError.push('Debit Account is Required');
                     if(!params.SendingName) arrError.push('Sending Name is Required');
-                    if(!params.ReceivingName) arrError.push('Receiving Name is Required');
+                    if(!params.ReceiveName) arrError.push('Receiving Name is Required');
                     if(!params.TellerID) arrError.push('Teller ID is Required');
                     if(!params.Narrative) arrError.push('Narrative is Required');
                     if(arrError.length == 0) {
